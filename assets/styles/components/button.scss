@@ -1,0 +1,95 @@
+@import "../variables";
+
+.devisio-btn {
+  border-radius: 4px;
+  padding: 15px;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 21px;
+  text-decoration: none;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  background-color: $primary-color;
+  color: white;
+
+  &:hover {
+    color: #fff;
+    filter: brightness(0.8);
+    cursor: pointer;
+  }
+
+  &-add,
+  &-cancel,
+  &-green {
+    height: 51px;
+  }
+
+  &-add {
+    &::before {
+      margin-right: 10px;
+      font-family: "Font Awesome 5 Brands";
+      font-size: 16px;
+      content: "\2b";
+    }
+  }
+
+  &-primary {
+    background-color: $primary-color;
+    color: #fff;
+  }
+
+  &-cancel {
+    background-color: #ff2b2b;
+    color: #fff;
+  }
+
+  &-green {
+    background-color: #20cb64;
+    color: #fff;
+  }
+
+  &-back-to-list {
+    color: #393939;
+    background-color: transparent;
+    &::before {
+      margin-right: 10px;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      font-size: 16px;
+      content: "\f060";
+    }
+  }
+
+  &-save {
+    &::after {
+      margin-left: 10px;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      font-size: 16px;
+      content: "\f00c";
+    }
+  }
+
+  &-update {
+    &::after {
+      margin-left: 10px;
+      font-family: "Font Awesome 5 Free";
+      font-weight: 900;
+      font-size: 14px;
+      content: "\f303";
+    }
+  }
+
+  &-delete {
+    font-weight: 700;
+    color: red;
+    padding: 15px;
+    border-radius: 10px;
+
+    &:hover{
+      // background-color: #777;
+      filter: brightness(2);
+    }
+  }
+}

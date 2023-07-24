@@ -1,0 +1,52 @@
+.list-wrapper {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin: 121px auto 0 auto;
+    font-size: 12px;
+
+    .devisio-btn-add {
+        display: block;
+        width: fit-content;
+        margin-bottom: 35px;
+    }
+
+    table {
+        font-size: 12px;
+
+        td {
+            div.status {
+                display: inline-block;
+                background-color: #999;
+                width: 17px;
+                height: 17px;
+                border-radius: 50%;
+                transform: translateY(4px);
+
+                &.draft {
+                    background-color: #d8d8d8;
+                }
+
+                &.waiting {
+                    background-color: #e8ae3e;
+                }
+
+                &.validate {
+                    background-color: #20cb64;
+                }
+
+                &.paid {
+                    background-color: #22B4D2;
+                }
+            }
+        }
+
+        td:last-child {
+            text-align: center;
+        }
+
+        th:last-child {
+            text-align: center;
+        }
+    }
+}

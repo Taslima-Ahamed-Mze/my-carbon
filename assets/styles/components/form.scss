@@ -1,0 +1,152 @@
+@import "../variables";
+
+.form-wrapper {
+    color: #393939;
+    margin-bottom: 20px;
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 20px;
+    font-size: 14px;
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+        color: $primary-color;
+        font-weight: 500;
+        font-size: 16px;
+    }
+
+    a {
+        margin-left: auto;
+    }
+
+    form {
+        margin: 0 auto;
+        width: 400px;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+        
+        small{
+            text-align: left;
+            color: $primary-color;
+        }
+
+        li {
+            color: red;
+
+            &.register-error{
+                display: none;
+            }
+        }
+
+        #settings {
+            .vich-image {
+                display: flex;
+                flex-direction: column;
+
+                div {
+                    margin-top: 20px;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+
+                    #settings_logoFile_delete {
+                        transform: translateY(-3px);
+                        margin-left: 10px;
+                        width: 20px;
+                    }
+                }
+
+                img {
+                    width: 150px;
+                }
+
+                #file-upload-button {
+                    margin-right: 100px;
+                }
+
+                a {
+                    margin-left: 0;
+
+                    &:last-child {
+                        margin-top: 10px;
+                        border-radius: 4px;
+                        padding: 15px;
+                        font-size: 14px;
+                        font-weight: 700;
+                        line-height: 21px;
+                        text-decoration: none;
+                        width: fit-content;
+                        display: flex;
+                        align-items: center;
+                        background-color: $primary-color;
+                        color: white;
+
+                        &::before {
+                            margin-right: 10px;
+                            font-family: "Font Awesome 5 Free";
+                            font-weight: 900;
+                            font-size: 16px;
+                            content: "\f019";
+                        }
+                    }
+                }
+            }
+
+            #settings_primary_color {
+                width: 100px;
+                height: 60px;
+            }
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input,
+        textarea,
+        select {
+            height: 40px;
+            width: 100%;
+            border: solid 1px #d8d8d8;
+            border-radius: 3px;
+            padding: 5px 10px;
+            outline: none;
+        }
+
+        #registration_form {
+            div {
+                &:last-of-type {
+                    display: flex;
+                    align-items: center;
+                }
+            }
+
+            input[type="checkbox"] {
+                width: 20px;
+                margin-left: 10px;
+            }
+        }
+
+        div div {
+            margin: 20px 0;
+
+            div {
+                margin: 0;
+                display: flex;
+                flex-direction: row;
+
+                select:not(select:first-child) {
+                    margin-left: 10px;
+                }
+            }
+        }
+
+        button {
+            margin-left: auto;
+        }
+    }
+}

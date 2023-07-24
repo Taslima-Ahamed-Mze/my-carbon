@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% import 'components/components.html.twig' as components%}
+
+{% block title %}
+	Utilisateurs
+{% endblock %}
+
+{% block body %}
+	<div class="list-wrapper">
+		<a href="{{ path('back_app_user_new') }}" class="devisio-btn devisio-btn-add">
+			Nouvel utilisateur
+		</a>
+
+	</div>
+{% endblock %}

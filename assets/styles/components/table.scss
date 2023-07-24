@@ -1,0 +1,84 @@
+@import "../variables";
+
+.dataTables_wrapper {
+    color: #393939;
+
+    .dataTables_length {
+        margin-bottom: -30px;
+
+        select {
+            margin: 0 10px;
+            border: solid 1px #d8d8d8;
+            border-radius: 3px;
+            padding: 5px 10px;
+        }
+    }
+
+    .dataTables_filter {
+        font-size: 12px;
+        margin-bottom: 20px;
+        text-align: right;
+
+        input {
+            margin-left: 10px;
+            width: 160px;
+            border: solid 1px #d8d8d8;
+            border-radius: 3px;
+            padding: 5px 10px;
+            outline: none;
+        }
+    }
+
+    .dataTables_paginate {
+        transform: translate(8px, -15px);
+        text-align: right;
+
+        .paginate_button {
+            padding: 8px 8px;
+            cursor: pointer;
+
+            &.current {
+                background-color: #d8d8d8;
+            }
+
+            &:hover:not(.current) {
+                color: $primary-color;
+                background-color: #f1f1f1;
+            }
+        }
+    }
+
+    table {
+        border: solid 1px #d9d9d9;
+        border-bottom: none;
+        width: 100%;
+        margin-bottom: 20px;
+
+        thead {
+            text-transform: uppercase;
+            color: #7e7e7e;
+        }
+
+        tr {
+            height: 50px;
+            border: solid 1px #d9d9d9;
+            padding-left: 100px;
+
+            &.odd {
+                background-color: #fafafa;
+            }
+
+            &.even {
+                background-color: #fff;
+            }
+        }
+
+        td,
+        th {
+            padding: 0 10px;
+            text-align: left;
+            display: table-cell;
+            vertical-align: middle;
+        }
+    }
+}

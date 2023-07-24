@@ -1,0 +1,135 @@
+@import "./../variables.scss";
+
+.dashboard-wrapper {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 50px;
+
+    h1 {
+        color: $primary-color;
+        margin-bottom: 40px;
+    }
+
+    .dashboard-container {
+        display: flex;
+        flex-direction: row;
+
+        .last-container {
+            width: 50%;
+
+            h2 {
+                font-size: 14px;
+            }
+
+            table {
+                width: 100%;
+                font-size: 12px;
+                margin-bottom: 40px;
+                margin-top: 10px;
+                tr {
+                    border-top: solid 2px #d8d8d8;
+                    border-bottom: solid 2px #d8d8d8;
+
+                    td {
+                        padding: 10px 0;
+                        span {
+                            color: $primary-color;
+                        }
+                        div.status {
+                            background-color: #999;
+                            width: 17px;
+                            height: 17px;
+                            border-radius: 50%;
+
+                            &.draft {
+                                background-color: #d8d8d8;
+                            }
+
+                            &.waiting {
+                                background-color: #e8ae3e;
+                            }
+
+                            &.validate {
+                                background-color: #20cb64;
+                            }
+
+                            &.paid {
+                                background-color: #22B4D2;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .graph-container {
+            font-size: 12px;
+            margin-left: 40px;
+            width: 50%;
+
+            .invoices-total,
+            .tva-total,
+            .invoices-graph,
+            .quotations-graph {
+                background-color: #fff;
+                border: solid 1px #d8d8d8;
+                width: 50%;
+                padding: 20px;
+                box-sizing: border-box;
+            }
+
+            .totals,
+            .graphs {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .totals {
+                margin-top: 35px;
+
+                .invoices-total,
+                .tva-total {
+                    height: 120px;
+                    font-size: 14px;
+
+                    span {
+                        font-size: 22px;
+                        font-weight: 500;
+                    }
+                }
+
+                .invoices-total {
+                    margin-right: 30px;
+                }
+            }
+
+            .graphs {
+                margin-top: 30px;
+                font-size: 14px;
+
+                .quotations-graph {
+                    margin-right: 30px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1200px) {
+    .dashboard-wrapper {
+        .dashboard-container {
+            display: flex;
+            flex-direction: column;
+
+            .last-container {
+                width: 100%;
+            }
+
+            .graph-container {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+    }
+}

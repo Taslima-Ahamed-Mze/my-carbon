@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+{% import 'components/components.html.twig' as components %}
+
+{% block title %}
+  Devisio
+{% endblock %}
+
+{% block stylesheets %}
+  {{ encore_entry_link_tags('app') }}
+  {{ encore_entry_link_tags('home') }}
+{% endblock %}
+
+{% block body %}
+  <section class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">
+        Créez vos devis et factures facilement
+      </h1>
+      <p class="hero-subtitle">
+        Gérez votre entreprise avec simplicité et efficacité
+      </p>
+      <div class="hero-buttons">
+        <a href="{{ path('front_app_register') }}"
+          class="devisio-btn btn-primary">
+          S'inscrire
+        </a>
+        <a href="{{ path('app_login') }}" class="devisio-btn btn-secondary">
+          Se connecter
+        </a>
+      </div>
+    </div>
+  </section>
+  <section class="features">
+    <div class="feature">
+      <i class="icon icon-invoice"></i>
+      <h2 class="feature-title">
+        Création de devis et factures
+      </h2>
+      <p class="feature-description">
+        Générez facilement des devis professionnels et des factures
+        personnalisées.
+      </p>
+    </div>
+    <div class="feature">
+      <i class="icon icon-storage"></i>
+      <h2 class="feature-title">
+        Gestion des clients et produits
+      </h2>
+      <p class="feature-description">
+        Organisez vos clients et produits pour une gestion simplifiée.
+      </p>
+    </div>
+    <div class="feature">
+      <i class="icon icon-analytics"></i>
+      <h2 class="feature-title">
+        Suivi et analyses
+      </h2>
+      <p class="feature-description">
+        Obtenez des statistiques et des rapports pour analyser vos performances.
+      </p>
+    </div>
+  </section>
+  {{ components.footer() }}
+{% endblock %}

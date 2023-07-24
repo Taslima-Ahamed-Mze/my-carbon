@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Utilisateurs
+{% endblock %}
+
+{% block body %}
+	{{
+    include(
+      '_form.html.twig',
+      {
+        button_label: 'Enregistrer',
+        title: 'Modification de l\'utilsateur',
+        back_edit: true
+      }
+    )
+  }}
+{% endblock %}

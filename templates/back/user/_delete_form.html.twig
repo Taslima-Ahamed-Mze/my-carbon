@@ -1,0 +1,15 @@
+<form method="post"
+  action="{{
+  path(
+    'back_app_user_delete',
+    {
+      id: user.id
+    }
+  )
+  }}"
+  onsubmit="return confirm('Es-tu sûr de vouloir supprimer cet utilisateur?');">
+  <input type="hidden"
+    name="_token"
+    value="{{ csrf_token('delete' ~ user.id) }}" />
+  <button class="btn devisio-btn-delete">Supprimer</button>
+</form>

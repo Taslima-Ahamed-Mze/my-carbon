@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau Utilisateur{% endblock %}
+
+{% block body %}
+    {{ 
+      include('_form.html.twig', {
+        'title': 'Nouveau utilisateur',
+        'back_to_list_path': path('back_app_user_index')
+      }) 
+    }}
+{% endblock %}
