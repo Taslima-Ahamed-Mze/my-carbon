@@ -14,8 +14,11 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
 use Ramsey\Uuid\Doctrine\UuidGenerator;
 use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[Vich\Uploadable]
 #[ORM\Table(name: '`user`')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -28,12 +31,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
     private UuidInterface|string $id;
 
+    // #[Vich\UploadableField(mapping: 'users', fileNameProperty: 'imageName')]
+    // private ?File $imageFile = null;
+
+    // #[ORM\Column(nullable: true)]
+    // private ?string $imageName = null;
+
 
     #[ORM\Column(length: 30)]
     #[Assert\Email(
         message: 'Votre adresse email {{ value }} n\'est pas valide.',
     )]
     private ?string $email = null;
+    
 
     #[ORM\Column]
     private array $roles = ["ROLE_USER"];
@@ -276,4 +286,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    
 }
