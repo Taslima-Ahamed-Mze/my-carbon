@@ -19,13 +19,14 @@ class DefaultController extends AbstractController
     public function index(Security $security, ContractsRepository $contractsRepository): Response
     {
 
-        $user = $security->getUser()->getId();
+        $user = $security->getUser();
         $lastContract = $contractsRepository->findOneBy(
-            ['id' => 49]
+            ['id' => 48]
         );
 
         
         return $this->render('back/default/index.html.twig', [
+            "user" => $user,
             "lastContract" => $lastContract
         ]);
     }

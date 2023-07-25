@@ -15,6 +15,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class UserType extends AbstractType
 {
@@ -47,6 +48,9 @@ class UserType extends AbstractType
                 'multiple' => true,
                 'choice_label' => 'name',
                 'mapped' => false
+            ])
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Photo de profil',
             ]);
 
 
