@@ -69,6 +69,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private ?string $firstname = null;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Jobs $job = null;
+
 
 
 
@@ -195,6 +199,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFirstname(string $firstname): self
     {
         $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getJob(): ?Jobs
+    {
+        return $this->job;
+    }
+
+    public function setJob(?Jobs $job): static
+    {
+        $this->job = $job;
 
         return $this;
     }
