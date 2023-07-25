@@ -78,9 +78,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Profile $profile = null;
 
+    #[ORM\OneToMany(mappedBy: 'collaborator', targetEntity: UserSkills::class)]
+    private Collection $userSkills;
+
     public function __construct()
     {
         $this->eventRegisters = new ArrayCollection();
+        $this->userSkills = new ArrayCollection();
     }
 
 
@@ -239,6 +243,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setProfile(?Profile $profile): static
     {
         $this->profile = $profile;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserSkills>
+     */
+    public function getUserSkills(): Collection
+    {
+        return $this->userSkills;
+    }
+
+    public function addUserSkill(UserSkills $userSkill): static
+    {
+        if (!$this->userSkills->contains($userSkill)) {
+            $this->userSkills->add($userSkill);
+            $userSkill->setCollaborator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserSkill(UserSkills $userSkill): static
+    {
+        if ($this->userSkills->removeElement($userSkill)) {
+            // set the owning side to null (unless already changed)
+            if ($userSkill->getCollaborator() === $this) {
+                $userSkill->setCollaborator(null);
+            }
+        }
 
         return $this;
     }

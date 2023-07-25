@@ -18,9 +18,7 @@ class UserSkills
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $collaborator = null;
+
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
@@ -29,6 +27,10 @@ class UserSkills
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?Levels $level = null;
+
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'userSkills')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $collaborator = null;
 
     public function getId(): ?int
     {
