@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\TypesEvenements;
+use App\Entity\TypesEvents;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<TypesEvenements>
+ * @extends ServiceEntityRepository<TypesEvents>
  *
- * @method TypesEvenements|null find($id, $lockMode = null, $lockVersion = null)
- * @method TypesEvenements|null findOneBy(array $criteria, array $orderBy = null)
- * @method TypesEvenements[]    findAll()
- * @method TypesEvenements[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method TypesEvents|null find($id, $lockMode = null, $lockVersion = null)
+ * @method TypesEvents|null findOneBy(array $criteria, array $orderBy = null)
+ * @method TypesEvents[]    findAll()
+ * @method TypesEvents[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TypesEvenementsRepository extends ServiceEntityRepository
+class TypesEventsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, TypesEvenements::class);
+        parent::__construct($registry, TypesEvents::class);
     }
 
-    public function save(TypesEvenements $entity, bool $flush = false): void
+    public function save(TypesEvents $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class TypesEvenementsRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(TypesEvenements $entity, bool $flush = false): void
+    public function remove(TypesEvents $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class TypesEvenementsRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return TypesEvenements[] Returns an array of TypesEvenements objects
+//     * @return TypesEvents[] Returns an array of TypesEvents objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class TypesEvenementsRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?TypesEvenements
+//    public function findOneBySomeField($value): ?TypesEvents
 //    {
 //        return $this->createQueryBuilder('t')
 //            ->andWhere('t.exampleField = :val')

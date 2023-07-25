@@ -5,11 +5,17 @@ namespace App\Entity;
 use App\Entity\Traits\BlameableTrait;
 use App\Repository\CooptationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Timestampable\Traits\Timestampable; 
+use App\Entity\Traits\TimestampableTrait;
 
 #[ORM\Entity(repositoryClass: CooptationRepository::class)]
 class Cooptation
 {
+   
+    
     use BlameableTrait;
+    use TimestampableTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

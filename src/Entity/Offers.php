@@ -4,12 +4,19 @@ namespace App\Entity;
 
 use App\Repository\OffersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use App\Entity\Traits\BlameableTrait;
+use App\Entity\Traits\TimestampableTrait;
 
 #[ORM\Entity(repositoryClass: OffersRepository::class)]
 class Offers
 {
+
+    use BlameableTrait;
+    use TimestampableTrait;
+
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
