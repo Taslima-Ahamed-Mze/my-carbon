@@ -245,19 +245,15 @@
             display: none;
         }
     }
+ 
     .sidebar {
         position: absolute;
         top: 0;
         left: 0;
-        height: 100%;
-        width: 10px;
-        background-color: black;
-    }
-    .sidebar {
         background-color: #282B2A;
 
         height: 100%;
-        width: 200px; /* Ajustez la largeur de la bande noire selon vos besoins */
+        width: 332px; /* Ajustez la largeur de la bande noire selon vos besoins */
         z-index: 100; /* Assurez-vous que la bande noire est au-dessus des autres éléments */
     }
     .logo {

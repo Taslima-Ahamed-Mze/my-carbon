@@ -12,10 +12,11 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\Validator\Constraints as SecurityAssert;
-use Ramsey\Uuid\Doctrine\UuidGenerator;
-use Ramsey\Uuid\UuidInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[Vich\Uploadable]
 #[ORM\Table(name: '`user`')]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -23,10 +24,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     use TimestampableTrait;
 
     #[ORM\Id]
-    #[ORM\Column(type: "uuid", unique: true)]
-    #[ORM\GeneratedValue(strategy: "CUSTOM")]
-    #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
-    private UuidInterface|string $id;
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
+
+    #[Vich\UploadableField(mapping: 'users', fileNameProperty: 'imageName')]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $imageName = null;
 
 
     #[ORM\Column(length: 30)]
@@ -34,6 +40,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         message: 'Votre adresse email {{ value }} n\'est pas valide.',
     )]
     private ?string $email = null;
+    
 
     #[ORM\Column]
     private array $roles = ["ROLE_USER"];
@@ -87,8 +94,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->userSkills = new ArrayCollection();
     }
 
-
-    public function getId(): UuidInterface|string
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -103,6 +109,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->email = $email;
 
         return $this;
+    }
+
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
     }
 
     /**
@@ -276,4 +308,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    
 }

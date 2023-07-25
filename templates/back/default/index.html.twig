@@ -9,15 +9,26 @@
 {% block body %}
 	<section class="flex justify-center">
 		<div>
-			<div class="w-[785px] h-[337px] bg-white mb-[29px]"></div>
+			<div class="w-[785px] h-[337px] bg-white mb-[29px] flex">
+				<div class="ml-[50px] mt-[22px]">
+					<img class="w-[140px] h-[140px] mb-[22px] rounded-full " src="{{ vich_uploader_asset(user, 'imageFile') }}" alt="{{ user.firstname ~ " " ~ user.lastname }}">
+					<p class="text-xl mb-[14px]">Hey {{ user.firstname ~ " " ~ user.lastname }} !</p>
+					<p>Bienvenue sur ton espace personnel !</p>
+				</div>
+				<div class="w-[350px] ml-[85px]" style="border: 1px solid black;">
+					<p class="text-center text-xl">Compétences</p>
+				</div>
+			</div>
 			<div class="w-[785px] h-[124px] bg-white mb-[29px]">
 				<div class="pt-[34px] pb-[24px] pl-[24px] text-xl">
-					<p>Contrat en cours</p>
+					<p class="text-xl">Contrat en cours</p>
+          <p class="text-2xl font-bold">{{ lastContract.offer.name }}</p>
 				</div>
 			</div>
 			<div class="w-[785px] h-[298px] bg-white">
 				<div class="pt-[34px] pb-[24px] pl-[24px] text-xl">
 					<p>Mes recommandations</p>
+
 				</div>
 			</div>
 		</div>

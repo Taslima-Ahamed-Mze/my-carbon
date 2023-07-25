@@ -4,11 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-<<<<<<< HEAD
     "content-hash": "137f106ff82916e1cdb4760a34cfb533",
-=======
-    "content-hash": "25d679a660eab20feb6f909de26941e7",
->>>>>>> emmanuella
     "packages": [
         {
             "name": "behat/transliterator",
@@ -2556,7 +2552,6 @@
             "time": "2022-12-19T14:38:11+00:00"
         },
         {
-<<<<<<< HEAD
             "name": "lcobucci/jwt",
             "version": "4.0.4",
             "source": {
@@ -2633,8 +2628,6 @@
             "time": "2021-09-28T19:18:28+00:00"
         },
         {
-=======
->>>>>>> emmanuella
             "name": "monolog/monolog",
             "version": "3.4.0",
             "source": {
@@ -12163,9 +12156,5 @@
         "ext-iconv": "*"
     },
     "platform-dev": [],
-<<<<<<< HEAD
     "plugin-api-version": "2.2.0"
-=======
-    "plugin-api-version": "2.6.0"
->>>>>>> emmanuella
 }
