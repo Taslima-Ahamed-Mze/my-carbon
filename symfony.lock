@@ -373,7 +373,11 @@
             "ref": "3b2f8ca32a07fcb00f899649053943fa3d8bbfb6"
         },
         "files": [
+<<<<<<< HEAD
             "./config/packages/workflow.yaml"
+=======
+            "config/packages/workflow.yaml"
+>>>>>>> emmanuella
         ]
     },
     "symfonycasts/verify-email-bundle": {

@@ -7,10 +7,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Traits\BlameableTrait;
+use App\Entity\Traits\TimestampableTrait;
+
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
 {
+   use BlameableTrait;
+   use TimestampableTrait;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
