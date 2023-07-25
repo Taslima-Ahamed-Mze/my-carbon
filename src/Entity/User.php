@@ -41,7 +41,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var string
      */
-
     #[ORM\Column]
     private ?string $password = null;
 
@@ -153,7 +152,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
 
-
     public function getPlainPassword(): ?string
     {
         return $this->plainPassword;
@@ -175,6 +173,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
+
     public function getLastname(): ?string
     {
         return $this->lastname;
@@ -195,65 +194,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setFirstname(string $firstname): self
     {
         $this->firstname = $firstname;
-
-        return $this;
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<<<<<<< HEAD
-=======
-    public function getTvaNumber(): ?string
-    {
-        return $this->tvaNumber;
-    }
-
-    public function setTvaNumber(?string $tvaNumber): self
-    {
-        $this->tvaNumber = $tvaNumber;
-
-        return $this;
-    }
-
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
-
-    public function setAddress(?string $address): self
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    public function getRib(): ?string
-    {
-        return $this->rib;
-    }
-
-    public function setRib(?string $rib): self
-    {
-        $this->rib = $rib;
 
         return $this;
     }
