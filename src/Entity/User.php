@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Entity\Traits\TimestampableTrait;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -119,6 +121,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         message: "Le format du numéro de RIB est invalide."
     )]
     private ?string $rib = null;
+
+    #[ORM\OneToMany(mappedBy: 'collaborator', targetEntity: EventRegister::class)]
+    private Collection $eventRegisters;
+
+    public function __construct()
+    {
+        $this->eventRegisters = new ArrayCollection();
+    }
 
 
     public function getId(): UuidInterface|string
@@ -355,6 +365,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRib(?string $rib): self
     {
         $this->rib = $rib;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EventRegister>
+     */
+    public function getEventRegisters(): Collection
+    {
+        return $this->eventRegisters;
+    }
+
+    public function addEventRegister(EventRegister $eventRegister): static
+    {
+        if (!$this->eventRegisters->contains($eventRegister)) {
+            $this->eventRegisters->add($eventRegister);
+            $eventRegister->setCollaborator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventRegister(EventRegister $eventRegister): static
+    {
+        if ($this->eventRegisters->removeElement($eventRegister)) {
+            // set the owning side to null (unless already changed)
+            if ($eventRegister->getCollaborator() === $this) {
+                $eventRegister->setCollaborator(null);
+            }
+        }
 
         return $this;
     }

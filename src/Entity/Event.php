@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -25,6 +27,14 @@ class Event
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $end_date = null;
+
+    #[ORM\OneToMany(mappedBy: 'event', targetEntity: EventRegister::class)]
+    private Collection $eventRegisters;
+
+    public function __construct()
+    {
+        $this->eventRegisters = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -75,6 +85,36 @@ class Event
     public function setEndDate(\DateTimeInterface $end_date): static
     {
         $this->end_date = $end_date;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EventRegister>
+     */
+    public function getEventRegisters(): Collection
+    {
+        return $this->eventRegisters;
+    }
+
+    public function addEventRegister(EventRegister $eventRegister): static
+    {
+        if (!$this->eventRegisters->contains($eventRegister)) {
+            $this->eventRegisters->add($eventRegister);
+            $eventRegister->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventRegister(EventRegister $eventRegister): static
+    {
+        if ($this->eventRegisters->removeElement($eventRegister)) {
+            // set the owning side to null (unless already changed)
+            if ($eventRegister->getEvent() === $this) {
+                $eventRegister->setEvent(null);
+            }
+        }
 
         return $this;
     }
