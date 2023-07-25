@@ -33,11 +33,16 @@ security:
     access_control:
         - { path: ^/admin, roles: ROLE_USER }
         - { path: ^/login, roles: PUBLIC_ACCESS }
-        - { path: ^/register, roles: PUBLIC_ACCESS }
         - { path: ^/, roles: PUBLIC_ACCESS }
 
     role_hierarchy:
-        ROLE_ADMIN: ROLE_USER
+        ROLE_ADMIN:
+            - ROLE_RH
+            - ROLE_COMMERCIAL
+        ROLE_RH: ROLE_USER
+        ROLE_COMMERCIAL: ROLE_USER
+
+
 
 when@test:
     security:
