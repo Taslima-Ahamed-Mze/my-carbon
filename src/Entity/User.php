@@ -173,7 +173,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
-
     public function getLastname(): ?string
     {
         return $this->lastname;
@@ -227,5 +226,4 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
->>>>>>> bastien
 }
