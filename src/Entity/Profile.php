@@ -4,13 +4,12 @@ namespace App\Entity;
 
 use App\Entity\Traits\BlameableTrait;
 use App\Entity\Traits\TimestampableTrait;
-use App\Repository\LevelsRepository;
+use App\Repository\ProfileRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: LevelsRepository::class)]
-class Levels
+#[ORM\Entity(repositoryClass: ProfileRepository::class)]
+class Profile
 {
-    use BlameableTrait;
     use TimestampableTrait;
 
     #[ORM\Id]
@@ -19,26 +18,22 @@ class Levels
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $level = null;
+    private ?string $name = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getLevel(): ?string
+    public function getName(): ?string
     {
-        return $this->level;
+        return $this->name;
     }
 
-    public function setLevel(string $level): static
+    public function setName(string $name): static
     {
-        $this->level = $level;
+        $this->name = $name;
 
         return $this;
-    }
-
-    public function setName(string $colorName)
-    {
     }
 }

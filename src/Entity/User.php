@@ -74,6 +74,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'collaborator', targetEntity: EventRegister::class)]
     private Collection $eventRegisters;
 
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Profile $profile = null;
+
     public function __construct()
     {
         $this->eventRegisters = new ArrayCollection();
@@ -223,6 +227,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $eventRegister->setCollaborator(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProfile(): ?Profile
+    {
+        return $this->profile;
+    }
+
+    public function setProfile(?Profile $profile): static
+    {
+        $this->profile = $profile;
 
         return $this;
     }
