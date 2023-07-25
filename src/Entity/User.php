@@ -39,7 +39,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private array $roles = ["ROLE_USER"];
 
     /**
-     * @var string The hashed password
+     * @var string
      */
 
     #[ORM\Column]
@@ -71,56 +71,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private ?string $firstname = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $token = null;
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Jobs $job = null;
 
-    #[ORM\Column]
-    private ?bool $emailVerify = false;
 
-    #[ORM\Column]
-    private ?int $sentEmailCounter = 0;
 
-    #[ORM\Column(type: 'boolean')]
-    private $isVerified = false;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\NotBlank(message: 'Le nom de l\'entreprise est obligatoire')]
-    private ?string $companyName = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Regex(
-        pattern: "/^[+]?[\d\- ]+$/",
-        message: "Le format du numéro de téléphone est invalide."
-    )]
-    private ?string $phoneNumber = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Regex(
-        pattern: "/^\d{14}$/",
-        message: "Le numéro SIRET doit contenir exactement 14 chiffres."
-    )]
-    private ?string $siretNumber = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Regex(
-        pattern: "/^(FR)?[A-Z]{2}\d{9}$/i",
-        message: "Le format du numéro de TVA est invalide."
-    )]
-    private ?string $tvaNumber = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Regex(
-        pattern: "/^[0-9a-zA-Z\s\-\',.]+$/",
-        message: "Le format de l'adresse postale est invalide."
-    )]
-    private ?string $address = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\Regex(
-        pattern: "/^[A-Z]{2}\d{2}\s*(\d{5}\s*){5}(\d{2})?$/",
-        message: "Le format du numéro de RIB est invalide."
-    )]
-    private ?string $rib = null;
+
+
 
     #[ORM\OneToMany(mappedBy: 'collaborator', targetEntity: Contracts::class)]
     private Collection $contracts;
@@ -249,125 +213,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getToken(): ?string
+    public function getJob(): ?Jobs
     {
-        return $this->token;
+        return $this->job;
     }
 
-    public function setToken(string $token): self
+    public function setJob(?Jobs $job): static
     {
-        $this->token = $token;
+        $this->job = $job;
 
         return $this;
     }
 
-    public function getEmailVerify(): ?bool
-    {
-        return $this->emailVerify;
-    }
-
-    public function setEmailVerify(bool $emailVerify): self
-    {
-        $this->emailVerify = $emailVerify;
-
-        return $this;
-    }
-
-    public function getSentEmailCounter(): ?bool
-    {
-        return $this->sentEmailCounter;
-    }
-
-    public function setSentEmailCounter(int $sentEmailCounter): self
-    {
-        $this->sentEmailCounter = $sentEmailCounter;
-
-        return $this;
-    }
-
-    public function isVerified(): bool
-    {
-        return $this->isVerified;
-    }
-
-    public function setIsVerified(bool $isVerified): self
-    {
-        $this->isVerified = $isVerified;
-
-        return $this;
-    }
-
-    public function getCompanyName(): ?string
-    {
-        return $this->companyName;
-    }
-
-    public function setCompanyName(?string $companyName): self
-    {
-        $this->companyName = $companyName;
-
-        return $this;
-    }
-
-    public function getPhoneNumber(): ?string
-    {
-        return $this->phoneNumber;
-    }
-
-    public function setPhoneNumber(?string $phoneNumber): self
-    {
-        $this->phoneNumber = $phoneNumber;
-
-        return $this;
-    }
-
-    public function getSiretNumber(): ?string
-    {
-        return $this->siretNumber;
-    }
-
-    public function setSiretNumber(?string $siretNumber): self
-    {
-        $this->siretNumber = $siretNumber;
-
-        return $this;
-    }
-
-    public function getTvaNumber(): ?string
-    {
-        return $this->tvaNumber;
-    }
-
-    public function setTvaNumber(?string $tvaNumber): self
-    {
-        $this->tvaNumber = $tvaNumber;
-
-        return $this;
-    }
-
-    public function getAddress(): ?string
-    {
-        return $this->address;
-    }
-
-    public function setAddress(?string $address): self
-    {
-        $this->address = $address;
-
-        return $this;
-    }
-
-    public function getRib(): ?string
-    {
-        return $this->rib;
-    }
-
-    public function setRib(?string $rib): self
-    {
-        $this->rib = $rib;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Contracts>
