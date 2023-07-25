@@ -2,12 +2,14 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\BlameableTrait;
 use App\Repository\CooptationRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CooptationRepository::class)]
 class Cooptation
 {
+    use BlameableTrait;
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

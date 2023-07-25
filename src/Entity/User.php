@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Entity\Traits\TimestampableTrait;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -119,6 +121,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         message: "Le format du numéro de RIB est invalide."
     )]
     private ?string $rib = null;
+
+    #[ORM\OneToMany(mappedBy: 'collaborator', targetEntity: Contracts::class)]
+    private Collection $contracts;
+
+    public function __construct()
+    {
+        $this->contracts = new ArrayCollection();
+    }
 
 
     public function getId(): UuidInterface|string
@@ -355,6 +365,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setRib(?string $rib): self
     {
         $this->rib = $rib;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Contracts>
+     */
+    public function getContracts(): Collection
+    {
+        return $this->contracts;
+    }
+
+    public function addContract(Contracts $contract): static
+    {
+        if (!$this->contracts->contains($contract)) {
+            $this->contracts->add($contract);
+            $contract->setCollaborator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContract(Contracts $contract): static
+    {
+        if ($this->contracts->removeElement($contract)) {
+            // set the owning side to null (unless already changed)
+            if ($contract->getCollaborator() === $this) {
+                $contract->setCollaborator(null);
+            }
+        }
 
         return $this;
     }
