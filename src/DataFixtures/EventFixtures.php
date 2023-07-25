@@ -4,12 +4,13 @@ namespace App\DataFixtures;
 
 use App\Entity\Event;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
 use App\Entity\User;
 
 
-class EventFixtures extends Fixture 
+class EventFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -18,22 +19,26 @@ class EventFixtures extends Fixture
         $users = $userRepository->findAll();
 
 
-        for ($i=0; $i < 40; $i++) { 
+        for ($i = 0; $i < 40; $i++) {
             $randomUser = $users[array_rand($users)];
 
             $object = (new Event())
-           
-            ->setTitle($faker->word()) 
-            ->setDescription($faker->word()) 
-            ->setStartDate($faker->dateTime())
-            ->setEndDate($faker->dateTime())  
-            ->setCreatedBy($randomUser)
-        ;
 
-        $manager->persist($object);
+                ->setTitle($faker->word())
+                ->setDescription($faker->word())
+                ->setStartDate($faker->dateTime())
+                ->setEndDate($faker->dateTime())
+                ->setCreatedBy($randomUser);
+            $manager->persist($object);
+        }
         $manager->flush();
     }
-  
-        }
-    
+
+    public function getDependencies()
+    {
+        return [
+            UserFixtures::class,
+        ];
+    }
+
 }
