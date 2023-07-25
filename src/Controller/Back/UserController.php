@@ -4,6 +4,7 @@ namespace App\Controller\Back;
 
 use App\Entity\User;
 use App\Form\UserType;
+use App\Repository\SkillsRepository;
 use App\Repository\UserRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -28,13 +29,32 @@ class UserController extends AbstractController
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
-        UserRepository $userRepository
+        UserRepository $userRepository,
+        SkillsRepository $skillsRepository
     ): Response {
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
+        $form = $this->createForm(UserType::class, $user, [
+            'skills' => $skillsRepository->findAll()
+        ]);
         $form->handleRequest($request);
+        $profile = $request->get('profile');
 
         if ($form->isSubmitted() && $form->isValid()) {
+            switch ($profile){
+                case 'Collaborateur':
+                    $user->setRoles(['ROLE_USER']);
+                break;
+                case 'RH':
+                    $user->setRoles(['ROLE_USER', 'ROLE_RH']);
+                break;
+                case 'Commercial':
+                    $user->setRoles(['ROLE_USER','ROLE_COMMERCIAL']);
+                break;
+                case 'Admin':
+                    $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+                break;
+
+            }
             if ($user->getPlainPassword()) {
                 $user->setPassword($user->getPlainPassword());
             }
