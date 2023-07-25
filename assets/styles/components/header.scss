@@ -165,7 +165,7 @@
     }
 }
 
-@media (max-width: 1400px) {
+
     .header {
         img {
             margin-left: 0;
@@ -245,4 +245,38 @@
             display: none;
         }
     }
-}
+    .sidebar {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 10px;
+        background-color: black;
+    }
+    .sidebar {
+        background-color: #282B2A;
+
+        height: 100%;
+        width: 200px; /* Ajustez la largeur de la bande noire selon vos besoins */
+        z-index: 100; /* Assurez-vous que la bande noire est au-dessus des autres éléments */
+    }
+    .logo {
+        margin-bottom: 92px;
+
+
+
+
+    }
+    .myCarbon {
+        color : white;
+        margin-left: 38px;
+        margin-bottom: 200px;
+        font-size: 16px;
+
+
+    }
+    .Carbon{
+        @apply
+            w-5 h-5
+    }
+
