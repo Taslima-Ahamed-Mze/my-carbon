@@ -76,12 +76,21 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $firstname = null;
 
 
+<<<<<<< HEAD
     #[ORM\OneToMany(mappedBy: 'collaborator', targetEntity: EventRegister::class)]
     private Collection $eventRegisters;
 
     public function __construct()
     {
         $this->eventRegisters = new ArrayCollection();
+=======
+    #[ORM\OneToMany(mappedBy: 'collaborator', targetEntity: Contracts::class)]
+    private Collection $contracts;
+
+    public function __construct()
+    {
+        $this->contracts = new ArrayCollection();
+>>>>>>> emmanuella
     }
 
 
@@ -220,6 +229,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+<<<<<<< HEAD
     public function removeEventRegister(EventRegister $eventRegister): static
     {
         if ($this->eventRegisters->removeElement($eventRegister)) {
@@ -229,6 +239,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             }
         }
 
+=======
+    /**
+     * @return Collection<int, Contracts>
+     */
+    public function getContracts(): Collection
+    {
+        return $this->contracts;
+    }
+
+    public function addContract(Contracts $contract): static
+    {
+        if (!$this->contracts->contains($contract)) {
+            $this->contracts->add($contract);
+            $contract->setCollaborator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContract(Contracts $contract): static
+    {
+        if ($this->contracts->removeElement($contract)) {
+            // set the owning side to null (unless already changed)
+            if ($contract->getCollaborator() === $this) {
+                $contract->setCollaborator(null);
+            }
+        }
+
+>>>>>>> emmanuella
         return $this;
     }
 }
