@@ -9,7 +9,7 @@ use Faker\Factory;
 
 class UserFixtures extends Fixture
 {
-    public function load(ObjectManager $manager): void
+    public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
         $pwd = 'test';
