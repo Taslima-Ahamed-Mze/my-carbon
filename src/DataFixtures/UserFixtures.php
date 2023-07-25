@@ -14,6 +14,8 @@ class UserFixtures extends Fixture
         $faker = Factory::create('fr_FR');
         $pwd = 'test';
 
+
+
         $object = (new User())
             ->setEmail('user@user.fr')
             ->setLastname($faker->lastName())

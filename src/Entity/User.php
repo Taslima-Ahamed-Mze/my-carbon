@@ -71,20 +71,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private ?string $firstname = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Jobs $job = null;
-
-
-
-
-
-
-
-
-
-
-
 
     #[ORM\OneToMany(mappedBy: 'collaborator', targetEntity: Contracts::class)]
     private Collection $contracts;
@@ -213,17 +199,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getJob(): ?Jobs
-    {
-        return $this->job;
-    }
 
-    public function setJob(?Jobs $job): static
-    {
-        $this->job = $job;
-
-        return $this;
-    }
 
 
     /**
