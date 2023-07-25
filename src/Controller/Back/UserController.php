@@ -40,7 +40,7 @@ class UserController extends AbstractController
         $profile = $request->get('profile');
 
         if ($form->isSubmitted() && $form->isValid()) {
-            switch ($profile){
+            /*switch ($profile){
                 case 'Collaborateur':
                     $user->setRoles(['ROLE_USER']);
                 break;
@@ -54,7 +54,7 @@ class UserController extends AbstractController
                     $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
                 break;
 
-            }
+            }*/
             if ($user->getPlainPassword()) {
                 $user->setPassword($user->getPlainPassword());
             }
