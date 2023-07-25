@@ -23,28 +23,28 @@ class ContractFixtures extends Fixture implements DependentFixtureInterface
 
 
 
-        for ($i=0; $i < 50; $i++) { 
+        for ($i = 0; $i < 50; $i++) {
             $randomUser = $users[array_rand($users)];
-            $randomOffers= $offers[array_rand($offers)];
-            
-            $object = (new Contracts())
-            ->setCreatedBy($randomUser)
-            ->setOffer($randomOffers) 
-            ->setCollaborator($randomUser)
-           
-        ;
+            $randomOffers = $offers[array_rand($offers)];
 
-        $manager->persist($object);
+            $object = (new Contracts())
+                ->setCreatedBy($randomUser)
+                ->setOffer($randomOffers)
+                ->setCollaborator($randomUser)
+
+            ;
+
+            $manager->persist($object);
+        }
         $manager->flush();
+
     }
-  
-        }
-    
-        public function getDependencies()
-        {
-            return [
-                UserFixtures::class,
-                OffersFixtures::class
-            ];
-        }
+
+    public function getDependencies()
+    {
+        return [
+            UserFixtures::class,
+            OffersFixtures::class
+        ];
+    }
 }
