@@ -4,7 +4,7 @@
     position: relative;
     width: 100%;
     height: $header-height;
-    background-color: white;
+    background-color: #00BB7E;
     border-bottom: solid 1px #d8d8d8;
     color: #393939;
     display: flex;
@@ -16,7 +16,8 @@
 
     img {
         display: block;
-        height: 40px;
+        height: 155px;
+        width: 306px;
         margin-left: 100px;
     }
 

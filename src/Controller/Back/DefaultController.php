@@ -14,7 +14,7 @@ use Symfony\UX\Chartjs\Model\Chart;
 class DefaultController extends AbstractController
 {
     #[Route('/', name: 'default_index', methods: ['GET'])]
-    public function index(InvoiceRepository $invoiceRepository, QuotationRepository $quotationRepository, DataRenderService $dataRenderService, ChartBuilderInterface $chartBuilder): Response
+    public function index(): Response
     {
 
         return $this->render('back/default/index.html.twig', []);

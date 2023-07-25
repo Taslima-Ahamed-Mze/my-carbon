@@ -9,7 +9,7 @@
 
 		<div class="absolute right-0 z-10 mt-2 w-36 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dropdown" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1" id="dropdown-menu">
 			<div class="py-1" role="none">
-				<a href="{{ path('back_app_settings_show') }}" class="text-gray-700 block px-4 py-2 text-sm header-dropdown-item" role="menuitem" tabindex="-1" id="menu-item-0">Paramètres</a>
+				{# <a href="{{ path('back_app_settings_show') }}" class="text-gray-700 block px-4 py-2 text-sm header-dropdown-item" role="menuitem" tabindex="-1" id="menu-item-0">Paramètres</a> #}
 				<a href="{{ path('app_logout') }}" class="text-gray-700 block px-4 py-2 text-sm header-dropdown-item" role="menuitem" tabindex="-1" id="menu-item-2">Déconnexion</a>
 			</div>
 		</div>
@@ -19,39 +19,12 @@
 {% macro header() %}
 	<header class="header">
 		{% if app.user and 'ROLE_USER' in app.user.roles %}
-			<a href="{{ path('back_default_index') }}"><img src="{{ asset('build/images/logo.png') }}" alt="logo"></a>
-			<ul>
+			{# <a href="{{ path('back_default_index') }}"><img src="{{ asset('build/images/logo.png') }}" alt="logo"></a> #}
+			{# <ul>
 				<li>
 					<a href="{{ path('back_default_index') }}" class="{% if app.request.attributes.get('_route') == 'back_default_index' %}navbar-link-active{% endif %}">Tableau de bord</a>
 				</li>
-				<li>
-					<a href="{{ path('back_app_quotation_index') }}" class="{% if app.request.attributes.get('_route') == 'back_app_quotation_index' %}navbar-link-active{% endif %}">Devis</a>
-				</li>
-				<li>
-					<a href="{{ path('back_app_invoice_index') }}" class="{% if app.request.attributes.get('_route') == 'back_app_invoice_index' %}navbar-link-active{% endif %}">Factures</a>
-				</li>
-				<li>
-					<a href="{{ path('back_app_client_index') }}" class="{% if app.request.attributes.get('_route') == 'back_app_client_index' %}navbar-link-active{% endif %}">Clients</a>
-				</li>
-				<li>
-					<a href="{{ path('back_app_product_index') }}" class="{% if app.request.attributes.get('_route') == 'back_app_product_index' %}navbar-link-active{% endif %}">Produits</a>
-				</li>
-				<li>
-					<a href="{{ path('back_app_service_index') }}" class="{% if app.request.attributes.get('_route') == 'back_app_service_index' %}navbar-link-active{% endif %}">Services</a>
-				</li>
-				<li>
-					<a href="{{ path('back_app_category_index') }}" class="{% if app.request.attributes.get('_route') == 'back_app_category_index' %}navbar-link-active{% endif %}">Catégories</a>
-				</li>
-				<li>
-					<a href="{{ path('back_app_payment_index') }}" class="{% if app.request.attributes.get('_route') == 'back_app_payment_index' %}navbar-link-active{% endif %}">Paiements</a>
-				</li>
-				{% if is_granted('ROLE_ADMIN') %}
-					<li>
-						<a href="{{ path('back_app_user_index') }}" class="{% if app.request.attributes.get('_route') == 'back_app_user_index' %}navbar-link-active{% endif %}">Utilisateurs</a>
-					</li>
-				{% endif %}
-				<li>{{ _self.account_button() }}</li>
-			</ul>
+			</ul> #}
 			{{ _self.account_button() }}
 			<div class="hamburger-menu">
 				<input id="menu-toggle" type="checkbox">
@@ -75,7 +48,7 @@
 	</footer>
 {% endmacro %}
 
-{% macro table_actions(entityType, entity, download, generate, payment) %}
+{# {% macro table_actions(entityType, entity, download, generate, payment) %}
 	<div class="dropdown-actions">
 		<button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
 			<i class="fa-solid fa-ellipsis-vertical"></i>
@@ -113,4 +86,4 @@
 			</form>
 		</div>
 	</div>
-{% endmacro %}
+{% endmacro %} #}
