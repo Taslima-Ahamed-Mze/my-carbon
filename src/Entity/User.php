@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Entity\Traits\TimestampableTrait;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -69,6 +71,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     )]
     private ?string $firstname = null;
 
+
+    #[ORM\OneToMany(mappedBy: 'collaborator', targetEntity: EventRegister::class)]
+    private Collection $eventRegisters;
+
+    public function __construct()
+    {
+        $this->eventRegisters = new ArrayCollection();
+    }
 
 
     public function getId(): UuidInterface|string
@@ -210,4 +220,72 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 
 
+<<<<<<< HEAD
+=======
+    public function getTvaNumber(): ?string
+    {
+        return $this->tvaNumber;
+    }
+
+    public function setTvaNumber(?string $tvaNumber): self
+    {
+        $this->tvaNumber = $tvaNumber;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getRib(): ?string
+    {
+        return $this->rib;
+    }
+
+    public function setRib(?string $rib): self
+    {
+        $this->rib = $rib;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EventRegister>
+     */
+    public function getEventRegisters(): Collection
+    {
+        return $this->eventRegisters;
+    }
+
+    public function addEventRegister(EventRegister $eventRegister): static
+    {
+        if (!$this->eventRegisters->contains($eventRegister)) {
+            $this->eventRegisters->add($eventRegister);
+            $eventRegister->setCollaborator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventRegister(EventRegister $eventRegister): static
+    {
+        if ($this->eventRegisters->removeElement($eventRegister)) {
+            // set the owning side to null (unless already changed)
+            if ($eventRegister->getCollaborator() === $this) {
+                $eventRegister->setCollaborator(null);
+            }
+        }
+
+        return $this;
+    }
+>>>>>>> bastien
 }
