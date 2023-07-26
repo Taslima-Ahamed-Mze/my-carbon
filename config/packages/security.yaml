@@ -39,8 +39,12 @@ security:
         ROLE_ADMIN:
             - ROLE_RH
             - ROLE_COMMERCIAL
+            - ROLE_COLLABORATOR
+            - ROLE_COM
         ROLE_RH: ROLE_USER
         ROLE_COMMERCIAL: ROLE_USER
+        ROLE_COLLABORATOR: ROLE_USER
+        ROLE_COM: ROLE_USER
 
 
 

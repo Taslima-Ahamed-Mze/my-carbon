@@ -1,25 +1,34 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Back;
 
 use App\Entity\Formation;
 use App\Form\FormationType;
 use App\Repository\FormationRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+
 #[Route('/formation')]
 class FormationController extends AbstractController
 {
     #[Route('/', name: 'app_formation_index', methods: ['GET'])]
-    public function index(FormationRepository $formationRepository): Response
+    public function index(FormationRepository $formationRepository, Request $request, PaginatorInterface $paginator): Response
     {
+        $pagination = $paginator->paginate(
+            $formationRepository->paginationQuery(),
+            $request->query->get('page', 1),
+            5
+        );
+
         return $this->render('formation/index.html.twig', [
-            'formations' => $formationRepository->findAll(),
+            'pagination' => $pagination
         ]);
+
     }
 
     #[Route('/new', name: 'app_formation_new', methods: ['GET', 'POST'])]
@@ -71,7 +80,7 @@ class FormationController extends AbstractController
     #[Route('/{id}', name: 'app_formation_delete', methods: ['POST'])]
     public function delete(Request $request, Formation $formation, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$formation->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $formation->getId(), $request->request->get('_token'))) {
             $entityManager->remove($formation);
             $entityManager->flush();
         }
