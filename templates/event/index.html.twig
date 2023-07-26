@@ -4,80 +4,35 @@
 {% endblock %}
 
 {% block body %}
-	<section class="w-full flex flex-col justify-center items-center mt-[150px]">
-		{% for event in pagination %}
-			<div class="dark:bg-gray-800 dark:text-gray-100 ml-[300px]">
-				<div class="container max-w-6xl p-6 mx-auto space-y-6 sm:space-y-12">
-					<a rel="noopener noreferrer" href="#" class="block max-w-sm gap-3 mx-auto sm:max-w-full group hover:no-underline focus:no-underline lg:grid lg:grid-cols-12 dark:bg-gray-900">
-						<img src="https://source.unsplash.com/random/480x360" alt="" class="object-cover w-full rounded sm:h-96 lg:col-span-7 dark:bg-gray-500">
-						<div class="p-6 space-y-2 lg:col-span-5 relative">
-							<h3 class="text-2xl font-semibold sm:text-4xl group-hover:underline group-focus:underline">{{ event.title }}</h3>
-							<span class="text-xs dark:text-gray-400">{{ event.startDate|date }}</span>
-							<p>{{ event.description }}</p>
-							<div class="absolute bottom-0">
-								<button onclick="window.location.href='{{path('back_app_event_show', {'id': event.id})}}'" class="bg-[#5B98D2] hover:bg-blue-700 text-white font-bold py-4 px-4 rounded">
-									Voir l'évenement
-								</button>
-							</div>
-							{% if is_granted('ROLE_ADMIN') %} <!-- Add ROLE COMM -->
-								<div class="absolute bottom-20">
-									<div onclick="window.location.href='{{path('back_app_event_edit', {'id': event.id})}}'" class="bg-[#00BB7E] hover:bg-green-700 text-white font-bold py-4 px-4 rounded">
-										<i class="fa-solid fa-pen-to-square"></i>
-									</div>
-								</div>
-								<div class="absolute bottom-20 right-[170px]">
-									<div onclick="window.location.href='{{path('back_app_event_delete', {'id': event.id})}}'" class="bg-[#E53F49] hover:bg-red-700 text-white font-bold py-4 px-4 rounded">
-										<i class="fa-solid fa-trash"></i>
-									</div>
-								</div>
-							{% endif %}
-						</div>
-					</a>
-				</div>
+	<section class="py-6 sm:py-12 dark:bg-gray-800 dark:text-gray-100 flex items-center h-full relative">
+		<div class="container p-6 mx-auto space-y-8">
+			<div class="space-y-2 text-center">
+				<h2 class="text-3xl font-bold">Participe aux événements de la société !</h2>
+				<p class="font-serif text-sm dark:text-gray-400">Qualisque erroribus usu at, duo te agam soluta mucius.</p>
 			</div>
-		{% endfor %}
-		<div class="text-center">
+			<div class="grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 lg:grid-cols-4">
+				{% for event in pagination %}
+					<article class="flex flex-col dark:bg-gray-900">
+						<a rel="noopener noreferrer" href="#" aria-label="Te nulla oportere reprimique his dolorum">
+							<img alt="" class="object-cover w-full h-52 dark:bg-gray-500" src="https://source.unsplash.com/200x200/?fashion?1">
+						</a>
+						<div class="flex flex-col flex-1 p-6">
+							<a rel="noopener noreferrer" href="#" aria-label="Te nulla oportere reprimique his dolorum"></a>
+							<a rel="noopener noreferrer" href="#" class="text-xs tracki uppercase hover:underline dark:text-violet-400">{{ event.title }}</a>
+							<h3 class="flex-1 py-2 text-lg font-semibold leadi">{{ event.description }}</h3>
+							<div class="flex flex-wrap justify-between pt-3 space-x-2 text-xs dark:text-gray-400">
+								<span>Level étoile</span>
+								<span>
+									<a class="px-4 py-3 bg-[#5B98D2] rounded text-white" href="{{path('back_app_event_show', {'id': event.id})}}">Voir l'évenement</a>
+								</span>
+							</div>
+						</div>
+					</article>
+				{% endfor %}
+			</div>
+		</div>
+		<div class="w-full flex justify-center absolute bottom-0">
 			{{ knp_pagination_render(pagination) }}
-
 		</div>
 	</section>
-
-
-	{# <a href="{{ path('back_app_event_new') }}">Create new</a> #}
-
-	{# <table class="table">
-																					        <thead>
-																					            <tr>
-																					                <th>Id</th>
-																					                <th>Title</th>
-																					                <th>Description</th>
-																					                <th>Start_date</th>
-																					                <th>End_date</th>
-																					                <th>CreatedAt</th>
-																					                <th>UpdatedAt</th>
-																					                <th>actions</th>
-																					            </tr>
-																					        </thead>
-																					        <tbody>
-																					        {% for event in events %}
-																					            <tr>
-																					                <td>{{ event.id }}</td>
-																					                <td>{{ event.title }}</td>
-																					                <td>{{ event.description }}</td>
-																					                <td>{{ event.startDate ? event.startDate|date('Y-m-d H:i:s') : '' }}</td>
-																					                <td>{{ event.endDate ? event.endDate|date('Y-m-d H:i:s') : '' }}</td>
-																					                <td>{{ event.createdAt ? event.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-																					                <td>{{ event.updatedAt ? event.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-																					                <td>
-																					                    <a href="{{ path('back_app_event_show', {'id': event.id}) }}">show</a>
-																					                    <a href="{{ path('back_app_event_edit', {'id': event.id}) }}">edit</a>
-																					                </td>
-																					            </tr>
-																					        {% else %}
-																					            <tr>
-																					                <td colspan="8">no records found</td>
-																					            </tr>
-																					        {% endfor %}
-																					        </tbody>
-																					    </table> #}
 {% endblock %}
