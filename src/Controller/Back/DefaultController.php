@@ -5,6 +5,7 @@ namespace App\Controller\Back;
 use App\Repository\ContractsRepository;
 use App\Repository\InvoiceRepository;
 use App\Repository\QuotationRepository;
+use App\Repository\UserSkillsRepository;
 use App\Service\DataRenderService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -16,7 +17,7 @@ use Symfony\UX\Chartjs\Model\Chart;
 class DefaultController extends AbstractController
 {
     #[Route('/', name: 'default_index', methods: ['GET'])]
-    public function index(Security $security, ContractsRepository $contractsRepository): Response
+    public function index(Security $security, ContractsRepository $contractsRepository, UserSkillsRepository $userSkillsRepository): Response
     {
 
         $user = $security->getUser();
