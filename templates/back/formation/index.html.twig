@@ -1,37 +1,34 @@
 {% extends 'base.html.twig' %}
+{% import 'components/components.html.twig' as components%}
 
 {% block title %}Formation index{% endblock %}
 
 {% block body %}
-    <h1>Formation index</h1>
 
-    <table class="table">
-        <thead>
+    <div class="list-wrapper">
+        <a href="{{ path('back_app_formation_new') }}" class="devisio-btn devisio-btn-add">
+            Nouveau formateur
+        </a>
+        <table class="table">
+            <thead>
             <tr>
                 <th>Id</th>
                 <th>Title</th>
                 <th>Description</th>
                 <th>actions</th>
             </tr>
-        </thead>
-        <tbody>
-        {% for formation in formations %}
-            <tr>
-                <td>{{ formation.id }}</td>
-                <td>{{ formation.title }}</td>
-                <td>{{ formation.description }}</td>
-                <td>
-                    <a href="{{ path('back_app_formation_show', {'id': formation.id}) }}">show</a>
-                    <a href="{{ path('back_app_formation_edit', {'id': formation.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            {% for formation in formations %}
+                <tr>
+                    <td>{{ formation.id }}</td>
+                    <td>{{ formation.title }}</td>
+                    <td>{{ formation.description }}</td>
+                    <td>{{ components.table_actions('formation', formation) }}</td>
 
-    <a href="{{ path('back_app_formation_new') }}">Create new</a>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

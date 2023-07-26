@@ -19,6 +19,11 @@ class ProfileFixtures extends Fixture
         $manager->persist($object);
 
         $object = (new Profile())
+            ->setName('Communication')
+        ;
+        $manager->persist($object);
+
+        $object = (new Profile())
             ->setName('RH')
         ;
         $manager->persist($object);

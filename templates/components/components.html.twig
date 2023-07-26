@@ -20,24 +20,55 @@
 	<div class="sidebar ">
 		<div class="logo"></div><a href="{{ path('back_default_index') }}"><img src="{{ asset('build/images/logo.png') }}" alt="logo"></a>
 		<div class="flex flex-col space-y-6 justify-center text-white ml-12">
+			{% if is_granted('ROLE_COLLABORATOR') %}
+				<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Plaisirblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_default_index') }}">
+						myCarbon
+				</a></div>
+			{% endif %}
 			<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Plaisirblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_default_index') }}">
-					myCarbon
-				</a></div>
-			<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Formationblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_default_index') }}">
-				Formation
+					Profile
 			</a></div>
-			<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Communautéet réunionblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_app_event_index') }}">
-					Evénement
+			{% if is_granted('ROLE_COLLABORATOR') or is_granted('ROLE_COM') %}
+				<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Formationblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_default_index') }}">
+					Formation
 				</a></div>
-			<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Highfiveblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_default_index') }}">
+			{% endif %}
+			<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Communautéet réunionblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_default_index') }}">
+					Evénement
+			</a></div>
+			{% if is_granted('ROLE_RH') %}
+				<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Highfiveblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_default_index') }}">
+					Cooptation
+				</a></div>
+			{% endif %}
+			{% if is_granted('ROLE_COLLABORATOR') %}
+				<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Highfiveblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_default_index') }}">
 					Je coopt'
 				</a></div>
-			<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Sur-mesureblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_default_index') }}">
-					Mes contrats
+
+				<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Sur-mesureblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_default_index') }}">
+						Mes contrats
 				</a></div>
+			{% endif %}
+			{% if is_granted('ROLE_COMMERCIAL') or is_granted('ROLE_RH')  %}
+				<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Communautéet réunionblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_app_user_index') }}">
+						Utilisateurs
+				</a></div>
+			{% endif %}
+			{% if is_granted('ROLE_COMMERCIAL') or is_granted('ROLE_RH')  %}
+				<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Communautéet réunionblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('app_logout') }}">
+						Offres
+				</a></div>
+			{% endif %}
+			{% if is_granted('ROLE_COMMERCIAL') or is_granted('ROLE_RH')  %}
+				<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Communautéet réunionblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('app_logout') }}">
+						Contracts
+				</a></div>
+			{% endif %}
+			<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Vector.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('app_logout') }}">
 			 <div class="flex justify-start space-x-4 pt-[200px] "   > <img src="{{ asset('build/images/Vector.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_default_index') }}">
 					Déconnexion
-				</a></div>
+			</a></div>
 		</div>
 
 	</div>
@@ -53,7 +84,7 @@
 	</footer>
 {% endmacro %}
 
-{# {% macro table_actions(entityType, entity, download, generate, payment) %}
+{% macro table_actions(entityType, entity) %}
 	<div class="dropdown-actions">
 		<button class="dropdown-toggle" aria-haspopup="true" aria-expanded="false">
 			<i class="fa-solid fa-ellipsis-vertical"></i>
@@ -65,21 +96,6 @@
 			<a class="edit" href="{{ path('back_app_' ~ entityType ~ '_edit', { id: entity.id }) }}">
 				<i class="fa-solid fa-pen"></i>
 			</a>
-			{% if download %}
-				<a href="{{ path( 'back_app_download_' ~ entityType, { id: entity.id } ) }}" target="_blank">
-					<i class="fa-solid fa-download"></i>
-				</a>
-			{% endif %}
-			{% if generate %}
-				<a href="{{ path( 'back_app_generate_invoice', { id: entity.id } ) }}" target="_blank">
-					<i class="fa-sharp fa-solid fa-receipt"></i>
-				</a>
-			{% endif %}
-			{% if payment %}
-				<a class="edit" href="{{ path('back_app_payment_new',{'invoice': entity.id}) }}">
-					<i class="fa-solid fa-euro-sign"></i>
-				</a>
-			{% endif %}
 
 
 			<form method="post" action="{{ path('back_app_' ~ entityType ~ '_delete', { id: entity.id }) }}" onsubmit="return confirm('Es-tu sûr de vouloir supprimer cet élément ?');">
@@ -91,4 +107,4 @@
 			</form>
 		</div>
 	</div>
-{% endmacro %} #}
+{% endmacro %}
