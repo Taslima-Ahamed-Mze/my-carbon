@@ -3,39 +3,31 @@
 {% block title %}Formation index{% endblock %}
 
 {% block body %}
-    <h1>Formation index</h1>
+<section class="w-full flex flex-col justify-center items-center mt-[150px]">
+		{% for formation in pagination %}
+			<div class="dark:bg-gray-800 dark:text-gray-100 ml-[300px]">
+				<div class="container max-w-6xl p-6 mx-auto space-y-6 sm:space-y-12">
+					<a rel="noopener noreferrer" href="#" class="block max-w-sm gap-3 mx-auto sm:max-w-full group hover:no-underline focus:no-underline lg:grid lg:grid-cols-12 dark:bg-gray-900">
+						<img src="https://source.unsplash.com/random/480x360" alt="" class="object-cover w-full rounded sm:h-96 lg:col-span-7 dark:bg-gray-500">
+						<div class="p-6 space-y-2 lg:col-span-5 relative">
+							<h3 class="text-2xl font-semibold sm:text-4xl group-hover:underline group-focus:underline">{{ formation.title }}</h3>
+							<span class="text-xs dark:text-gray-400">2023</span>
+							<p>{{ formation.description }}</p>
+							<div class="absolute bottom-0">
+								<button class="bg-[#5B98D2] hover:bg-blue-700 text-white font-bold py-4 px-4 rounded">
+									Voir la formation
+								</button>
+							</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		{% endfor %}
+		<div class="text-center">
+			{{ knp_pagination_render(pagination) }}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for formation in formations %}
-            <tr>
-                <td>{{ formation.id }}</td>
-                <td>{{ formation.title }}</td>
-                <td>{{ formation.description }}</td>
-                <td>{{ formation.createdAt ? formation.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ formation.updatedAt ? formation.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_formation_show', {'id': formation.id}) }}">show</a>
-                    <a href="{{ path('app_formation_edit', {'id': formation.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_formation_new') }}">Create new</a>
+		</div>
+	</section>
+    
+    {# <a href="{{ path('app_formation_new') }}">Create new</a> #}
 {% endblock %}

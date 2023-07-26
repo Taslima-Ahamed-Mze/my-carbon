@@ -21,6 +21,13 @@ class FormationRepository extends ServiceEntityRepository
         parent::__construct($registry, Formation::class);
     }
 
+    public function paginationQuery()
+    {
+        return $this->createQueryBuilder('f')
+            ->orderBy('f.id', 'ASC')
+            ->getQuery();
+    }
+
 //    /**
 //     * @return Formation[] Returns an array of Formation objects
 //     */
