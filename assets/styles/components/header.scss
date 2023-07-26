@@ -257,22 +257,23 @@
         z-index: 100; /* Assurez-vous que la bande noire est au-dessus des autres éléments */
     }
     .logo {
-        margin-bottom: 92px;
+        margin-bottom: 22px;
 
 
 
 
     }
-    .myCarbon {
-        color : white;
-        margin-left: 38px;
-        margin-bottom: 200px;
-        font-size: 16px;
 
 
-    }
+
     .Carbon{
         @apply
             w-5 h-5
+
+
     }
+
+
+
+
 

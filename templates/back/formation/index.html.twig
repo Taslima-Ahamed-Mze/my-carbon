@@ -11,8 +11,6 @@
                 <th>Id</th>
                 <th>Title</th>
                 <th>Description</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -22,11 +20,9 @@
                 <td>{{ formation.id }}</td>
                 <td>{{ formation.title }}</td>
                 <td>{{ formation.description }}</td>
-                <td>{{ formation.createdAt ? formation.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ formation.updatedAt ? formation.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('app_formation_show', {'id': formation.id}) }}">show</a>
-                    <a href="{{ path('app_formation_edit', {'id': formation.id}) }}">edit</a>
+                    <a href="{{ path('back_app_formation_show', {'id': formation.id}) }}">show</a>
+                    <a href="{{ path('back_app_formation_edit', {'id': formation.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -37,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_formation_new') }}">Create new</a>
+    <a href="{{ path('back_app_formation_new') }}">Create new</a>
 {% endblock %}

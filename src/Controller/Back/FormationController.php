@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Back;
 
 use App\Entity\Formation;
-use App\Form\FormationType;
+use App\Form\Formation1Type;
 use App\Repository\FormationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,7 +17,7 @@ class FormationController extends AbstractController
     #[Route('/', name: 'app_formation_index', methods: ['GET'])]
     public function index(FormationRepository $formationRepository): Response
     {
-        return $this->render('formation/index.html.twig', [
+        return $this->render('back/formation/index.html.twig', [
             'formations' => $formationRepository->findAll(),
         ]);
     }
@@ -26,17 +26,17 @@ class FormationController extends AbstractController
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $formation = new Formation();
-        $form = $this->createForm(FormationType::class, $formation);
+        $form = $this->createForm(Formation1Type::class, $formation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($formation);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_formation_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('back/app_formation_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('formation/new.html.twig', [
+        return $this->renderForm('back/formation/new.html.twig', [
             'formation' => $formation,
             'form' => $form,
         ]);
@@ -45,7 +45,7 @@ class FormationController extends AbstractController
     #[Route('/{id}', name: 'app_formation_show', methods: ['GET'])]
     public function show(Formation $formation): Response
     {
-        return $this->render('formation/show.html.twig', [
+        return $this->render('back/formation/show.html.twig', [
             'formation' => $formation,
         ]);
     }
@@ -53,16 +53,16 @@ class FormationController extends AbstractController
     #[Route('/{id}/edit', name: 'app_formation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Formation $formation, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(FormationType::class, $formation);
+        $form = $this->createForm(Formation1Type::class, $formation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_formation_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('back/app_formation_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('formation/edit.html.twig', [
+        return $this->renderForm('back/formation/edit.html.twig', [
             'formation' => $formation,
             'form' => $form,
         ]);
@@ -76,6 +76,6 @@ class FormationController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_formation_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('back/app_formation_index', [], Response::HTTP_SEE_OTHER);
     }
 }

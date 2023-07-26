@@ -22,7 +22,7 @@ class FormationRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Formation[] Returns an array of Formation objects
+//     * @return FormationFixtures[] Returns an array of FormationFixtures objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -36,7 +36,7 @@ class FormationRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Formation
+//    public function findOneBySomeField($value): ?FormationFixtures
 //    {
 //        return $this->createQueryBuilder('f')
 //            ->andWhere('f.exampleField = :val')
