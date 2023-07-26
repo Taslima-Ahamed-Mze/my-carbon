@@ -21,7 +21,7 @@ class LevelsFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 50; $i++) {
             $randomUser = $users[array_rand($users)];
             $object = (new Levels())
-                ->setLevel($faker->numberBetween(1, 100))
+                ->setLevel($faker->numberBetween(1, 5))
                 ->setCreatedBy($randomUser);
             $manager->persist($object);
         }
