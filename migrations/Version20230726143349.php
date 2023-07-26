@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230726100621 extends AbstractMigration
+final class Version20230726143349 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -33,7 +33,7 @@ final class Version20230726100621 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE types_events_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE "user_id_seq" INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE user_skills_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
-        $this->addSql('CREATE TABLE contracts (id INT NOT NULL, offer_id INT DEFAULT NULL, collaborator_id INT DEFAULT NULL, created_by INT DEFAULT NULL, updated_by INT DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE contracts (id INT NOT NULL, offer_id INT DEFAULT NULL, collaborator_id INT DEFAULT NULL, created_by INT DEFAULT NULL, updated_by INT DEFAULT NULL, start_date DATE NOT NULL, end_date DATE NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_950A97353C674EE ON contracts (offer_id)');
         $this->addSql('CREATE INDEX IDX_950A97330098C8C ON contracts (collaborator_id)');
         $this->addSql('CREATE INDEX IDX_950A973DE12AB56 ON contracts (created_by)');
@@ -47,7 +47,9 @@ final class Version20230726100621 extends AbstractMigration
         $this->addSql('CREATE TABLE event_register (id INT NOT NULL, collaborator_id INT DEFAULT NULL, event_id INT DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_1915A9C430098C8C ON event_register (collaborator_id)');
         $this->addSql('CREATE INDEX IDX_1915A9C471F7E88B ON event_register (event_id)');
-        $this->addSql('CREATE TABLE formation (id INT NOT NULL, title VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE formation (id INT NOT NULL, created_by INT DEFAULT NULL, updated_by INT DEFAULT NULL, title VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_404021BFDE12AB56 ON formation (created_by)');
+        $this->addSql('CREATE INDEX IDX_404021BF16FE72E1 ON formation (updated_by)');
         $this->addSql('CREATE TABLE levels (id INT NOT NULL, created_by INT DEFAULT NULL, updated_by INT DEFAULT NULL, level VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_9F2A6419DE12AB56 ON levels (created_by)');
         $this->addSql('CREATE INDEX IDX_9F2A641916FE72E1 ON levels (updated_by)');
@@ -95,6 +97,8 @@ final class Version20230726100621 extends AbstractMigration
         $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA716FE72E1 FOREIGN KEY (updated_by) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE event_register ADD CONSTRAINT FK_1915A9C430098C8C FOREIGN KEY (collaborator_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE event_register ADD CONSTRAINT FK_1915A9C471F7E88B FOREIGN KEY (event_id) REFERENCES event (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE formation ADD CONSTRAINT FK_404021BFDE12AB56 FOREIGN KEY (created_by) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE formation ADD CONSTRAINT FK_404021BF16FE72E1 FOREIGN KEY (updated_by) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE levels ADD CONSTRAINT FK_9F2A6419DE12AB56 FOREIGN KEY (created_by) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE levels ADD CONSTRAINT FK_9F2A641916FE72E1 FOREIGN KEY (updated_by) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE offers ADD CONSTRAINT FK_DA460427DE12AB56 FOREIGN KEY (created_by) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
@@ -141,6 +145,8 @@ final class Version20230726100621 extends AbstractMigration
         $this->addSql('ALTER TABLE event DROP CONSTRAINT FK_3BAE0AA716FE72E1');
         $this->addSql('ALTER TABLE event_register DROP CONSTRAINT FK_1915A9C430098C8C');
         $this->addSql('ALTER TABLE event_register DROP CONSTRAINT FK_1915A9C471F7E88B');
+        $this->addSql('ALTER TABLE formation DROP CONSTRAINT FK_404021BFDE12AB56');
+        $this->addSql('ALTER TABLE formation DROP CONSTRAINT FK_404021BF16FE72E1');
         $this->addSql('ALTER TABLE levels DROP CONSTRAINT FK_9F2A6419DE12AB56');
         $this->addSql('ALTER TABLE levels DROP CONSTRAINT FK_9F2A641916FE72E1');
         $this->addSql('ALTER TABLE offers DROP CONSTRAINT FK_DA460427DE12AB56');

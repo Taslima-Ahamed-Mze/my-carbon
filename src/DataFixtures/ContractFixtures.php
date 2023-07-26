@@ -31,6 +31,8 @@ class ContractFixtures extends Fixture implements DependentFixtureInterface
                 ->setCreatedBy($randomUser)
                 ->setOffer($randomOffers)
                 ->setCollaborator($randomUser)
+                ->setStartDate($faker->dateTime())
+                ->setEndDate($faker->dateTime())
 
             ;
 
