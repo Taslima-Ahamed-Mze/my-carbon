@@ -247,14 +247,11 @@
     }
  
     .sidebar {
-        position: fixed;
-        top: 0;
-        left: 0;
         background-color: #282B2A;
-
-        height: 100%;
+        height: 100vh;
+        float: left;
         width: 332px; /* Ajustez la largeur de la bande noire selon vos besoins */
-        z-index: 100; /* Assurez-vous que la bande noire est au-dessus des autres éléments */
+        // z-index: 100; /* Assurez-vous que la bande noire est au-dessus des autres éléments */
     }
     .logo {
         margin-bottom: 92px;

@@ -42,30 +42,6 @@
 
 	</div>
 
-	<header class="header">
-
-
-
-		{% if app.user and 'ROLE_USER' in app.user.roles %}
-
-			 <ul>
-				<li>
-					<a href="{{ path('back_default_index') }}" class="{% if app.request.attributes.get('_route') == 'back_default_index' %}navbar-link-active{% endif %}">Tableau de bord</a>
-				</li>
-			</ul>
-			{{ _self.account_button() }}
-			<div class="hamburger-menu">
-				<input id="menu-toggle" type="checkbox">
-				<label for="menu-toggle">
-					<span></span>
-				</label>
-			</div>
-		{% else %}
-			<div class="login">
-				<a href="{{ path('app_login') }}" class="btn">Se connecter</a>
-			</div>
-		{% endif %}
-	</header>
 {% endmacro %}
 
 {% macro footer() %}
