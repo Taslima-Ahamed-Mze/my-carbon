@@ -25,6 +25,9 @@
 						myCarbon
 				</a></div>
 			{% endif %}
+			<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Plaisirblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_default_index') }}">
+					Profile
+			</a></div>
 			{% if is_granted('ROLE_COLLABORATOR') or is_granted('ROLE_COM') %}
 				<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Formationblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_default_index') }}">
 					Formation
@@ -47,37 +50,28 @@
 						Mes contrats
 				</a></div>
 			{% endif %}
-
-			<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Vector.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_default_index') }}">
-					Déconnexion
+			{% if is_granted('ROLE_COMMERCIAL') or is_granted('ROLE_RH')  %}
+				<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Communautéet réunionblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_app_user_index') }}">
+						Utilisateurs
 				</a></div>
+			{% endif %}
+			{% if is_granted('ROLE_COMMERCIAL') or is_granted('ROLE_RH')  %}
+				<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Communautéet réunionblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('app_logout') }}">
+						Offres
+				</a></div>
+			{% endif %}
+			{% if is_granted('ROLE_COMMERCIAL') or is_granted('ROLE_RH')  %}
+				<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Communautéet réunionblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('app_logout') }}">
+						Contracts
+				</a></div>
+			{% endif %}
+			<div class="flex justify-start space-x-4"  > <img src="{{ asset('build/images/Vector.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('app_logout') }}">
+					Déconnexion
+			</a></div>
 		</div>
 
 	</div>
 
-	<header class="header">
-
-
-		{% if app.user and 'ROLE_USER' in app.user.roles %}
-
-			 <ul>
-				<li>
-					<a href="{{ path('back_default_index') }}" class="{% if app.request.attributes.get('_route') == 'back_default_index' %}navbar-link-active{% endif %}">Tableau de bord</a>
-				</li>
-			</ul>
-			{{ _self.account_button() }}
-			<div class="hamburger-menu">
-				<input id="menu-toggle" type="checkbox">
-				<label for="menu-toggle">
-					<span></span>
-				</label>
-			</div>
-		{% else %}
-			<div class="login">
-				<a href="{{ path('app_login') }}" class="btn">Se connecter</a>
-			</div>
-		{% endif %}
-	</header>
 {% endmacro %}
 
 {% macro footer() %}
