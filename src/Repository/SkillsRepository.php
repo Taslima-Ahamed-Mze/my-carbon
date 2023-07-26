@@ -21,6 +21,24 @@ class SkillsRepository extends ServiceEntityRepository
         parent::__construct($registry, Skills::class);
     }
 
+    public function save(Skills $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function remove(Skills $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
 //    /**
 //     * @return SkillsFixtures[] Returns an array of SkillsFixtures objects
 //     */

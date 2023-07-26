@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{% import 'components/components.html.twig' as components%}
+
+
+{% block title %}
+    Offres
+{% endblock %}
+
+{% block body %}
+    <div class="list-wrapper">
+        <a href="{{ path('back_app_offers_new') }}" class="devisio-btn devisio-btn-add">
+            Nouvelle offre
+        </a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Intitulé</th>
+                    <th>Entreprise</th>
+                    <th>Addresse</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for offer in offers %}
+                <tr>
+                    <td>{{ offer.id }}</td>
+                    <td>{{ offer.name }}</td>
+                    <td>{{ offer.companyName }}</td>
+                    <td>{{ offer.address }}</td>
+                    <td>{{ components.table_actions('offers', offer) }}</td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

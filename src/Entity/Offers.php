@@ -31,7 +31,7 @@ class Offers
     #[ORM\Column(length: 255)]
     private ?string $companyName = null;
 
-    #[ORM\OneToMany(mappedBy: 'offer', targetEntity: Contracts::class)]
+    #[ORM\OneToMany(mappedBy: 'offer', targetEntity: Contracts::class, orphanRemoval: true)]
     private Collection $contracts;
 
     public function __construct()

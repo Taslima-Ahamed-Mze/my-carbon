@@ -54,14 +54,21 @@
 		{% endif %}
 		{% if is_granted('ROLE_COMMERCIAL') or is_granted('ROLE_RH')  %}
 			<div class="flex justify-start space-x-4">
-				<img src="{{ asset('build/images/Communautéet réunionblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('app_logout') }}">
+				<img src="{{ asset('build/images/Communautéet réunionblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_app_offers_index') }}">
 					Offres
+				</a>
+			</div>
+		{% endif %}
+		{% if is_granted('ROLE_ADMIN') %}
+			<div class="flex justify-start space-x-4">
+				<img src="{{ asset('build/images/Sur-mesureblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_app_skills_index') }}">
+					Compétences
 				</a>
 			</div>
 		{% endif %}
 		{% if is_granted('ROLE_COMMERCIAL') or is_granted('ROLE_RH')  %}
 			<div class="flex justify-start space-x-4">
-				<img src="{{ asset('build/images/Communautéet réunionblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('app_logout') }}">
+				<img src="{{ asset('build/images/Sur-mesureblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('app_logout') }}">
 					Contracts
 				</a>
 			</div>
