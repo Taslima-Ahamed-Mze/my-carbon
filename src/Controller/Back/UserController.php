@@ -16,7 +16,7 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 #[Route('/user')]
 class UserController extends AbstractController
 {
-    #[Security('is_granted("ROLE_ADMIN")')]
+    #[Security('is_granted("ROLE_ADMIN") or is_granted("ROLE_RH") or is_granted("ROLE_COMMERCIAL")')]
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
     public function index(UserRepository $userRepository): Response
     {
@@ -25,7 +25,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Security('is_granted("ROLE_ADMIN")')]
+    #[Security('is_granted("ROLE_ADMIN") or is_granted("ROLE_RH") or is_granted("ROLE_COMMERCIAL")')]
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
@@ -37,11 +37,10 @@ class UserController extends AbstractController
         $form->handleRequest($request);
         $profile = $form->get('profile')->getData();
 
-
        if ($form->isSubmitted() && $form->isValid()) {
             switch ($profile->getName()){
                 case 'Collaborateur':
-                    $user->setRoles(['ROLE_USER']);
+                    $user->setRoles(['ROLE_COLLABORATOR']);
                 break;
                 case 'RH':
                     $user->setRoles(['ROLE_RH']);
@@ -51,6 +50,9 @@ class UserController extends AbstractController
                 break;
                 case 'Admin':
                     $user->setRoles(['ROLE_ADMIN']);
+                break;
+                case 'Communication':
+                    $user->setRoles(['ROLE_COM']);
                 break;
                 default:
                     $user->setRoles(['ROLE_ADMIN']);
@@ -79,7 +81,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Security('is_granted("ROLE_ADMIN")')]
+    #[Security('is_granted("ROLE_ADMIN") or is_granted("ROLE_RH") or is_granted("ROLE_COMMERCIAL")')]
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
     public function edit(
         Request $request,
@@ -110,7 +112,7 @@ class UserController extends AbstractController
         ]);
     }
 
-    #[Security('is_granted("ROLE_ADMIN")')]
+    #[Security('is_granted("ROLE_ADMIN") or is_granted("ROLE_RH") or is_granted("ROLE_COMMERCIAL")')]
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(
         Request $request,

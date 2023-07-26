@@ -4,21 +4,33 @@
 {% endblock %}
 
 {% block body %}
-	<section class="ml-[100px]">
+	<section class="w-full flex flex-col justify-center items-center mt-[150px]">
 		{% for event in pagination %}
 			<div class="dark:bg-gray-800 dark:text-gray-100 ml-[300px]">
 				<div class="container max-w-6xl p-6 mx-auto space-y-6 sm:space-y-12">
 					<a rel="noopener noreferrer" href="#" class="block max-w-sm gap-3 mx-auto sm:max-w-full group hover:no-underline focus:no-underline lg:grid lg:grid-cols-12 dark:bg-gray-900">
 						<img src="https://source.unsplash.com/random/480x360" alt="" class="object-cover w-full rounded sm:h-96 lg:col-span-7 dark:bg-gray-500">
-						<div class="p-6 space-y-2 lg:col-span-5">
-							<h3 class="text-2xl font-semibold sm:text-4xl group-hover:underline group-focus:underline">{{event.title }}</h3>
-							<span class="text-xs dark:text-gray-400">February 19, 2021</span>
-							<p>{{event.description}}</p>
-							<div class="pt-[110px]">
-								<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4 rounded">
-									Participer à l'évenement
+						<div class="p-6 space-y-2 lg:col-span-5 relative">
+							<h3 class="text-2xl font-semibold sm:text-4xl group-hover:underline group-focus:underline">{{ event.title }}</h3>
+							<span class="text-xs dark:text-gray-400">{{ event.startDate|date }}</span>
+							<p>{{ event.description }}</p>
+							<div class="absolute bottom-0">
+								<button onclick="window.location.href='{{path('back_app_event_show', {'id': event.id})}}'" class="bg-[#5B98D2] hover:bg-blue-700 text-white font-bold py-4 px-4 rounded">
+									Voir l'évenement
 								</button>
 							</div>
+							{% if is_granted('ROLE_ADMIN') %} <!-- Add ROLE COMM -->
+								<div class="absolute bottom-20">
+									<div onclick="window.location.href='{{path('back_app_event_edit', {'id': event.id})}}'" class="bg-[#00BB7E] hover:bg-green-700 text-white font-bold py-4 px-4 rounded">
+										<i class="fa-solid fa-pen-to-square"></i>
+									</div>
+								</div>
+								<div class="absolute bottom-20 right-[170px]">
+									<div onclick="window.location.href='{{path('back_app_event_delete', {'id': event.id})}}'" class="bg-[#E53F49] hover:bg-red-700 text-white font-bold py-4 px-4 rounded">
+										<i class="fa-solid fa-trash"></i>
+									</div>
+								</div>
+							{% endif %}
 						</div>
 					</a>
 				</div>
@@ -34,38 +46,38 @@
 	{# <a href="{{ path('back_app_event_new') }}">Create new</a> #}
 
 	{# <table class="table">
-															        <thead>
-															            <tr>
-															                <th>Id</th>
-															                <th>Title</th>
-															                <th>Description</th>
-															                <th>Start_date</th>
-															                <th>End_date</th>
-															                <th>CreatedAt</th>
-															                <th>UpdatedAt</th>
-															                <th>actions</th>
-															            </tr>
-															        </thead>
-															        <tbody>
-															        {% for event in events %}
-															            <tr>
-															                <td>{{ event.id }}</td>
-															                <td>{{ event.title }}</td>
-															                <td>{{ event.description }}</td>
-															                <td>{{ event.startDate ? event.startDate|date('Y-m-d H:i:s') : '' }}</td>
-															                <td>{{ event.endDate ? event.endDate|date('Y-m-d H:i:s') : '' }}</td>
-															                <td>{{ event.createdAt ? event.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-															                <td>{{ event.updatedAt ? event.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-															                <td>
-															                    <a href="{{ path('back_app_event_show', {'id': event.id}) }}">show</a>
-															                    <a href="{{ path('back_app_event_edit', {'id': event.id}) }}">edit</a>
-															                </td>
-															            </tr>
-															        {% else %}
-															            <tr>
-															                <td colspan="8">no records found</td>
-															            </tr>
-															        {% endfor %}
-															        </tbody>
-															    </table> #}
+																					        <thead>
+																					            <tr>
+																					                <th>Id</th>
+																					                <th>Title</th>
+																					                <th>Description</th>
+																					                <th>Start_date</th>
+																					                <th>End_date</th>
+																					                <th>CreatedAt</th>
+																					                <th>UpdatedAt</th>
+																					                <th>actions</th>
+																					            </tr>
+																					        </thead>
+																					        <tbody>
+																					        {% for event in events %}
+																					            <tr>
+																					                <td>{{ event.id }}</td>
+																					                <td>{{ event.title }}</td>
+																					                <td>{{ event.description }}</td>
+																					                <td>{{ event.startDate ? event.startDate|date('Y-m-d H:i:s') : '' }}</td>
+																					                <td>{{ event.endDate ? event.endDate|date('Y-m-d H:i:s') : '' }}</td>
+																					                <td>{{ event.createdAt ? event.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+																					                <td>{{ event.updatedAt ? event.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+																					                <td>
+																					                    <a href="{{ path('back_app_event_show', {'id': event.id}) }}">show</a>
+																					                    <a href="{{ path('back_app_event_edit', {'id': event.id}) }}">edit</a>
+																					                </td>
+																					            </tr>
+																					        {% else %}
+																					            <tr>
+																					                <td colspan="8">no records found</td>
+																					            </tr>
+																					        {% endfor %}
+																					        </tbody>
+																					    </table> #}
 {% endblock %}

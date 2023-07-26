@@ -85,7 +85,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: false)]
     private ?Profile $profile = null;
 
-    #[ORM\OneToMany(mappedBy: 'collaborator', targetEntity: UserSkills::class)]
+    #[ORM\OneToMany(mappedBy: 'collaborator', targetEntity: UserSkills::class, cascade: ['all'], orphanRemoval: true)]
     private Collection $userSkills;
 
     public function __construct()
