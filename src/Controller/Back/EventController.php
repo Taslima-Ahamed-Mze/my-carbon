@@ -21,7 +21,7 @@ class EventController extends AbstractController
         $pagination = $paginator->paginate(
             $eventRepository->paginationQuery(),
             $request->query->get('page', 1),
-            5
+            8
         );
         return $this->render('event/index.html.twig', [
             'pagination' => $pagination
