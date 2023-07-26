@@ -17,6 +17,7 @@
 				<th>Nom</th>
 				<th>Email</th>
 				<th>Fonction</th>
+				<th>Action</th>
 			</tr>
 			</thead>
 			<tbody>
@@ -26,6 +27,8 @@
 					<td>{{ user.lastname }}</td>
 					<td>{{ user.email }}</td>
 					<td>{{ user.profile.name }}</td>
+					<td>{{ components.table_actions('user', user) }}</td>
+
 				</tr>
 			{% endfor %}
 			</tbody>
