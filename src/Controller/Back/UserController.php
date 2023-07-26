@@ -29,34 +29,32 @@ class UserController extends AbstractController
     #[Route('/new', name: 'app_user_new', methods: ['GET', 'POST'])]
     public function new(
         Request $request,
-        UserRepository $userRepository,
-        SkillsRepository $skillsRepository
+        UserRepository $userRepository
     ): Response {
         $user = new User();
         $form = $this->createForm(UserType::class, $user, [
-            'skills' => $skillsRepository->findAll()
         ]);
         $form->handleRequest($request);
-        $profile = $request->get('profile');
+        $profile = $form->get('profile')->getData();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            /*switch ($profile){
+
+       if ($form->isSubmitted() && $form->isValid()) {
+            switch ($profile->getName()){
                 case 'Collaborateur':
                     $user->setRoles(['ROLE_USER']);
                 break;
                 case 'RH':
-                    $user->setRoles(['ROLE_USER', 'ROLE_RH']);
+                    $user->setRoles(['ROLE_RH']);
                 break;
                 case 'Commercial':
-                    $user->setRoles(['ROLE_USER','ROLE_COMMERCIAL']);
+                    $user->setRoles(['ROLE_COMMERCIAL']);
                 break;
                 case 'Admin':
-                    $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+                    $user->setRoles(['ROLE_ADMIN']);
                 break;
+                default:
+                    $user->setRoles(['ROLE_ADMIN']);
 
-            }*/
-            if ($user->getPlainPassword()) {
-                $user->setPassword($user->getPlainPassword());
             }
             $userRepository->save($user, true);
 

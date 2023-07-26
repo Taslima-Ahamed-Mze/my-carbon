@@ -51,41 +51,17 @@ class UserType extends AbstractType
             ])
             ->add('imageFile', VichImageType::class, [
                 'label' => 'Photo de profil',
-            ]);
+            ])
+            ->add('password', TextType::class, [
+                'label' => 'Mot de passe',
+            ])
+        ;
 
 
-        if ($options['back_edit']) {
-            $builder->add('oldPassword', PasswordType::class, [
-                'label' => 'Mot de passe actuel',
-            ]);
-        }
-            $builder
-            ->add('plainPassword', RepeatedType::class, [
-                'type' => PasswordType::class,
-                'invalid_message' =>
-                    'Les champs du mot de passe doivent correspondre.',
-                'required' => false,
-                'first_options' => [
-                    'label' => 'Mot de passe',
-                ],
-                'second_options' => [
-                    'label' => 'Répéter le mot de passe',
-                ],
-            ]);
+
     }
 
-    private function getSkills($skills)
-    {
 
-
-        $choices = [];
-
-        foreach ($skills as $skill) {
-            $choices[$skill->getId()] = $skill->getId();
-        }
-
-        return $choices;
-    }
 
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -94,7 +70,5 @@ class UserType extends AbstractType
             'data_class' => User::class,
             'back_edit' => false,
         ]);
-
-        $resolver->setRequired('skills');
     }
 }
