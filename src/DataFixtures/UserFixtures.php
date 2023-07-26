@@ -28,7 +28,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setEmail('user@user.fr')
             ->setLastname($faker->lastName())
             ->setFirstname($faker->firstName())
-            ->setRoles(['ROLE_USER'])
+            ->setRoles(['ROLE_COLLABORATOR'])
             ->setPassword($pwd)
             ->setProfile($randomProfileUser)
         ;
@@ -36,6 +36,16 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
         $object = (new User())
             ->setEmail('com@user.fr')
+            ->setLastname($faker->lastName())
+            ->setFirstname($faker->firstName())
+            ->setRoles(['ROLE_COM'])
+            ->setPassword($pwd)
+            ->setProfile($randomProfileUser)
+        ;
+        $manager->persist($object);
+
+        $object = (new User())
+            ->setEmail('comer@user.fr')
             ->setLastname($faker->lastName())
             ->setFirstname($faker->firstName())
             ->setRoles(['ROLE_COMMERCIAL'])
