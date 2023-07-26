@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230725210411 extends AbstractMigration
+final class Version20230726100621 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -24,6 +24,7 @@ final class Version20230725210411 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE cooptation_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE event_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE event_register_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE SEQUENCE formation_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE levels_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE offers_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE profile_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
@@ -46,6 +47,7 @@ final class Version20230725210411 extends AbstractMigration
         $this->addSql('CREATE TABLE event_register (id INT NOT NULL, collaborator_id INT DEFAULT NULL, event_id INT DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_1915A9C430098C8C ON event_register (collaborator_id)');
         $this->addSql('CREATE INDEX IDX_1915A9C471F7E88B ON event_register (event_id)');
+        $this->addSql('CREATE TABLE formation (id INT NOT NULL, title VARCHAR(255) NOT NULL, description VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE levels (id INT NOT NULL, created_by INT DEFAULT NULL, updated_by INT DEFAULT NULL, level VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_9F2A6419DE12AB56 ON levels (created_by)');
         $this->addSql('CREATE INDEX IDX_9F2A641916FE72E1 ON levels (updated_by)');
@@ -120,6 +122,7 @@ final class Version20230725210411 extends AbstractMigration
         $this->addSql('DROP SEQUENCE cooptation_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE event_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE event_register_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE formation_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE levels_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE offers_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE profile_id_seq CASCADE');
@@ -159,6 +162,7 @@ final class Version20230725210411 extends AbstractMigration
         $this->addSql('DROP TABLE cooptation');
         $this->addSql('DROP TABLE event');
         $this->addSql('DROP TABLE event_register');
+        $this->addSql('DROP TABLE formation');
         $this->addSql('DROP TABLE levels');
         $this->addSql('DROP TABLE offers');
         $this->addSql('DROP TABLE profile');
