@@ -2,36 +2,68 @@
 
 
 {% block title %}
-	Tableau de bord
+	myCarbon
 {% endblock %}
 
 
 {% block body %}
+	<style>
+		/* Style pour les étoiles */
+		.star-icon {
+			width: 16px; /* Ajustez cette valeur selon la taille souhaitée pour les étoiles */
+			height: 16px; /* Ajustez cette valeur selon la taille souhaitée pour les étoiles */
+			margin-right: 5px; /* Ajustez cette valeur pour l'espacement horizontal entre les étoiles */
+		}
+
+		/* Style pour l'élément <li> qui contient le nom de la compétence */
+		.skill-item {
+			display: flex; /* Utiliser flex pour aligner les étoiles horizontalement */
+			align-items: center; /* Centrer verticalement les étoiles */
+			margin-bottom: 5px; /* Ajustez cette valeur pour l'espacement vertical entre chaque compétence */
+			flex-wrap: wrap; /* Créer un flux d'affichage en ligne pour les étoiles */
+		}
+	</style>
 	<section class="flex justify-center">
 		<div>
 			<div class="w-[785px] h-[337px] bg-white mb-[29px] flex">
 				<div class="ml-[50px] mt-[22px]">
 					<img class="w-[140px] h-[140px] mb-[22px] rounded-full " src="{{ vich_uploader_asset(user, 'imageFile') }}" alt="{{ user.firstname ~ " " ~ user.lastname }}">
-					<p class="text-xl mb-[14px]">Hey {{ user.firstname ~ " " ~ user.lastname }} !</p>
+					<p class="text-xl mb-[14px]">Hey
+						{{ user.firstname }}
+						!</p>
 					<p>Bienvenue sur ton espace personnel !</p>
 				</div>
-				<div class="w-[350px] ml-[85px]" style="border: 1px solid black;">
-					<p class="text-center text-xl">Compétences</p>
-				</div>
-			</div>
-			<div class="w-[785px] h-[124px] bg-white mb-[29px]">
-				<div class="pt-[34px] pb-[24px] pl-[24px] text-xl">
-					<p class="text-xl">Contrat en cours</p>
-          <p class="text-2xl font-bold">{{ lastContract.offer.name }}</p>
-				</div>
-			</div>
-			<div class="w-[785px] h-[298px] bg-white">
-				<div class="pt-[34px] pb-[24px] pl-[24px] text-xl">
-					<p>Mes recommandations</p>
-
-				</div>
+				<div class="w-[350px] ml-[85px] flex flex-col" style="border-left: 1px solid #f5f5f5;">
+					<p class="text-center text-xl mt-[26px]">Compétences</p>
+					{% if user.userSkills %}
+						<div class="ml-[55px] mt-[31px] w-[200px]">
+							{% for userSkill in user.userSkills %}
+								<div class="w-full flex">
+									<div>
+										<p class="text-base">{{ userSkill.skill.name }}</p>
+									</div>
+									<div class="flex justify-start w-full items-center">
+										{% for star in range(1, userSkill.level.level) %}
+											<img class="star-icon" src="{{ asset('build/images/star.png')}}">
+										{% endfor %}
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				{% endif %}
+		</div>
+		<div class="w-[785px] h-[124px] bg-white mb-[29px]">
+			<div class="pt-[34px] pb-[24px] pl-[24px] text-xl">
+				<p class="text-xl">Contrat en cours</p>
+				<p class="text-2xl font-bold">{{ lastContract.offer.name }}</p>
 			</div>
 		</div>
+		<div class="w-[785px] h-[298px] bg-white">
+			<div class="pt-[34px] pb-[24px] pl-[24px] text-xl">
+				<p>Mes recommandations</p>
+			</div>
+		</div>
+	</div>
 
-	</section>
-{% endblock %}
+</section>{% endblock %}
