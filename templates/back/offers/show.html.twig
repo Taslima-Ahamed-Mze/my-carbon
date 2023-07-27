@@ -5,7 +5,11 @@
 {% block body %}
     <h1>Offers</h1>
 
+<<<<<<< HEAD
     <table class="table">
+=======
+    <table >
+>>>>>>> develop
         <tbody>
             <tr>
                 <th>Id</th>
@@ -22,14 +26,6 @@
             <tr>
                 <th>CompanyName</th>
                 <td>{{ offer.companyName }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ offer.createdAt ? offer.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ offer.updatedAt ? offer.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
     </table>

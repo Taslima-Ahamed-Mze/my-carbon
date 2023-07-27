@@ -1,37 +1,44 @@
 {% extends 'base.html.twig' %}
+{% import 'components/components.html.twig' as components%}
 
-{% block title %}Contracts index{% endblock %}
+{% block title %}Contracts {% endblock %}
 
 {% block body %}
-    <h1>Contracts index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for contract in contracts %}
-            <tr>
-                <td>{{ contract.id }}</td>
-                <td>{{ contract.createdAt ? contract.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ contract.updatedAt ? contract.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('back_app_contracts_show', {'id': contract.id}) }}">show</a>
-                    <a href="{{ path('back_app_contracts_edit', {'id': contract.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('back_app_contracts_new') }}">Create new</a>
+    <div class="list-wrapper">
+        {% if is_granted('ROLE_COMMERCIAL') or is_granted('ROLE_RH')  %}
+            <a href="{{ path('back_app_contracts_new') }}" class="devisio-btn devisio-btn-add">
+                Nouveau contract
+            </a>
+        {% endif %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Offre</th>
+                    <th>Entreprise</th>
+                    <th>Collaborateur</th>
+                    <th>Date de début</th>
+                    <th>Date de fin</th>
+                    {% if is_granted('ROLE_COMMERCIAL') or is_granted('ROLE_RH')  %}
+                         <th>actions</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+            {% for contract in contracts %}
+                <tr>
+                    <td>{{ contract.id }}</td>
+                    <td>{{ contract.offer.name }}</td>
+                    <td>{{ contract.offer.companyName }}</td>
+                    <td>{{ contract.collaborator.firstname   ~ ' ' ~  contract.collaborator.lastname }}</td>
+                    <td>{{ contract.startDate|date('d-m-Y') }}</td>
+                    <td>{{ contract.endDate|date('d-m-Y') }}</td>
+                    {% if is_granted('ROLE_COMMERCIAL') or is_granted('ROLE_RH')  %}
+                        <td>{{ components.table_actions('contracts', contract) }}</td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

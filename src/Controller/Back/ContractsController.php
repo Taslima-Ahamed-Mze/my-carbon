@@ -10,15 +10,29 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route('/contracts')]
 class ContractsController extends AbstractController
 {
     #[Route('/', name: 'app_contracts_index', methods: ['GET'])]
-    public function index(ContractsRepository $contractsRepository): Response
+    public function index(ContractsRepository $contractsRepository, Security $security): Response
     {
+        $user = $security->getUser();
+        $contractsByCollaborator = $contractsRepository->findBy(
+            ['collaborator' => $user]
+        );
+        $allContracts = $contractsRepository->findAll();
+
+        $allowedRolesViewAllContracts = ['ROLE_COMMERCIAL', 'ROLE_RH'];
+
+        if(array_intersect($allowedRolesViewAllContracts, $user->getRoles())){
+            $contracts = $allContracts;
+        }else{
+            $contracts = $contractsByCollaborator;
+        }
         return $this->render('back/contracts/index.html.twig', [
-            'contracts' => $contractsRepository->findAll(),
+            'contracts' => $contracts
         ]);
     }
 

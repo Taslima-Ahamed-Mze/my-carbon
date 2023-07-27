@@ -25,13 +25,11 @@ class Contracts
     #[ORM\ManyToOne(inversedBy: 'contracts')]
     private ?User $collaborator = null;
 
-
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $start_date = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $end_date = null;
-
 
     public function getId(): ?int
     {
@@ -86,7 +84,4 @@ class Contracts
 
         return $this;
     }
-
-
- 
 }

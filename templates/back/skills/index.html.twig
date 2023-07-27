@@ -1,39 +1,30 @@
 {% extends 'base.html.twig' %}
+{% import 'components/components.html.twig' as components%}
 
-{% block title %}Skills index{% endblock %}
+{% block title %}Skills{% endblock %}
 
 {% block body %}
-    <h1>Skills index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for skill in skills %}
-            <tr>
-                <td>{{ skill.id }}</td>
-                <td>{{ skill.name }}</td>
-                <td>{{ skill.createdAt ? skill.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ skill.updatedAt ? skill.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('back_app_skills_show', {'id': skill.id}) }}">show</a>
-                    <a href="{{ path('back_app_skills_edit', {'id': skill.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('back_app_skills_new') }}">Create new</a>
+    <div class="list-wrapper">
+        <a href="{{ path('back_app_skills_new') }}" class="devisio-btn devisio-btn-add">
+            Nouvelle compétence
+        </a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nom</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for skill in skills %}
+                <tr>
+                    <td>{{ skill.id }}</td>
+                    <td>{{ skill.name }}</td>
+                    <td>{{ components.table_actions('skills', skill) }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

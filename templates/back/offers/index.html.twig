@@ -1,43 +1,38 @@
 {% extends 'base.html.twig' %}
+{% import 'components/components.html.twig' as components%}
 
-{% block title %}Offers index{% endblock %}
+
+{% block title %}
+    Offres
+{% endblock %}
 
 {% block body %}
-    <h1>Offers index</h1>
+    <div class="list-wrapper">
+        <a href="{{ path('back_app_offers_new') }}" class="devisio-btn devisio-btn-add">
+            Nouvelle offre
+        </a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Intitulé</th>
+                    <th>Entreprise</th>
+                    <th>Addresse</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for offer in offers %}
+                <tr>
+                    <td>{{ offer.id }}</td>
+                    <td>{{ offer.name }}</td>
+                    <td>{{ offer.companyName }}</td>
+                    <td>{{ offer.address }}</td>
+                    <td>{{ components.table_actions('offers', offer) }}</td>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Address</th>
-                <th>CompanyName</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for offer in offers %}
-            <tr>
-                <td>{{ offer.id }}</td>
-                <td>{{ offer.name }}</td>
-                <td>{{ offer.address }}</td>
-                <td>{{ offer.companyName }}</td>
-                <td>{{ offer.createdAt ? offer.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ offer.updatedAt ? offer.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('back_app_offers_show', {'id': offer.id}) }}">show</a>
-                    <a href="{{ path('back_app_offers_edit', {'id': offer.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('back_app_offers_new') }}">Create new</a>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
