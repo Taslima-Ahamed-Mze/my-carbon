@@ -1,0 +1,9 @@
+<img src="{{ asset('build/images/event.jpg') }}" alt="event" class="w-full">
+
+<p>Bonjour <span class="font-bold">{{ user.firstname ~ ' ' ~ user.lastname}}</span></p>
+<p>Merci de vous être inscrit à notre événement <span class="font-bold">{{ event.title }}</span>. Nous sommes ravis de vous accueillir parmi nous!</p>
+<p>Voici les détails de votre inscription :</p>
+<p>Date de l'événement : {{ event.startDate|date() }}</p>
+<p>Nous sommes impatients de vous voir. Si vous avez des questions ou besoin d'informations supplémentaires, n'hésitez pas à nous contacter.</p>
+<p>Cordialement,</p>
+<img src="{{ asset('build/images/logo.png') }}" alt="Logo" class="">

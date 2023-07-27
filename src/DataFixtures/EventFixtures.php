@@ -24,8 +24,8 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
 
             $object = (new Event())
 
-                ->setTitle($faker->word())
-                ->setDescription($faker->word())
+                ->setTitle($faker->title())
+                ->setDescription($faker->sentence(80))
                 ->setStartDate($faker->dateTime())
                 ->setEndDate($faker->dateTime())
                 ->setCreatedBy($randomUser);
