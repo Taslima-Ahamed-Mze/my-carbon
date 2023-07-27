@@ -14,9 +14,15 @@
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
 	</head>
-	<body class="flex">
-		{{ components.header() }}	
-		{% block body %}{% endblock %}
+	<body class="h-screen">
+		<div class="flex w-screen h-screen">
+			<div class="w-[15%] bg-black h-screen">
+			 {{components.header()}}
+			</div>
+			<div class="w-[85%]">
+			{% block body %}{% endblock %}
+			</div>
+		</div> 
 		{% block javascripts %}
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
