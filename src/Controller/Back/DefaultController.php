@@ -33,6 +33,7 @@ class DefaultController extends AbstractController
                     'id' => 'DESC'
                 ], 3);
         $formations = array_merge($formations, $formation);
+
         }
 
         $lastContract = $contractsRepository->findOneBy(
