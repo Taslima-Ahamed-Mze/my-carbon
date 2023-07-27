@@ -4,11 +4,17 @@ namespace App\Entity;
 
 use App\Entity\Traits\BlameableTrait;
 use App\Repository\CooptationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\Timestampable; 
 use App\Entity\Traits\TimestampableTrait;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+
 
 #[ORM\Entity(repositoryClass: CooptationRepository::class)]
+#[Vich\Uploadable]
 class Cooptation
 {
    
@@ -30,11 +36,22 @@ class Cooptation
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
+    #[Vich\UploadableField(mapping: 'cooptation', fileNameProperty: 'cvPath')]
+    private ?File $cvFile = null;
+
     #[ORM\Column(length: 255)]
     private ?string $cvPath = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $status = null;
+
+    #[ORM\OneToMany(mappedBy: 'cooptation', targetEntity: CooptationSteps::class)]
+    private Collection $cooptationSteps;
+
+    public function __construct()
+    {
+        $this->cooptationSteps = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -77,6 +94,22 @@ class Cooptation
         return $this;
     }
 
+    public function setCvFile(?File $cvFile = null): void
+    {
+        $this->cvFile = $cvFile;
+
+        if (null !== $cvFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
+    }
+
+    public function getCvFile(): ?File
+    {
+        return $this->cvFile;
+    }
+
     public function getCvPath(): ?string
     {
         return $this->cvPath;
@@ -97,6 +130,36 @@ class Cooptation
     public function setStatus(string $Status): static
     {
         $this->status = $Status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, CooptationSteps>
+     */
+    public function getCooptationSteps(): Collection
+    {
+        return $this->cooptationSteps;
+    }
+
+    public function addCooptationStep(CooptationSteps $cooptationStep): static
+    {
+        if (!$this->cooptationSteps->contains($cooptationStep)) {
+            $this->cooptationSteps->add($cooptationStep);
+            $cooptationStep->setCooptation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCooptationStep(CooptationSteps $cooptationStep): static
+    {
+        if ($this->cooptationSteps->removeElement($cooptationStep)) {
+            // set the owning side to null (unless already changed)
+            if ($cooptationStep->getCooptation() === $this) {
+                $cooptationStep->setCooptation(null);
+            }
+        }
 
         return $this;
     }

@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit CooptationSteps{% endblock %}
+
+{% block body %}
+    <h1>Edit CooptationSteps</h1>
+
+    {{ include('cooptation_steps/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_cooptation_steps_index') }}">back to list</a>
+
+    {{ include('cooptation_steps/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CooptationSteps index{% endblock %}
+
+{% block body %}
+    <h1>CooptationSteps index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Status</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for cooptation_step in cooptation_steps %}
+            <tr>
+                <td>{{ cooptation_step.id }}</td>
+                <td>{{ cooptation_step.status ? 'Yes' : 'No' }}</td>
+                <td>{{ cooptation_step.createdAt ? cooptation_step.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ cooptation_step.updatedAt ? cooptation_step.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_cooptation_steps_show', {'id': cooptation_step.id}) }}">show</a>
+                    <a href="{{ path('app_cooptation_steps_edit', {'id': cooptation_step.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_cooptation_steps_new') }}">Create new</a>
+{% endblock %}

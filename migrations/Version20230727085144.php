@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230726220916 extends AbstractMigration
+final class Version20230727085144 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -22,6 +22,7 @@ final class Version20230726220916 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE SEQUENCE contracts_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE cooptation_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE SEQUENCE cooptation_steps_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE event_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE event_register_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE formation_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
@@ -30,6 +31,7 @@ final class Version20230726220916 extends AbstractMigration
         $this->addSql('CREATE SEQUENCE profile_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE skills_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE skills_levels_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
+        $this->addSql('CREATE SEQUENCE step_cooptation_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE types_events_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE "user_id_seq" INCREMENT BY 1 MINVALUE 1 START 1');
         $this->addSql('CREATE SEQUENCE user_skills_id_seq INCREMENT BY 1 MINVALUE 1 START 1');
@@ -38,9 +40,12 @@ final class Version20230726220916 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_950A97330098C8C ON contracts (collaborator_id)');
         $this->addSql('CREATE INDEX IDX_950A973DE12AB56 ON contracts (created_by)');
         $this->addSql('CREATE INDEX IDX_950A97316FE72E1 ON contracts (updated_by)');
-        $this->addSql('CREATE TABLE cooptation (id INT NOT NULL, created_by INT DEFAULT NULL, updated_by INT DEFAULT NULL, firstname VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, cv_path VARCHAR(255) NOT NULL, status VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE cooptation (id INT NOT NULL, created_by INT DEFAULT NULL, updated_by INT DEFAULT NULL, firstname VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, cv_path VARCHAR(255) NOT NULL, status VARCHAR(255) DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_60F61635DE12AB56 ON cooptation (created_by)');
         $this->addSql('CREATE INDEX IDX_60F6163516FE72E1 ON cooptation (updated_by)');
+        $this->addSql('CREATE TABLE cooptation_steps (id INT NOT NULL, cooptation_id INT NOT NULL, step_cooptation_id INT NOT NULL, status BOOLEAN NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE INDEX IDX_EED79089CA700D5 ON cooptation_steps (cooptation_id)');
+        $this->addSql('CREATE INDEX IDX_EED790896441DCDA ON cooptation_steps (step_cooptation_id)');
         $this->addSql('CREATE TABLE event (id INT NOT NULL, created_by INT DEFAULT NULL, updated_by INT DEFAULT NULL, title VARCHAR(255) NOT NULL, description TEXT NOT NULL, start_date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, end_date TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_3BAE0AA7DE12AB56 ON event (created_by)');
         $this->addSql('CREATE INDEX IDX_3BAE0AA716FE72E1 ON event (updated_by)');
@@ -63,6 +68,7 @@ final class Version20230726220916 extends AbstractMigration
         $this->addSql('CREATE TABLE skills_levels (id INT NOT NULL, skill_id INT NOT NULL, level_id INT NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_D2356AAA5585C142 ON skills_levels (skill_id)');
         $this->addSql('CREATE INDEX IDX_D2356AAA5FB14BA7 ON skills_levels (level_id)');
+        $this->addSql('CREATE TABLE step_cooptation (id INT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE types_events (id INT NOT NULL, event_id INT DEFAULT NULL, created_by INT DEFAULT NULL, updated_by INT DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_2C4CA82571F7E88B ON types_events (event_id)');
         $this->addSql('CREATE INDEX IDX_2C4CA825DE12AB56 ON types_events (created_by)');
@@ -93,6 +99,8 @@ final class Version20230726220916 extends AbstractMigration
         $this->addSql('ALTER TABLE contracts ADD CONSTRAINT FK_950A97316FE72E1 FOREIGN KEY (updated_by) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE cooptation ADD CONSTRAINT FK_60F61635DE12AB56 FOREIGN KEY (created_by) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE cooptation ADD CONSTRAINT FK_60F6163516FE72E1 FOREIGN KEY (updated_by) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE cooptation_steps ADD CONSTRAINT FK_EED79089CA700D5 FOREIGN KEY (cooptation_id) REFERENCES cooptation (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
+        $this->addSql('ALTER TABLE cooptation_steps ADD CONSTRAINT FK_EED790896441DCDA FOREIGN KEY (step_cooptation_id) REFERENCES step_cooptation (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA7DE12AB56 FOREIGN KEY (created_by) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA716FE72E1 FOREIGN KEY (updated_by) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE event_register ADD CONSTRAINT FK_1915A9C430098C8C FOREIGN KEY (collaborator_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
@@ -124,6 +132,7 @@ final class Version20230726220916 extends AbstractMigration
         $this->addSql('CREATE SCHEMA public');
         $this->addSql('DROP SEQUENCE contracts_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE cooptation_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE cooptation_steps_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE event_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE event_register_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE formation_id_seq CASCADE');
@@ -132,6 +141,7 @@ final class Version20230726220916 extends AbstractMigration
         $this->addSql('DROP SEQUENCE profile_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE skills_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE skills_levels_id_seq CASCADE');
+        $this->addSql('DROP SEQUENCE step_cooptation_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE types_events_id_seq CASCADE');
         $this->addSql('DROP SEQUENCE "user_id_seq" CASCADE');
         $this->addSql('DROP SEQUENCE user_skills_id_seq CASCADE');
@@ -141,6 +151,8 @@ final class Version20230726220916 extends AbstractMigration
         $this->addSql('ALTER TABLE contracts DROP CONSTRAINT FK_950A97316FE72E1');
         $this->addSql('ALTER TABLE cooptation DROP CONSTRAINT FK_60F61635DE12AB56');
         $this->addSql('ALTER TABLE cooptation DROP CONSTRAINT FK_60F6163516FE72E1');
+        $this->addSql('ALTER TABLE cooptation_steps DROP CONSTRAINT FK_EED79089CA700D5');
+        $this->addSql('ALTER TABLE cooptation_steps DROP CONSTRAINT FK_EED790896441DCDA');
         $this->addSql('ALTER TABLE event DROP CONSTRAINT FK_3BAE0AA7DE12AB56');
         $this->addSql('ALTER TABLE event DROP CONSTRAINT FK_3BAE0AA716FE72E1');
         $this->addSql('ALTER TABLE event_register DROP CONSTRAINT FK_1915A9C430098C8C');
@@ -166,6 +178,7 @@ final class Version20230726220916 extends AbstractMigration
         $this->addSql('ALTER TABLE user_skills DROP CONSTRAINT FK_B0630D4D16FE72E1');
         $this->addSql('DROP TABLE contracts');
         $this->addSql('DROP TABLE cooptation');
+        $this->addSql('DROP TABLE cooptation_steps');
         $this->addSql('DROP TABLE event');
         $this->addSql('DROP TABLE event_register');
         $this->addSql('DROP TABLE formation');
@@ -174,6 +187,7 @@ final class Version20230726220916 extends AbstractMigration
         $this->addSql('DROP TABLE profile');
         $this->addSql('DROP TABLE skills');
         $this->addSql('DROP TABLE skills_levels');
+        $this->addSql('DROP TABLE step_cooptation');
         $this->addSql('DROP TABLE types_events');
         $this->addSql('DROP TABLE "user"');
         $this->addSql('DROP TABLE user_skills');
