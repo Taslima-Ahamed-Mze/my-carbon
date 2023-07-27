@@ -31,9 +31,17 @@ class DefaultController extends AbstractController
                 'skill' => $skill->getSkill()
             ], [
                     'id' => 'DESC'
-                ], 3);
+                ]);
         $formations = array_merge($formations, $formation);
         }
+        usort($formations, function($a, $b) {
+            // Compare les IDs pour le tri (tri décroissant)
+            return $b->getId() - $a->getId();
+        });
+
+        $threeFormations = array_slice($formations, 0, 3);
+
+
 
         $lastContract = $contractsRepository->findOneBy(
             ['id' => 50]
@@ -42,7 +50,7 @@ class DefaultController extends AbstractController
         return $this->render('back/default/index.html.twig', [
             "user" => $user,
             "lastContract" => $lastContract,
-            "formations" => $formations,
+            "formations" => $threeFormations,
             "events" => $events
         ]);
     }
