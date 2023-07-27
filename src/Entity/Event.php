@@ -35,7 +35,7 @@ class Event
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $end_date = null;
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $image = null;
+    private ?string $imageUrl = null;
 
     #[ORM\OneToMany(mappedBy: 'event', targetEntity: EventRegister::class)]
     private Collection $eventRegisters;
@@ -97,14 +97,14 @@ class Event
 
         return $this;
     }
-    public function getImage(): ?string
+    public function getImageUrl(): ?string
     {
-        return $this->image;
+        return $this->imageUrl;
     }
 
-    public function setImage(?string $image): static
+    public function setImageUrl(?string $imageUrl): static
     {
-        $this->image = $image;
+        $this->imageUrl = $imageUrl;
 
         return $this;
     }
