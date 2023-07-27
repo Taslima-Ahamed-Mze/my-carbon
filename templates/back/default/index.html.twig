@@ -23,7 +23,7 @@
 						<div class="w-[200px]">
 
 							<div class="w-full flex flex-col  space-y-3">
-								{% for userSkill in user.userSkills|slice(0, 5) %}
+								{% for userSkill in user.userSkills|slice(0, 4) %}
 									<div class="grid grid-cols-2 gap-x-5">
 										<div>
 											<p class="text-base mr-5">{{ userSkill.skill.name }}</p>
@@ -53,8 +53,29 @@
 				</div>
 			</div>
 			<div class="w-[785px] h-[298px] bg-white">
-				<div class="pt-[34px] pb-[24px] pl-[24px] text-xl">
+				<div class="pt-[34px] pb-[35px] pl-[24px] text-xl">
 					<p>Mes recommandations</p>
+				</div>
+				<div class="flex">
+					<div class="pl-[24px] w-[50%]">
+
+						{% for formation in formations %}
+							<div class="flex w-full mb-[35px]">
+								<img src="{{ asset('build/images/formation-red.png')}}" class="w-8 h-7 mr-[20px]" alt="">
+								<p class="">{{ formation.title }}</p>
+							</div>
+						{% endfor %}
+					</div>
+					<div>
+						<div class="pl-[24px] w-[50%]">
+							{% for event in events %}
+								<div class="flex w-full mb-[35px]">
+									<img src="{{ asset('build/images/event-red.png')}}" class="w-8 h-7 mr-[20px]" alt="">
+									<p class="">{{ event.title }}</p>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>

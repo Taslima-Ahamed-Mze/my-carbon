@@ -7,4 +7,9 @@ module.exports = {
   theme: {
     extend: {},
   },
+  colors : {
+    aqua: {
+      100 : '#00FFFF'
+    }
+  }
 }

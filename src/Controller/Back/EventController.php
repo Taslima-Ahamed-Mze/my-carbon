@@ -5,11 +5,14 @@ namespace App\Controller\Back;
 use App\Entity\Event;
 use App\Form\EventType;
 use App\Repository\EventRepository;
+use App\Service\Mailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/event')]
@@ -21,8 +24,10 @@ class EventController extends AbstractController
         $pagination = $paginator->paginate(
             $eventRepository->paginationQuery(),
             $request->query->get('page', 1),
-            8
+            4
         );
+
+
         return $this->render('event/index.html.twig', [
             'pagination' => $pagination
         ]);
@@ -31,7 +36,7 @@ class EventController extends AbstractController
     #[Route('/new', name: 'app_event_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $event = new Event();   
+        $event = new Event();
         $form = $this->createForm(EventType::class, $event);
         $form->handleRequest($request);
 
@@ -77,11 +82,19 @@ class EventController extends AbstractController
     #[Route('/{id}', name: 'app_event_delete', methods: ['POST'])]
     public function delete(Request $request, Event $event, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$event->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $event->getId(), $request->request->get('_token'))) {
             $entityManager->remove($event);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_event_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('back_app_event_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/email', name: 'app_event_email', methods: ['GET'])]
+    public function sendEmail(Mailer $mailer): Response
+    {
+        $mailer->sendEmail();
+        return $this->redirectToRoute('back_app_event_index', [], Response::HTTP_SEE_OTHER);
+    }
+
 }

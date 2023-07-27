@@ -3,6 +3,8 @@
 namespace App\Service;
 
 use App\Entity\Client;
+use App\Entity\Event;
+use App\Entity\Formation;
 use App\Entity\Invoice;
 use App\Entity\Quotation;
 use App\Entity\User;
@@ -100,7 +102,7 @@ class Mailer
     public function sendInvoiceEmail(User $user, Client $client, Invoice $invoice): void
     {
 
-        $filePath = $this->assetPackage->getUrl('download/pdf/invoices/'. $invoice->getId() .'.pdf');
+        $filePath = $this->assetPackage->getUrl('download/pdf/invoices/' . $invoice->getId() . '.pdf');
         $fileName = basename($filePath);
         $attachment = new SendSmtpEmailAttachment();
         $attachment->setName($fileName);
@@ -132,7 +134,7 @@ class Mailer
     public function sendQuotationEmail(User $user, Client $client, Quotation $quotation): void
     {
 
-        $filePath = $this->assetPackage->getUrl('download/pdf/quotations/'. $quotation->getId() .'.pdf');
+        $filePath = $this->assetPackage->getUrl('download/pdf/quotations/' . $quotation->getId() . '.pdf');
         $fileName = basename($filePath);
         $attachment = new SendSmtpEmailAttachment();
         $attachment->setName($fileName);
@@ -152,6 +154,51 @@ class Mailer
             'htmlContent' => $htmlContent,
             'sender' => ['email' => $user->getEmail()],
             'attachment' => [$attachment]
+        ]);
+
+        try {
+            $this->sendinblueApi->sendTransacEmail($email);
+        } catch (\Exception $e) {
+            throw new \Exception('Failed to send email: ' . $e->getMessage());
+        }
+    }
+
+    public function sendEmailEvent(User $user, Event $event): void
+    {
+        $htmlContent = $this->twig->render('back/email/event.html.twig', [
+            'user' => $user,
+            'event' => $event,
+        ]);
+
+        $email = new SendSmtpEmail([
+            'to' => [
+                ['email' => 'bastiendikiadi@outlook.fr']
+            ],
+            'subject' => 'Evenement',
+            'htmlContent' => $htmlContent,
+            'sender' => ['email' => 'test@test.fr'],
+        ]);
+
+        try {
+            $this->sendinblueApi->sendTransacEmail($email);
+        } catch (\Exception $e) {
+            throw new \Exception('Failed to send email: ' . $e->getMessage());
+        }
+    }
+
+    public function sendMailFormation(User $user, Formation $formation): void
+    {
+        $htmlContent = $this->twig->render('back/email/formation.html.twig', [
+            'user' => $user,
+            'formation' => $formation,
+        ]);
+        $email = new SendSmtpEmail([
+            'to' => [
+                ['email' => 'bastiendikiadi@outlook.fr']
+            ],
+            'subject' => 'Formation',
+            'htmlContent' => $htmlContent,
+            'sender' => ['email' => 'test@test.fr'],
         ]);
 
         try {

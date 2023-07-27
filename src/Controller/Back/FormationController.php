@@ -22,7 +22,7 @@ class FormationController extends AbstractController
         $pagination = $paginator->paginate(
             $formationRepository->paginationQuery(),
             $request->query->get('page', 1),
-            8
+            4
         );
 
         return $this->render('formation/index.html.twig', [
