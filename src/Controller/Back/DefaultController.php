@@ -41,6 +41,7 @@ class DefaultController extends AbstractController
                     'id' => 'DESC'
                 ]);
             $formations = array_merge($formations, $formation);
+
         }
         usort($formations, function ($a, $b) {
             // Compare les IDs pour le tri (tri décroissant)
@@ -85,7 +86,6 @@ class DefaultController extends AbstractController
         ]);
         $chart->setOptions([
             'type' => 'pie',
-            'data' => $chart
         ]);
 
         return $this->render('back/default/index.html.twig', [
