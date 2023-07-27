@@ -33,6 +33,7 @@ class DefaultController extends AbstractController
                     'id' => 'DESC'
                 ]);
         $formations = array_merge($formations, $formation);
+
         }
         usort($formations, function($a, $b) {
             // Compare les IDs pour le tri (tri décroissant)
