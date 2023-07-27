@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 
 class EventType extends AbstractType
@@ -23,6 +24,9 @@ class EventType extends AbstractType
             ->add('end_date', DateTimeType::class, [
                 'widget' => 'single_text',
                 'required' =>true
+            ])
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Image de l\'événement',
             ])
 //            ->add('image')
         ;

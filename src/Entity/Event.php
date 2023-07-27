@@ -9,10 +9,13 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\BlameableTrait;
 use App\Entity\Traits\TimestampableTrait;
+use Vich\UploaderBundle\Entity\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
+#[Vich\Uploadable]
 class Event
 {
    use BlameableTrait;
@@ -34,8 +37,11 @@ class Event
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $end_date = null;
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $imageUrl = null;
+    #[Vich\UploadableField(mapping: 'event', fileNameProperty: 'imageName')]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $imageName = null;
 
     #[ORM\OneToMany(mappedBy: 'event', targetEntity: EventRegister::class)]
     private Collection $eventRegisters;
@@ -97,18 +103,31 @@ class Event
 
         return $this;
     }
-    public function getImageUrl(): ?string
+    public function setImageFile(?File $imageFile = null): void
     {
-        return $this->imageUrl;
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
     }
 
-    public function setImageUrl(?string $imageUrl): static
+    public function getImageFile(): ?File
     {
-        $this->imageUrl = $imageUrl;
-
-        return $this;
+        return $this->imageFile;
     }
 
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
 
     /**
      * @return Collection<int, EventRegister>
