@@ -27,10 +27,19 @@ class ContractFixtures extends Fixture implements DependentFixtureInterface
             $randomUser = $users[array_rand($users)];
             $randomOffers = $offers[array_rand($offers)];
 
+            $startDate = $faker->dateTimeThisYear();
+            $endDate = $faker->dateTimeThisYear('+' . rand(1, 11) . ' months');
+
+            if ($endDate <= $startDate) {
+                $endDate = $faker->dateTimeBetween($startDate, '+' . rand(1, 11) . ' months');
+            }
+
             $object = (new Contracts())
                 ->setCreatedBy($randomUser)
                 ->setOffer($randomOffers)
                 ->setCollaborator($randomUser)
+                ->setStartDate($startDate)
+                ->setEndDate($endDate)
 
             ;
 
