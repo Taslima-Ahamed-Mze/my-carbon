@@ -84,9 +84,6 @@ class DefaultController extends AbstractController
                 ],
             ],
         ]);
-        $chart->setOptions([
-            'type' => 'pie',
-        ]);
 
         return $this->render('back/default/index.html.twig', [
             "user" => $user,
