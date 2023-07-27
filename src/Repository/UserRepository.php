@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Contracts;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -62,5 +63,19 @@ class UserRepository extends ServiceEntityRepository implements
         $user->setPassword($newHashedPassword);
 
         $this->save($user, true);
+    }
+
+    public function findCollaboratorsWithoutContract(): array
+    {
+        $currentDate = new \DateTime();
+
+        return $this->createQueryBuilder('u')
+            ->where('u.id NOT IN (
+                SELECT IDENTITY(c.collaborator) FROM App\Entity\Contracts c
+                WHERE c.end_date >= :currentDate
+            )')
+            ->setParameter('currentDate', $currentDate)
+            ->getQuery()
+            ->getResult();
     }
 }
