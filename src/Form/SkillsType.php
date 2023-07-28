@@ -15,7 +15,18 @@ class SkillsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name' )
+            ->add('name', TextType::class, [
+                'attr' => [
+                    'class' => ' mt-1
+                    block
+                    w-full
+                    rounded-md
+                    border-transparent
+                    focus:border-gray-500 focus:bg-white focus:ring-0
+                    bg-gray-100
+                    '
+                ]
+            ] )
             
           
           

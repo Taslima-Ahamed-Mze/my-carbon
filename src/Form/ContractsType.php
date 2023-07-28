@@ -11,6 +11,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Offers; 
 use App\Entity\User; 
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+
 
 
 class ContractsType extends AbstractType
@@ -25,10 +27,14 @@ class ContractsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('offer', EntityType::class, [
+        ->add('offer', CollectionType::class, [
             'class' => Offers::class,
             'choice_label' => 'name',
             'placeholder' => 'Sélectionner une offre',
+            'attr' => [
+                'class' => 'skills-field',
+                'style' => 'display: none;',
+            ]
         ])
         ->add('collaborator', EntityType::class, [
             'class' => User::class,
