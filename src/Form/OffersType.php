@@ -15,7 +15,7 @@ class OffersType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom',
+                'label' => 'Nom de l\'offre',
                 'attr' => [
                     'class' => ' mt-1
                     block
@@ -28,7 +28,7 @@ class OffersType extends AbstractType
                 ]
             ])
             ->add('address', TextType::class, [
-                'label' => 'Nom',
+                'label' => 'Adresse postale',
                 'attr' => [
                     'class' => ' mt-1
                     block
@@ -41,7 +41,7 @@ class OffersType extends AbstractType
                 ]
             ])
             ->add('companyName', TextType::class, [
-                'label' => 'Nom',
+                'label' => 'Nom de l\'entreprise',
                 'attr' => [
                     'class' => ' mt-1
                     block
