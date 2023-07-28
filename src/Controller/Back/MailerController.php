@@ -2,10 +2,12 @@
 
 namespace App\Controller\Back;
 
+use App\Entity\Cooptation;
 use App\Entity\Event;
 use App\Entity\EventRegister;
 use App\Entity\Formation;
 use App\Entity\FormationRegister;
+use App\Repository\CooptationRepository;
 use App\Repository\EventRegisterRepository;
 use App\Repository\FormationRegisterRepository;
 use App\Service\Mailer;
@@ -51,6 +53,26 @@ class MailerController extends AbstractController
 
 
         return $this->redirectToRoute('back_app_formation_index', [], Response::HTTP_SEE_OTHER);
+        // ...
+    }
+
+    #[Route('/cooptation/success/email/{id}', name: 'app_cooptation_success_mail', methods: ['GET'])]
+    public function sendMailSuccessCooptationCollaborator(Mailer $mailer, Cooptation $cooptation): Response
+    {
+
+        $collaborator = $cooptation->getCreatedBy();
+        $mailer->sendMailSuccessCoptationCollaborator($collaborator, $cooptation);
+
+        return $this->redirectToRoute('back_app_cooptation_index', [], Response::HTTP_SEE_OTHER);
+        // ...
+    }
+
+    #[Route('/cooptation/success/candidate/email/{id}', name: 'app_cooptation_success_candidate_mail', methods: ['GET'])]
+    public function sendMailSuccessCooptationCandidate(Mailer $mailer, Cooptation $cooptation): Response
+    {
+        $mailer->sendMailSuccessCoptationCandidate( $cooptation);
+
+        return $this->redirectToRoute('back_app_cooptation_index', [], Response::HTTP_SEE_OTHER);
         // ...
     }
 }

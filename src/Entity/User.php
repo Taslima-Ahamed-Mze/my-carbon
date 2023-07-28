@@ -91,6 +91,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'collaborator', targetEntity: FormationRegister::class)]
     private Collection $formationRegisters;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $Points = null;
+
     public function __construct()
     {
         $this->eventRegisters = new ArrayCollection();
@@ -339,6 +342,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $formationRegister->setCollaborator(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPoints(): ?int
+    {
+        return $this->Points;
+    }
+
+    public function setPoints(int $Points): static
+    {
+        $this->Points = $Points;
 
         return $this;
     }
