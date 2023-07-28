@@ -30,14 +30,13 @@ class CooptationController extends AbstractController
     }
 
     #[Route('/new', name: 'app_cooptation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $cooptation = new Cooptation();
         $form = $this->createForm(CooptationType::class, $cooptation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $entityManager->persist($cooptation);
             $entityManager->flush();
 

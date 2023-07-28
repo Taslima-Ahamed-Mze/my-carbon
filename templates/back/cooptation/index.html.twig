@@ -12,11 +12,6 @@
                 <th>Firstname</th>
                 <th>Lastname</th>
                 <th>Email</th>
-                <th>CvPath</th>
-                <th>Status</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
             </tr>
         </thead>
         <tbody>
@@ -26,10 +21,7 @@
                 <td>{{ cooptation.firstname }}</td>
                 <td>{{ cooptation.lastname }}</td>
                 <td>{{ cooptation.email }}</td>
-                <td>{{ cooptation.cvPath }}</td>
-                <td>{{ cooptation.status }}</td>
-                <td>{{ cooptation.createdAt ? cooptation.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ cooptation.updatedAt ? cooptation.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+
                 <td>
                     <a href="{{ path('back_app_cooptation_edit', {'id': cooptation.id}) }}">edit</a>
                 </td>

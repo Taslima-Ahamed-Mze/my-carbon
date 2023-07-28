@@ -38,7 +38,7 @@ class UserController extends AbstractController
         $profile = $form->get('profile')->getData();
 
        if ($form->isSubmitted() && $form->isValid()) {
-            switch ($profile->getName()){
+           switch ($profile->getName()){
                 case 'Collaborateur':
                     $user->setRoles(['ROLE_COLLABORATOR']);
                 break;

@@ -7,7 +7,6 @@ use App\Repository\CooptationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\Timestampable; 
 use App\Entity\Traits\TimestampableTrait;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -17,8 +16,6 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[Vich\Uploadable]
 class Cooptation
 {
-   
-    
     use BlameableTrait;
     use TimestampableTrait;
 
@@ -36,17 +33,20 @@ class Cooptation
     #[ORM\Column(length: 255)]
     private ?string $email = null;
 
-    #[Vich\UploadableField(mapping: 'cooptation', fileNameProperty: 'cvPath')]
-    private ?File $cvFile = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $cvPath = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $status = null;
 
-    #[ORM\OneToMany(mappedBy: 'cooptation', targetEntity: CooptationSteps::class)]
+    #[ORM\OneToMany(mappedBy: 'cooptation', targetEntity: CooptationSteps::class, cascade: ['all'], orphanRemoval: true )]
     private Collection $cooptationSteps;
+
+
+    #[Vich\UploadableField(mapping: 'cooptations', fileNameProperty: 'cvName')]
+    private ?File $cvFile = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $cvName = null ;
 
     public function __construct()
     {
@@ -94,33 +94,6 @@ class Cooptation
         return $this;
     }
 
-    public function setCvFile(?File $cvFile = null): void
-    {
-        $this->cvFile = $cvFile;
-
-        if (null !== $cvFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTime();
-        }
-    }
-
-    public function getCvFile(): ?File
-    {
-        return $this->cvFile;
-    }
-
-    public function getCvPath(): ?string
-    {
-        return $this->cvPath;
-    }
-
-    public function setCvPath(string $cvPath): static
-    {
-        $this->cvPath = $cvPath;
-
-        return $this;
-    }
 
     public function getStatus(): ?string
     {
@@ -162,5 +135,32 @@ class Cooptation
         }
 
         return $this;
+    }
+
+    public function getCvName(): ?string
+    {
+        return $this->cvName;
+    }
+
+    public function setCvName(string $cvName): static
+    {
+        $this->cvName = $cvName;
+        return $this;
+    }
+
+    public function setCvFile(?File $cvFile = null): void
+    {
+        $this->cvFile = $cvFile;
+
+        if (null !== $cvFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
+    }
+
+    public function getCvFile(): ?File
+    {
+        return $this->cvFile;
     }
 }
