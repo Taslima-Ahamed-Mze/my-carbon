@@ -23,12 +23,10 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
             $randomUser = $users[array_rand($users)];
 
             $object = (new Event())
-
                 ->setTitle($faker->title())
                 ->setDescription($faker->sentence(80))
                 ->setStartDate($faker->dateTime())
                 ->setEndDate($faker->dateTime())
-                ->setImageUrl($faker->imageUrl())
                 ->setCreatedBy($randomUser);
             $manager->persist($object);
         }

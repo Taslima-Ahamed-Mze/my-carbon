@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Cooptation{% endblock %}
+{% block title %}New Event
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Cooptation</h1>
-
     {{ include('back/cooptation/_form.html.twig') }}
-
-    <a href="{{ path('back_app_cooptation_index') }}">back to list</a>
 {% endblock %}
+
+{#(form, {'attr': { 'input type':'date' 'class':'x-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring focus:border-blue-500'}})#}
