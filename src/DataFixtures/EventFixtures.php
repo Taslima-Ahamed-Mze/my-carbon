@@ -28,7 +28,6 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
                 ->setDescription($faker->sentence(80))
                 ->setStartDate($faker->dateTime())
                 ->setEndDate($faker->dateTime())
-                ->setImageUrl($faker->imageUrl())
                 ->setCreatedBy($randomUser);
             $manager->persist($object);
         }

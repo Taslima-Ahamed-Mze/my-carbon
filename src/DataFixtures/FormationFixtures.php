@@ -36,7 +36,6 @@ class FormationFixtures extends Fixture implements DependentFixtureInterface
             $object = (new Formation())
                 ->setTitle($faker->title())
                 ->setDescription($faker->sentence(80))
-                ->setImageUrl($faker->imageUrl())
                 ->setFormationUrl($faker->url())
                 ->setLevel($randomLevels)
                 ->setSkill($randomSkills)

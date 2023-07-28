@@ -1,67 +1,59 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouveau Utilisateur{% endblock %}
+{% block title %}Nouveau Utilisateur
+{% endblock %}
 
 {% block body %}
-    {{ 
-      include('_form.html.twig', {
-        'title': 'Nouveau utilisateur',
+	{{ 
+      include('back/user/_form.html.twig', {
         'back_to_list_path': path('back_app_user_index')
       }) 
     }}
 {% endblock %}
 
 {% block javascripts %}
-    {{ parent() }}
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            checkProfile();
-        });
+	{{ parent() }}
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+checkProfile();
+});
 
-        document.getElementById('{{ form.profile.vars.id }}').addEventListener('change', function () {
-            checkProfile();
-        });
+document.getElementById('{{ form.profile.vars.id }}').addEventListener('change', function () {
+checkProfile();
+});
 
-        function checkProfile() {
-            let profileField = document.getElementById('{{ form.profile.vars.id }}');
-            let skillsCollection = document.querySelectorAll('.skills-field');
+function checkProfile() {
+let profileField = document.getElementById('{{ form.profile.vars.id }}');
+let skillsCollection = document.querySelectorAll('.skills-field');
 
-            let userRole = '{{ app.user.roles[0] }}';
-            let hideOptionsForRoles = ['ROLE_COMMERCIAL','ROLE_USER','ROLE_RH'];
-            let showSkills = profileField.value === 'Collaborateur' ;
+let userRole = '{{ app.user.roles[0] }}';
+let hideOptionsForRoles = ['ROLE_COMMERCIAL', 'ROLE_USER', 'ROLE_RH'];
+let showSkills = profileField.value === 'Collaborateur';
 
-            profileField.querySelectorAll('option').forEach(function(option) {
-                let optionValue = option.value;
-                let optionShouldBeHidden = hideOptionsForRoles.includes(userRole) && optionValue !== 'Collaborateur';
+profileField.querySelectorAll('option').forEach(function (option) {
+let optionValue = option.value;
+let optionShouldBeHidden = hideOptionsForRoles.includes(userRole) && optionValue !== 'Collaborateur';
 
-                option.style.display = optionShouldBeHidden ? 'none' : 'block';
-            });
+option.style.display = optionShouldBeHidden ? 'none' : 'block';
+});
 
-            if (userRole === 'ROLE_ADMIN' && !showSkills) {
-                skillsCollection.forEach(function(subform) {
-                    subform.style.display = 'none';
-                    let label = subform.previousElementSibling;
-                    if (label && label.tagName === 'LABEL') {
-                        label.style.display = 'none';
-                    }
-                });
-            } else {
-                skillsCollection.forEach(function(subform) {
-                    subform.style.display = showSkills ? 'block' : 'none';
-                    let label = subform.previousElementSibling;
-                    if (label && label.tagName === 'LABEL') {
-                        label.style.display = showSkills ? 'block' : 'none';
-                    }
-                });
-            }
-        }
-    </script>
+if (userRole === 'ROLE_ADMIN' && ! showSkills) {
+skillsCollection.forEach(function (subform) {
+subform.style.display = 'none';
+let label = subform.previousElementSibling;
+if (label && label.tagName === 'LABEL') {
+label.style.display = 'none';
+}
+});
+} else {
+skillsCollection.forEach(function (subform) {
+subform.style.display = showSkills ? 'block' : 'none';
+let label = subform.previousElementSibling;
+if (label && label.tagName === 'LABEL') {
+label.style.display = showSkills ? 'block' : 'none';
+}
+});
+}
+}
+	</script>
 {% endblock %}
-
-
-
-
-
-
-
-

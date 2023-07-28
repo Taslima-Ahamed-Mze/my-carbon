@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230727163542 extends AbstractMigration
+final class Version20230728082948 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -54,7 +54,7 @@ final class Version20230727163542 extends AbstractMigration
         $this->addSql('CREATE TABLE event_register (id INT NOT NULL, collaborator_id INT DEFAULT NULL, event_id INT DEFAULT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_1915A9C430098C8C ON event_register (collaborator_id)');
         $this->addSql('CREATE INDEX IDX_1915A9C471F7E88B ON event_register (event_id)');
-        $this->addSql('CREATE TABLE formation (id INT NOT NULL, level_id INT DEFAULT NULL, skill_id INT DEFAULT NULL, created_by INT DEFAULT NULL, updated_by INT DEFAULT NULL, title VARCHAR(255) NOT NULL, description TEXT NOT NULL, video_url VARCHAR(255) DEFAULT NULL, image_url VARCHAR(255) NOT NULL, formation_url VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE formation (id INT NOT NULL, level_id INT DEFAULT NULL, skill_id INT DEFAULT NULL, created_by INT DEFAULT NULL, updated_by INT DEFAULT NULL, title VARCHAR(255) NOT NULL, description TEXT NOT NULL, image_name VARCHAR(255) DEFAULT NULL, video_url VARCHAR(255) DEFAULT NULL, formation_url VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_404021BF5FB14BA7 ON formation (level_id)');
         $this->addSql('CREATE INDEX IDX_404021BF5585C142 ON formation (skill_id)');
         $this->addSql('CREATE INDEX IDX_404021BFDE12AB56 ON formation (created_by)');
@@ -62,9 +62,7 @@ final class Version20230727163542 extends AbstractMigration
         $this->addSql('CREATE TABLE formation_register (collaborator_id INT NOT NULL, formation_id INT NOT NULL, PRIMARY KEY(collaborator_id, formation_id))');
         $this->addSql('CREATE INDEX IDX_986B17E530098C8C ON formation_register (collaborator_id)');
         $this->addSql('CREATE INDEX IDX_986B17E55200282E ON formation_register (formation_id)');
-        $this->addSql('CREATE TABLE levels (id INT NOT NULL, created_by INT DEFAULT NULL, updated_by INT DEFAULT NULL, level VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
-        $this->addSql('CREATE INDEX IDX_9F2A6419DE12AB56 ON levels (created_by)');
-        $this->addSql('CREATE INDEX IDX_9F2A641916FE72E1 ON levels (updated_by)');
+        $this->addSql('CREATE TABLE levels (id INT NOT NULL, level VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE TABLE offers (id INT NOT NULL, created_by INT DEFAULT NULL, updated_by INT DEFAULT NULL, name VARCHAR(255) NOT NULL, address VARCHAR(255) NOT NULL, company_name VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_DA460427DE12AB56 ON offers (created_by)');
         $this->addSql('CREATE INDEX IDX_DA46042716FE72E1 ON offers (updated_by)');
@@ -120,8 +118,6 @@ final class Version20230727163542 extends AbstractMigration
         $this->addSql('ALTER TABLE formation ADD CONSTRAINT FK_404021BF16FE72E1 FOREIGN KEY (updated_by) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE formation_register ADD CONSTRAINT FK_986B17E530098C8C FOREIGN KEY (collaborator_id) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE formation_register ADD CONSTRAINT FK_986B17E55200282E FOREIGN KEY (formation_id) REFERENCES formation (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE levels ADD CONSTRAINT FK_9F2A6419DE12AB56 FOREIGN KEY (created_by) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
-        $this->addSql('ALTER TABLE levels ADD CONSTRAINT FK_9F2A641916FE72E1 FOREIGN KEY (updated_by) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE offers ADD CONSTRAINT FK_DA460427DE12AB56 FOREIGN KEY (created_by) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE offers ADD CONSTRAINT FK_DA46042716FE72E1 FOREIGN KEY (updated_by) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
         $this->addSql('ALTER TABLE skills ADD CONSTRAINT FK_D5311670DE12AB56 FOREIGN KEY (created_by) REFERENCES "user" (id) NOT DEFERRABLE INITIALLY IMMEDIATE');
@@ -178,8 +174,6 @@ final class Version20230727163542 extends AbstractMigration
         $this->addSql('ALTER TABLE formation DROP CONSTRAINT FK_404021BF16FE72E1');
         $this->addSql('ALTER TABLE formation_register DROP CONSTRAINT FK_986B17E530098C8C');
         $this->addSql('ALTER TABLE formation_register DROP CONSTRAINT FK_986B17E55200282E');
-        $this->addSql('ALTER TABLE levels DROP CONSTRAINT FK_9F2A6419DE12AB56');
-        $this->addSql('ALTER TABLE levels DROP CONSTRAINT FK_9F2A641916FE72E1');
         $this->addSql('ALTER TABLE offers DROP CONSTRAINT FK_DA460427DE12AB56');
         $this->addSql('ALTER TABLE offers DROP CONSTRAINT FK_DA46042716FE72E1');
         $this->addSql('ALTER TABLE skills DROP CONSTRAINT FK_D5311670DE12AB56');
