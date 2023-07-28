@@ -2,15 +2,17 @@
 
 .dataTables_wrapper {
     color: #393939;
+  
    
 
     .dataTables_length {
         margin-bottom: -30px;
+        
 
         select {
             margin: 0 10px;
             border: solid 1px #d8d8d8;
-            border-radius: 3px;
+            border-radius: 33px;
             padding: 5px 10px;
         }
     }
@@ -55,22 +57,31 @@
         width: 100%;
         margin-bottom: 20px;
 
+       
+
         thead {
             text-transform: uppercase;
-            color: #7e7e7e;
+            color: #000000;
         }
 
         tr {
             height: 50px;
-            border: solid 1px #d9d9d9;
+          
             padding-left: 100px;
+           
+
 
             &.odd {
-                background-color: #fafafa;
+                background-color: #ebeff2;
+              
             }
+           
 
             &.even {
-                background-color: #fff;
+                background-color: #ffffff;
+            }
+            &:hover {
+                background-color: #5B98D2;
             }
         }
 
@@ -80,6 +91,13 @@
             text-align: left;
             display: table-cell;
             vertical-align: middle;
+           
         }
+        &:hover {
+            background-color: #5B98D2;
+        }
+        
     }
 }
+
+

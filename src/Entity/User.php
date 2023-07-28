@@ -88,10 +88,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'collaborator', targetEntity: UserSkills::class, cascade: ['all'], orphanRemoval: true)]
     private Collection $userSkills;
 
+    #[ORM\OneToMany(mappedBy: 'collaborator', targetEntity: FormationRegister::class)]
+    private Collection $formationRegisters;
+
     public function __construct()
     {
         $this->eventRegisters = new ArrayCollection();
         $this->userSkills = new ArrayCollection();
+        $this->formationRegisters = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -303,6 +307,36 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($userSkill->getCollaborator() === $this) {
                 $userSkill->setCollaborator(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, FormationRegister>
+     */
+    public function getFormationRegisters(): Collection
+    {
+        return $this->formationRegisters;
+    }
+
+    public function addFormationRegister(FormationRegister $formationRegister): static
+    {
+        if (!$this->formationRegisters->contains($formationRegister)) {
+            $this->formationRegisters->add($formationRegister);
+            $formationRegister->setCollaborator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFormationRegister(FormationRegister $formationRegister): static
+    {
+        if ($this->formationRegisters->removeElement($formationRegister)) {
+            // set the owning side to null (unless already changed)
+            if ($formationRegister->getCollaborator() === $this) {
+                $formationRegister->setCollaborator(null);
             }
         }
 

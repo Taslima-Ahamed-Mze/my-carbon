@@ -3,11 +3,7 @@
 {% block title %}Edit Contracts{% endblock %}
 
 {% block body %}
-    <h1>Edit Contracts</h1>
 
     {{ include('back/contracts/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('back_app_contracts_index') }}">back to list</a>
-
-    {{ include('back/contracts/_delete_form.html.twig') }}
 {% endblock %}

@@ -9,6 +9,7 @@
     font-size: 14px;
     display: flex;
     flex-direction: column;
+    
 
     h1 {
         color: $primary-color;
@@ -27,6 +28,7 @@
         margin-bottom: 15px;
         display: flex;
         flex-direction: column;
+        
         
         small{
             text-align: left;
@@ -147,6 +149,7 @@
 
         button {
             margin-left: auto;
+        
         }
     }
 }

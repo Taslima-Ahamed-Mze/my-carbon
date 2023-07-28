@@ -4,8 +4,10 @@ namespace App\Entity;
 
 use App\Repository\EventRegisterRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: EventRegisterRepository::class)]
+#[UniqueEntity(fields: ['collaborator_id', 'event_id'], message: 'Vous participez déja à cet événement')]
 class EventRegister
 {
     #[ORM\Id]

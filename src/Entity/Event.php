@@ -11,6 +11,7 @@ use App\Entity\Traits\BlameableTrait;
 use App\Entity\Traits\TimestampableTrait;
 
 
+
 #[ORM\Entity(repositoryClass: EventRepository::class)]
 class Event
 {
@@ -33,6 +34,8 @@ class Event
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $end_date = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $imageUrl = null;
 
     #[ORM\OneToMany(mappedBy: 'event', targetEntity: EventRegister::class)]
     private Collection $eventRegisters;
@@ -94,6 +97,18 @@ class Event
 
         return $this;
     }
+    public function getImageUrl(): ?string
+    {
+        return $this->imageUrl;
+    }
+
+    public function setImageUrl(?string $imageUrl): static
+    {
+        $this->imageUrl = $imageUrl;
+
+        return $this;
+    }
+
 
     /**
      * @return Collection<int, EventRegister>
