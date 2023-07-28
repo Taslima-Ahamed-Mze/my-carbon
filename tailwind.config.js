@@ -7,6 +7,10 @@ module.exports = {
   theme: {
     extend: {},
   },
+  plugins: [
+    require('@tailwindcss/forms'),
+    // ...
+  ],
   colors : {
     aqua: {
       100 : '#00FFFF'

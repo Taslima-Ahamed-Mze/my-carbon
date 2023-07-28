@@ -9,9 +9,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\DBAL\Types\Types;
+use Vich\UploaderBundle\Entity\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 
 #[ORM\Entity(repositoryClass: FormationRepository::class)]
+#[Vich\Uploadable]
+
 class Formation
 {
     use BlameableTrait;
@@ -36,11 +40,14 @@ class Formation
     #[ORM\OneToMany(mappedBy: 'formation', targetEntity: FormationRegister::class)]
     private Collection $formationRegisters;
 
+    #[Vich\UploadableField(mapping: 'formation', fileNameProperty: 'imageName')]
+    private ?File $imageFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $imageName = null;
+
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $videoUrl = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $imageUrl = null;
 
     #[ORM\Column(length: 255)]
     private ?string $formationUrl = null;
@@ -132,6 +139,31 @@ class Formation
 
         return $this;
     }
+    public function setImageFile(?File $imageFile = null): void
+    {
+        $this->imageFile = $imageFile;
+
+        if (null !== $imageFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
+    }
+
+    public function getImageFile(): ?File
+    {
+        return $this->imageFile;
+    }
+
+    public function setImageName(?string $imageName): void
+    {
+        $this->imageName = $imageName;
+    }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
 
     public function getVideoUrl(): ?string
     {
@@ -141,18 +173,6 @@ class Formation
     public function setVideoUrl(string $videoUrl): static
     {
         $this->videoUrl = $videoUrl;
-
-        return $this;
-    }
-
-    public function getImageUrl(): ?string
-    {
-        return $this->imageUrl;
-    }
-
-    public function setImageUrl(string $imageUrl): static
-    {
-        $this->imageUrl = $imageUrl;
 
         return $this;
     }

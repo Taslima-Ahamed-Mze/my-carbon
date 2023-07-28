@@ -12,9 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: LevelsRepository::class)]
 class Levels
 {
-    use BlameableTrait;
-    use TimestampableTrait;
-
+    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

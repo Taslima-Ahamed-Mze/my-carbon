@@ -14,15 +14,10 @@ class LevelsFixtures extends Fixture implements DependentFixtureInterface
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('fr_FR');
-        $userRepository = $manager->getRepository(User::class);
-        $users = $userRepository->findAll();
 
-
-        for ($i = 0; $i < 50; $i++) {
-            $randomUser = $users[array_rand($users)];
+        for ($i = 1; $i < 6; $i++) {
             $object = (new Levels())
-                ->setLevel($faker->numberBetween(1, 5))
-                ->setCreatedBy($randomUser);
+                ->setLevel($i);
             $manager->persist($object);
         }
         $manager->flush();
@@ -35,4 +30,3 @@ class LevelsFixtures extends Fixture implements DependentFixtureInterface
         ];
     }
 }
-

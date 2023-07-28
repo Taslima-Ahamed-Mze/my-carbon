@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New CooptationSteps{% endblock %}
+
+{% block body %}
+    <h1>Create new CooptationSteps</h1>
+
+    {{ include('cooptation_steps/_form.html.twig') }}
+
+    <a href="{{ path('app_cooptation_steps_index') }}">back to list</a>
+{% endblock %}

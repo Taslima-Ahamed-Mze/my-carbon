@@ -25,6 +25,11 @@
                 {{ form_widget(form.end_date, {'attr': {'class': 'mt-2  w-full flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-secondary'}}) }}
                 {{ form_errors(form.end_date, {'attr': {'class': 'text-sm text-red-600'}}) }}
             </div>
+            <div class="w-full">
+                {{ form_label(form.imageFile, 'Image de l\'événement', {'label_attr': {'class': 'block text-sm font-medium leading-6 text-gray-900'}}) }}
+                {{ form_widget(form.imageFile, {'attr': {'class': 'mt-2  w-full flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300 focus-within:ring-2 focus-within:ring-inset focus-within:ring-secondary'}}) }}
+                {{ form_errors(form.imageFile, {'attr': {'class': 'text-sm text-red-600'}}) }}
+            </div>
         </div>
     </div>
     <div class="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8">

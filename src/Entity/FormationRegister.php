@@ -8,14 +8,16 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: FormationRegisterRepository::class)]
 class FormationRegister
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    // #[ORM\Id]
+    // #[ORM\GeneratedValue]
+    // #[ORM\Column]
+    // private ?int $id = null;
 
+    #[ORM\Id]
     #[ORM\ManyToOne(inversedBy: 'formationRegisters')]
     private ?User $collaborator = null;
 
+    #[ORM\Id]
     #[ORM\ManyToOne(inversedBy: 'formationRegisters')]
     private ?Formation $formation = null;
 

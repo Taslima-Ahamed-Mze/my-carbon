@@ -6,6 +6,8 @@ use App\Entity\Formation;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
+
 
 class FormationType extends AbstractType
 {
@@ -14,10 +16,10 @@ class FormationType extends AbstractType
         $builder
             ->add('title')
             ->add('description')
-            ->add('createdAt')
-            ->add('updatedAt')
-            ->add('createdBy')
-            ->add('updatedBy')
+            ->add('formationUrl')
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Image de la formation',
+            ])
         ;
     }
 

@@ -19,15 +19,34 @@ class UserSkillsType extends AbstractType
                 'class' => Skills::class,
                 'multiple' => false,
                 'choice_label' => 'name',
+                'label' => 'Compétence',
                 'placeholder' => 'Sélectionner une compétence',
                 'required' => false,
+                'attr' => [
+                    'class' => 'block
+                    w-full
+                    mt-1
+                    rounded-md
+                    border-transparent
+                    focus:border-gray-500 focus:bg-white focus:ring-0'
+                ]
             ])
+
             ->add('level',EntityType::class, [
                 'class' => Levels::class,
                 'multiple' => false,
                 'choice_label' => 'level',
+                'label' => 'Niveau',
                 'placeholder' => 'Sélectionner un niveau',
                 'required' => false,
+                'attr' => [
+                    'class' => 'block
+                    w-full
+                    mt-1
+                    rounded-md
+                    border-transparent
+                    focus:border-gray-500 focus:bg-white focus:ring-0'
+                ]
             ])
         ;
     }

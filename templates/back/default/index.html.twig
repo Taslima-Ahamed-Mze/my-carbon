@@ -7,18 +7,19 @@
 
 
 {% block body %}
-	<div class="w-full flex justify-center items-center h-full">
+	<div class="w-full flex justify-around items-center h-full">
+
 		<div>
-			<div class="flex flex-1 w-full max-w-7xl bg-white my-6">
+			<div class="flex flex-1 w-full max-w-7xl bg-white my-6 h-full items-center">
 				<div class="px-8 py-6">
-					<img class="w-20 h-20 mb-6 rounded-full flex flex-1  " src="{{ vich_uploader_asset(user, 'imageFile') }}" alt="{{ user.firstname ~ " " ~ user.lastname }}">
+					<img class="w-20 h-20 mb-6 rounded-full flex" src="{{ vich_uploader_asset(user, 'imageFile') }}" alt="{{ user.firstname ~ " " ~ user.lastname }}">
 					<p class="text-xl mb-[14px] mt-auto">Hey
 						{{ user.firstname }}
 						!</p>
 					<p>Bienvenue sur ton espace personnel !</p>
 				</div>
-				<div class=" ml-20 px-8 py-6 flex flex-col" style="border-left: 1px solid black;">
-					<p class="text-center text-xl mb-6">Compétences</p>
+				<div class=" ml-20 px-8 py-6 flex flex-col" >
+					<p class="text-xl mb-6">Top compétences</p>
 					{% if user.userSkills %}
 						<div class="w-[200px]">
 
@@ -58,6 +59,7 @@
 				</div>
 				<div class="flex">
 					<div class="pl-[24px] w-[50%]">
+
 						{% for formation in formations %}
 							<div class="flex w-full mb-[35px]">
 								<img src="{{ asset('build/images/formation-red.png')}}" class="w-8 h-7 mr-[20px]" alt="">
@@ -78,6 +80,16 @@
 				</div>
 			</div>
 		</div>
+		<div class="h-fit">
+			<div class="w-[420px] self-center">
+				{{ render_chart(chart) }}
+
+			</div>
+			<div class="w-[420px] self-center bg-white h-full">
+
+			</div>
+		</div>
+
 
 	</div>
 {% endblock %}
