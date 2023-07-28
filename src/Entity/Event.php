@@ -37,10 +37,11 @@ class Event
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $end_date = null;
+
     #[Vich\UploadableField(mapping: 'event', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
 
-    #[ORM\Column(nullable: true)]
+    #[ORM\Column(length:255, nullable: true)]
     private ?string $imageName = null;
 
     #[ORM\OneToMany(mappedBy: 'event', targetEntity: EventRegister::class)]
