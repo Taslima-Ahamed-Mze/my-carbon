@@ -88,7 +88,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'collaborator', targetEntity: UserSkills::class, cascade: ['all'], orphanRemoval: true)]
     private Collection $userSkills;
 
-    #[ORM\OneToMany(mappedBy: 'collaborator', targetEntity: FormationRegister::class)]
+    #[ORM\OneToMany(mappedBy: 'collaborator', targetEntity: FormationRegister::class, cascade: ['all'], orphanRemoval: true)]
     private Collection $formationRegisters;
 
     #[ORM\Column(nullable: true)]

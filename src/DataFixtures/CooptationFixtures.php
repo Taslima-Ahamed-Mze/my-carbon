@@ -26,7 +26,7 @@ class CooptationFixtures extends Fixture implements DependentFixtureInterface
                 ->setEmail($faker->email())
                 ->setLastname($faker->lastName())
                 ->setFirstname($faker->firstName())
-                ->setCvPath($faker->filePath())
+                ->setCvName($faker->filePath())
                 ->setStatus('En cours')
                 ->setCreatedBy($randomUser);
             $manager->persist($object);
