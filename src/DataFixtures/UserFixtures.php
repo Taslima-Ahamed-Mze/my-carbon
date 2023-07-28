@@ -31,6 +31,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setRoles(['ROLE_COLLABORATOR'])
             ->setPassword($pwd)
             ->setProfile($randomProfileUser)
+            ->setPoints(1)
         ;
         $manager->persist($object);
 
@@ -41,6 +42,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setRoles(['ROLE_COM'])
             ->setPassword($pwd)
             ->setProfile($randomProfileUser)
+
         ;
         $manager->persist($object);
 
@@ -51,6 +53,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setRoles(['ROLE_COMMERCIAL'])
             ->setPassword($pwd)
             ->setProfile($randomProfileUser)
+
         ;
         $manager->persist($object);
 
@@ -61,6 +64,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setRoles(['ROLE_RH'])
             ->setPassword($pwd)
             ->setProfile($randomProfileUser)
+
         ;
         $manager->persist($object);
 
@@ -71,6 +75,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setRoles(['ROLE_ADMIN'])
             ->setPassword($pwd)
             ->setProfile($randomProfileAdmin)
+            ->setPoints(1)
         ;
 
         $manager->persist($object);

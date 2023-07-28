@@ -91,7 +91,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'collaborator', targetEntity: FormationRegister::class)]
     private Collection $formationRegisters;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
     private ?int $Points = null;
 
     public function __construct()
