@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Client;
+use App\Entity\Cooptation;
 use App\Entity\Event;
 use App\Entity\Formation;
 use App\Entity\Invoice;
@@ -29,53 +30,6 @@ class Mailer
         $this->assetPackage = $assetPackage;
     }
 
-    public function sendRegistrationTokenEmail(User $user): void
-    {
-        $htmlContent = $this->twig->render('back/email/send_token.html.twig', [
-            'user' => $user
-        ]);
-
-        $email = new SendSmtpEmail([
-            'to' => [
-                ['email' => $user->getEmail()]
-            ],
-            'subject' => 'Votre code de vérification',
-            'htmlContent' => $htmlContent,
-            'sender' => ['email' => 'devisio-challenge@gmail.com']
-        ]);
-
-        try {
-            if ($user->getSentEmailCounter() >= 3)
-                throw new \Exception('Limite d\'envois de mail dépassée');
-
-            $this->sendinblueApi->sendTransacEmail($email);
-            $user->setSentEmailCounter($user->getSentEmailCounter() + 1);
-        } catch (\Exception $e) {
-            throw new \Exception('Failed to send email: ' . $e->getMessage());
-        }
-    }
-
-    public function sendRegistrationConfirmationEmail(User $user): void
-    {
-        $htmlContent = $this->twig->render('back/email/send_confirmation.html.twig', [
-            'user' => $user
-        ]);
-
-        $email = new SendSmtpEmail([
-            'to' => [
-                ['email' => $user->getEmail()]
-            ],
-            'subject' => 'Confirmation d\'inscription',
-            'htmlContent' => $htmlContent,
-            'sender' => ['email' => 'devisio-challenge@gmail.com']
-        ]);
-
-        try {
-            $this->sendinblueApi->sendTransacEmail($email);
-        } catch (\Exception $e) {
-            throw new \Exception('Failed to send email: ' . $e->getMessage());
-        }
-    }
 
     public function sendResetPasswordEmail(User $user, string $password): void
     {
@@ -99,69 +53,8 @@ class Mailer
         }
     }
 
-    public function sendInvoiceEmail(User $user, Client $client, Invoice $invoice): void
-    {
 
-        $filePath = $this->assetPackage->getUrl('download/pdf/invoices/' . $invoice->getId() . '.pdf');
-        $fileName = basename($filePath);
-        $attachment = new SendSmtpEmailAttachment();
-        $attachment->setName($fileName);
-        $attachment->setContent(base64_encode(file_get_contents($filePath)));
 
-        $htmlContent = $this->twig->render('back/email/send_invoice.html.twig', [
-            'invoice' => $invoice,
-            'client' => $client,
-            'user' => $user
-        ]);
-
-        $email = new SendSmtpEmail([
-            'to' => [
-                ['email' => $client->getEmail()]
-            ],
-            'subject' => 'Votre facture',
-            'htmlContent' => $htmlContent,
-            'sender' => ['email' => $user->getEmail()],
-            'attachment' => [$attachment]
-        ]);
-
-        try {
-            $this->sendinblueApi->sendTransacEmail($email);
-        } catch (\Exception $e) {
-            throw new \Exception('Failed to send email: ' . $e->getMessage());
-        }
-    }
-
-    public function sendQuotationEmail(User $user, Client $client, Quotation $quotation): void
-    {
-
-        $filePath = $this->assetPackage->getUrl('download/pdf/quotations/' . $quotation->getId() . '.pdf');
-        $fileName = basename($filePath);
-        $attachment = new SendSmtpEmailAttachment();
-        $attachment->setName($fileName);
-        $attachment->setContent(base64_encode(file_get_contents($filePath)));
-
-        $htmlContent = $this->twig->render('back/email/send_quotation.html.twig', [
-            'quotation' => $quotation,
-            'client' => $client,
-            'user' => $user
-        ]);
-
-        $email = new SendSmtpEmail([
-            'to' => [
-                ['email' => $client->getEmail()]
-            ],
-            'subject' => 'Votre devis',
-            'htmlContent' => $htmlContent,
-            'sender' => ['email' => $user->getEmail()],
-            'attachment' => [$attachment]
-        ]);
-
-        try {
-            $this->sendinblueApi->sendTransacEmail($email);
-        } catch (\Exception $e) {
-            throw new \Exception('Failed to send email: ' . $e->getMessage());
-        }
-    }
 
     public function sendEmailEvent(User $user, Event $event): void
     {
@@ -197,6 +90,50 @@ class Mailer
                 ['email' => 'bastiendikiadi@outlook.fr']
             ],
             'subject' => 'Formation',
+            'htmlContent' => $htmlContent,
+            'sender' => ['email' => 'test@test.fr'],
+        ]);
+
+        try {
+            $this->sendinblueApi->sendTransacEmail($email);
+        } catch (\Exception $e) {
+            throw new \Exception('Failed to send email: ' . $e->getMessage());
+        }
+    }
+
+    public function sendMailSuccessCoptationCollaborator(User $user, Cooptation $cooptation): void
+    {
+        $htmlContent = $this->twig->render('back/email/cooptationSuccessCollaborator.html.twig', [
+            'user' => $user,
+            'cooptation' => $cooptation,
+        ]);
+        $email = new SendSmtpEmail([
+            'to' => [
+                ['email' => 'ahamedmzetaslima@gmail.com']
+            ],
+            'subject' => 'Cooptation acceptée',
+            'htmlContent' => $htmlContent,
+            'sender' => ['email' => 'test@test.fr'],
+        ]);
+
+        try {
+            $this->sendinblueApi->sendTransacEmail($email);
+        } catch (\Exception $e) {
+            throw new \Exception('Failed to send email: ' . $e->getMessage());
+        }
+    }
+
+    public function sendMailSuccessCoptationCandidate(Cooptation $cooptation): void
+    {
+        $htmlContent = $this->twig->render('back/email/cooptationSuccessCandidate.html.twig', [
+            'cooptation' => $cooptation,
+        ]);
+        $emailCandidate = $cooptation->getEmail();
+        $email = new SendSmtpEmail([
+            'to' => [
+                ['email' => $emailCandidate]
+            ],
+            'subject' => 'Candidature acceptée',
             'htmlContent' => $htmlContent,
             'sender' => ['email' => 'test@test.fr'],
         ]);

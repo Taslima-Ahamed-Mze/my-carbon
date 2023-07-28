@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Cooptation;
 use App\Entity\CooptationSteps;
+use App\Entity\StepCooptation;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +39,20 @@ class CooptationStepsRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function hasPreviousSteps(Cooptation $cooptation, StepCooptation $stepCooptation): bool
+    {
+        $lastCooptationStep = $this->createQueryBuilder('cs')
+            ->where('cs.cooptation = :cooptation')
+            ->setParameter('cooptation', $cooptation)
+            ->orderBy('cs.stepCooptation', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+        $lastStepCooptation = $lastCooptationStep?->getStepCooptation();
+        return $lastCooptationStep !== null && $lastStepCooptation->getId() === ($stepCooptation->getId() - 1);
+
     }
 
 //    /**
