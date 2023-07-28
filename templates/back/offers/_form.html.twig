@@ -1,4 +1,22 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<div class="h-[90%]">
+	<a class="devisio-btn devisio-btn-back-to-list" href="{{ back_to_list_path|default(path('back_app_offers_index')) }}">
+		Retourner à la liste
+	</a>
+	<h1 class="text-center text-xl font-bold">
+    {% if form.vars.value.id is not null %}
+        Modifier une offre
+    {% else %}
+      Ajouter une offre
+    {% endif %}
+    </h1>
+	<div class="flex justify-center items-center h-full">
+		{{ form_start(form, {'attr': {'class': 'w-[40%] py-9 px-9 rounded bg-white', 'style': 'border: 1px solid white;'}}) }}
+
+		{{ form_widget(form) }}
+		<button class="bg-[#5B98D2] hover:bg-blue-700 text-white font-bold py-4 px-4 rounded">
+			{{ button_label|default('Sauvegarder') }}
+		</button>
+		{{ form_end(form) }}
+	</div>
+
+</div>
