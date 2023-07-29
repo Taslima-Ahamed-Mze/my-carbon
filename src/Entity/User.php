@@ -92,7 +92,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private Collection $formationRegisters;
 
     #[ORM\Column(nullable: true)]
-    private ?int $Points = null;
+    private ?int $points = 0;
 
     public function __construct()
     {
@@ -348,12 +348,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getPoints(): ?int
     {
-        return $this->Points;
+        return $this->points;
     }
 
-    public function setPoints(int $Points): static
+    public function setPoints(int $points): static
     {
-        $this->Points = $Points;
+        $this->points = $points;
 
         return $this;
     }

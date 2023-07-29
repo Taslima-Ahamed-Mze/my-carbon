@@ -12,13 +12,13 @@
 		<div>
 			<div class="flex flex-1 w-full max-w-7xl bg-white my-6 h-full items-center">
 				<div class="px-8 py-6">
-					<img class="w-20 h-20 mb-6 rounded-full flex" src="{{ vich_uploader_asset(user, 'imageFile') }}" alt="{{ user.firstname ~ " " ~ user.lastname }}">
+					<img class="w-20 h-20 mb-6 rounded-full" src="{{ vich_uploader_asset(user, 'imageFile') }}" alt="{{ user.firstname ~ " " ~ user.lastname }}">
 					<p class="text-xl mb-[14px] mt-auto">Hey
 						{{ user.firstname }}
 						!</p>
 					<p>Bienvenue sur ton espace personnel !</p>
 				</div>
-				<div class=" ml-20 px-8 py-6 flex flex-col" >
+				<div class=" ml-20 px-8 py-6 flex flex-col">
 					<p class="text-xl mb-6">Top compétences</p>
 					{% if user.userSkills %}
 						<div class="w-[200px]">
@@ -80,16 +80,32 @@
 				</div>
 			</div>
 		</div>
-		<div class="h-fit">
-			<div class="w-[420px] self-center">
+		<div class="h-[717px]">
+			<div class="w-[400px] self-center mb-[20px]">
 				{{ render_chart(chart) }}
 
 			</div>
-			<div class="w-[420px] self-center bg-white h-full">
+			<div class="h-[298px] w-full bg-white flex flex-col justify-center items-center">
+				<p class="font-bold text-2xl mb-[10px]">{{ user.points }}
+					Points Carbon</p>
+
+				{% if user.points < 5 %}
+					<div>
+						<iframe src="https://giphy.com/embed/pnAnN3Y6IzIngnVoPE" class="giphy-embed w-20 h-20" allowfullscreen></iframe>
+					</div>
+				{% elseif user.points >= 10 %}
+					<div>
+						<iframe src="https://giphy.com/embed/bE18oZpogCk6ELu8w1" frameborder="0" class="giphy-embed w-40 h-40" allowfullscreen></iframe>
+					</div>
+
+				{% else %}
+					<div>
+						<iframe src="https://giphy.com/embed/ewh4ipgPw1bBVj4HI5" frameborder="0" class="giphy-embed w-20 h-20" allowfullscreen></iframe>
+					</div>
+				{% endif %}
+
 
 			</div>
 		</div>
-
-
 	</div>
-{% endblock %}
+</div>{% endblock %}
