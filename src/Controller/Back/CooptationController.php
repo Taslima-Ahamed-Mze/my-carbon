@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route('/cooptation')]
 class CooptationController extends AbstractController
@@ -40,7 +41,12 @@ class CooptationController extends AbstractController
             $entityManager->persist($cooptation);
             $entityManager->flush();
 
-            return $this->redirectToRoute('back_app_cooptation_index', [], Response::HTTP_SEE_OTHER);
+            if(!$this->isGranted('ROLE_RH')){
+                return $this->redirectToRoute('back_default_index', [], Response::HTTP_SEE_OTHER);
+            }else{
+                return $this->redirectToRoute('back_app_cooptation_index', [], Response::HTTP_SEE_OTHER);
+            }
+
         }
 
         return $this->renderForm('back/cooptation/new.html.twig', [
@@ -60,15 +66,6 @@ class CooptationController extends AbstractController
     #[Route('/{id}/edit', name: 'app_cooptation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Cooptation $cooptation, EntityManagerInterface $entityManager, StepCooptationRepository $stepCooptationRepository, CooptationStepsRepository $cooptationStepsRepository): Response
     {
-        /*$form = $this->createForm(CooptationStepsType::class, $cooptation);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('back_app_cooptation_index', [], Response::HTTP_SEE_OTHER);
-        }*/
-
         $displayStatus = [];
 
         $allStepCooptations = $stepCooptationRepository->findAll();
@@ -86,10 +83,6 @@ class CooptationController extends AbstractController
             }
         }
 
-        //dd($allStepCooptations);
-
-
-
 
         return $this->render('back/cooptation/edit.html.twig', [
             'stepCooptations' => $allStepCooptations,
@@ -98,10 +91,7 @@ class CooptationController extends AbstractController
 
         ]);
 
-        /*return $this->renderForm('back/cooptation/edit.html.twig', [
-            'cooptation' => $cooptation,
-            'form' => $form,
-        ]);*/
+
     }
 
     #[Route('/{id}', name: 'app_cooptation_delete', methods: ['POST'])]

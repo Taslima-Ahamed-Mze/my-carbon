@@ -65,7 +65,7 @@ class Mailer
 
         $email = new SendSmtpEmail([
             'to' => [
-                ['email' => 'bastiendikiadi@outlook.fr']
+                ['email' => 'ahamedmzetaslima@gmail.com']
             ],
             'subject' => 'Evenement',
             'htmlContent' => $htmlContent,
@@ -87,7 +87,7 @@ class Mailer
         ]);
         $email = new SendSmtpEmail([
             'to' => [
-                ['email' => 'bastiendikiadi@outlook.fr']
+                ['email' => 'ahamedmzetaslima@gmail.com']
             ],
             'subject' => 'Formation',
             'htmlContent' => $htmlContent,

@@ -97,6 +97,7 @@ class UserType extends AbstractType
             ])
             ->add('password', PasswordType::class, [
                 'label' => 'Mot de passe',
+                'required' => false,
                 'attr' => [
                     'class' => ' mt-1
                     block
@@ -107,6 +108,7 @@ class UserType extends AbstractType
                     focus:border-gray-500 focus:bg-white focus:ring-0'
                 ]
             ])
+
 
         ;
 

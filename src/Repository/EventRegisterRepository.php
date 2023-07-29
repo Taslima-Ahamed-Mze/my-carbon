@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Event;
 use App\Entity\EventRegister;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +39,12 @@ class EventRegisterRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function isUserRegistered(Event $event, User $user): bool
+    {
+        $eventRegister = $this->findOneBy(['event' => $event, 'collaborator' => $user]);
+        return $eventRegister !== null;
     }
 
 //    /**

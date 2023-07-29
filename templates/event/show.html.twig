@@ -36,10 +36,16 @@
 
 			</p> #}
 
-	
-			<button onclick="window.location.href='{{path('back_app_event_mail', {'id': event.id})}}'" class="bg-[#5B98D2] hover:bg-blue-700 text-white font-bold py-4 px-4 rounded">
-				Je m'inscris !
-			</button>
+			{% if isRegistered %}
+				<button onclick="window.location.href='{{ path('back_app_event_unregister', {'id': event.id}) }}'" class="bg-red-500 hover:bg-red-700 text-white font-bold py-4 px-4 rounded">
+					Je me désinscris
+				</button>
+			{% else %}
+				<button onclick="window.location.href='{{ path('back_app_event_register', {'id': event.id}) }}'" class="bg-[#5B98D2] hover:bg-blue-700 text-white font-bold py-4 px-4 rounded">
+					Je m'inscris !
+				</button>
+			{% endif %}
+
 		</div>
 
 	</section>

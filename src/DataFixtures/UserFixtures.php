@@ -19,9 +19,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $profileRepository = $manager->getRepository(Profile::class);
         $profiles = $profileRepository->findAll();
 
-        $randomProfileUser = $profiles[array_rand($profiles)];
-        $randomProfileAdmin = $profiles[array_rand($profiles)];
-
 
 
         $object = (new User())
@@ -30,7 +27,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setFirstname($faker->firstName())
             ->setRoles(['ROLE_COLLABORATOR'])
             ->setPassword($pwd)
-            ->setProfile($randomProfileUser)
+            ->setProfile($profiles[0])
             ->setPoints(1)
         ;
         $manager->persist($object);
@@ -41,7 +38,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setFirstname($faker->firstName())
             ->setRoles(['ROLE_COM'])
             ->setPassword($pwd)
-            ->setProfile($randomProfileUser)
+            ->setProfile($profiles[1])
 
         ;
         $manager->persist($object);
@@ -52,7 +49,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setFirstname($faker->firstName())
             ->setRoles(['ROLE_COMMERCIAL'])
             ->setPassword($pwd)
-            ->setProfile($randomProfileUser)
+            ->setProfile($profiles[3])
 
         ;
         $manager->persist($object);
@@ -63,7 +60,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setFirstname($faker->firstName())
             ->setRoles(['ROLE_RH'])
             ->setPassword($pwd)
-            ->setProfile($randomProfileUser)
+            ->setProfile($profiles[2])
 
         ;
         $manager->persist($object);
@@ -74,7 +71,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setFirstname($faker->firstName())
             ->setRoles(['ROLE_ADMIN'])
             ->setPassword($pwd)
-            ->setProfile($randomProfileAdmin)
+            ->setProfile($profiles[4])
             ->setPoints(1)
         ;
 

@@ -3,8 +3,11 @@
 namespace App\Controller\Back;
 
 use App\Entity\Event;
+use App\Entity\EventRegister;
 use App\Form\EventType;
+use App\Repository\EventRegisterRepository;
 use App\Repository\EventRepository;
+use App\Repository\UserRepository;
 use App\Service\Mailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -15,10 +18,21 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
+
 
 #[Route('/event')]
 class EventController extends AbstractController
 {
+    private Mailer $mailer;
+    private Security $security;
+
+    public function __construct(Mailer $mailer, Security $security)
+    {
+        $this->mailer = $mailer;
+        $this->security = $security;
+    }
+
     #[Route('/', name: 'app_event_index', methods: ['GET'])]
     public function index(EventRepository $eventRepository, Request $request, PaginatorInterface $paginator, FlashyNotifier $flashy): Response
     {
@@ -58,10 +72,13 @@ class EventController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_event_show', methods: ['GET'])]
-    public function show(Event $event): Response
+    public function show(Event $event, EventRegisterRepository $eventRegisterRepository, Security $security ): Response
     {
+
+        $isRegistered = $eventRegisterRepository->isUserRegistered($event, $security->getUser());
         return $this->render('event/show.html.twig', [
             'event' => $event,
+            'isRegistered' => $isRegistered
         ]);
     }
 
@@ -94,11 +111,40 @@ class EventController extends AbstractController
         return $this->redirectToRoute('back_app_event_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/email', name: 'app_event_email', methods: ['GET'])]
-    public function sendEmail(Mailer $mailer): Response
+    #[Route('/{id}/register', name: 'app_event_register', methods: ['GET'])]
+    public function registerEvent(Event $event, EventRegisterRepository $eventRegisterRepository, UserRepository $userRepository): Response
     {
-        $mailer->sendEmail();
-        return $this->redirectToRoute('back_app_event_index', [], Response::HTTP_SEE_OTHER);
+        $collaborator = $this->security->getUser();
+        $eventRegister = new EventRegister();
+        $eventRegister->setCollaborator($collaborator);
+        $eventRegister->setEvent($event);
+        $eventRegisterRepository->save($eventRegister, true);
+
+        $collaborator->setPoints($collaborator->getPoints() + 1);
+        $userRepository->save($collaborator, true);
+
+        $this->mailer->sendEmailEvent($collaborator, $event);
+
+        return $this->redirectToRoute('back_app_event_show', ['id' => $event->getId()], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/{id}/unregister', name: 'app_event_unregister', methods: ['GET'])]
+    public function unregisterEvent(Event $event, EventRegisterRepository $eventRegisterRepository, UserRepository $userRepository): Response
+    {
+        $collaborator = $this->security->getUser();
+        $eventRegister = $eventRegisterRepository->findOneBy(['collaborator' => $collaborator, 'event' => $event]);
+
+        if ($eventRegister) {
+            $eventRegisterRepository->remove($eventRegister, true);
+            $collaborator->setPoints($collaborator->getPoints() - 1);
+            $userRepository->save($collaborator, true);
+        }
+
+        return $this->redirectToRoute('back_app_event_show', ['id' => $event->getId()], Response::HTTP_SEE_OTHER);
+    }
+
+
+
+
 
 }

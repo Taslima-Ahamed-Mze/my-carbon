@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230729103557 extends AbstractMigration
+final class Version20230729165542 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -40,7 +40,7 @@ final class Version20230729103557 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_950A97330098C8C ON contracts (collaborator_id)');
         $this->addSql('CREATE INDEX IDX_950A973DE12AB56 ON contracts (created_by)');
         $this->addSql('CREATE INDEX IDX_950A97316FE72E1 ON contracts (updated_by)');
-        $this->addSql('CREATE TABLE cooptation (id INT NOT NULL, created_by INT DEFAULT NULL, updated_by INT DEFAULT NULL, firstname VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, status VARCHAR(255) DEFAULT NULL, cv_name VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE cooptation (id INT NOT NULL, created_by INT DEFAULT NULL, updated_by INT DEFAULT NULL, firstname VARCHAR(255) NOT NULL, lastname VARCHAR(255) NOT NULL, email VARCHAR(255) NOT NULL, status VARCHAR(255) DEFAULT NULL, cv_name VARCHAR(255) DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_60F61635DE12AB56 ON cooptation (created_by)');
         $this->addSql('CREATE INDEX IDX_60F6163516FE72E1 ON cooptation (updated_by)');
         $this->addSql('CREATE TABLE cooptation_steps (id INT NOT NULL, cooptation_id INT NOT NULL, step_cooptation_id INT NOT NULL, created_by INT DEFAULT NULL, updated_by INT DEFAULT NULL, status VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
