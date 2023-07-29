@@ -7,6 +7,7 @@ use App\Form\CooptationStepsType;
 use App\Repository\CooptationRepository;
 use App\Repository\CooptationStepsRepository;
 use App\Repository\StepCooptationRepository;
+use App\Repository\UserRepository;
 use App\Service\Mailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -32,7 +33,8 @@ class CooptationStepsController extends AbstractController
         CooptationStepsRepository $cooptationStepsRepository,
         CooptationRepository $cooptationRepository,
         StepCooptationRepository $stepCooptationRepository,
-        SessionInterface $session
+        SessionInterface $session,
+        UserRepository $userRepository
     ): Response
     {
         $availableStepCooptations = $stepCooptationRepository->findAll();
@@ -51,7 +53,7 @@ class CooptationStepsController extends AbstractController
 
         if ($stepCooptationId == $validStepCooptations[0] || $cooptationStepsRepository->hasPreviousSteps($cooptation, $stepCooptation) ) {
 
-                $cooptationStep = new CooptationSteps();
+            $cooptationStep = new CooptationSteps();
             $cooptationStep->setCooptation($cooptation);
             $cooptationStep->setStepCooptation($stepCooptation);
             $cooptationStep->setStatus($status);
@@ -60,6 +62,10 @@ class CooptationStepsController extends AbstractController
             if($stepCooptationId == end($validStepCooptations) && $status == 'validated'){
                 $this->mailer->sendMailSuccessCoptationCollaborator($collaborator, $cooptation);
                 $this->mailer->sendMailSuccessCoptationCandidate($cooptation);
+                $collaborator->setPoints($collaborator->getPoints() + 10);
+                $userRepository->save($collaborator, true);
+
+
 
             }
         } else {

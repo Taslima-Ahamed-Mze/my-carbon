@@ -1,13 +1,20 @@
 {% extends 'base.html.twig' %}
+{% import 'components/components.html.twig' as components%}
 
-{% block title %}Cooptation index{% endblock %}
+
+{% block title %}
+Cooptation index
+{% endblock %}
 
 {% block body %}
-    <h1>Cooptation index</h1>
+<div class="list-wrapper">
+    <a href="{{ path('back_app_cooptation_new') }}" class="devisio-btn devisio-btn-add">
+            Nouvelle cooptation
+        </a>
 
     <table class="table">
         <thead>
-            <tr>
+           <tr>
                 <th>Id</th>
                 <th>Firstname</th>
                 <th>Lastname</th>
@@ -26,21 +33,15 @@
                 <td>{{ cooptation.firstname }}</td>
                 <td>{{ cooptation.lastname }}</td>
                 <td>{{ cooptation.email }}</td>
-                <td>{{ cooptation.cvPath }}</td>
+                <td>{{ cooptation.cvName }}</td>
                 <td>{{ cooptation.status }}</td>
                 <td>{{ cooptation.createdAt ? cooptation.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ cooptation.updatedAt ? cooptation.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('back_app_cooptation_edit', {'id': cooptation.id}) }}">edit</a>
-                </td>
+                <td>{{ components.table_actions('cooptation', cooptation) }}</td>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
+       
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('back_app_cooptation_new') }}">Create new</a>
+ </div>
 {% endblock %}

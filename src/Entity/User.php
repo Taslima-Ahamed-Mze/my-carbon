@@ -88,11 +88,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'collaborator', targetEntity: UserSkills::class, cascade: ['all'], orphanRemoval: true)]
     private Collection $userSkills;
 
-    #[ORM\OneToMany(mappedBy: 'collaborator', targetEntity: FormationRegister::class)]
+    #[ORM\OneToMany(mappedBy: 'collaborator', targetEntity: FormationRegister::class, cascade: ['all'], orphanRemoval: true)]
     private Collection $formationRegisters;
 
     #[ORM\Column(nullable: true)]
-    private ?int $Points = null;
+    private ?int $points = 0;
 
     public function __construct()
     {
@@ -348,12 +348,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getPoints(): ?int
     {
-        return $this->Points;
+        return $this->points;
     }
 
-    public function setPoints(int $Points): static
+    public function setPoints(int $points): static
     {
-        $this->Points = $Points;
+        $this->points = $points;
 
         return $this;
     }

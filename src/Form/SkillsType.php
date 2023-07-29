@@ -15,7 +15,8 @@ class SkillsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, [
+            ->add('name' , TextType::class, [
+                'label' => 'Nom',
                 'attr' => [
                     'class' => ' mt-1
                     block
@@ -26,7 +27,7 @@ class SkillsType extends AbstractType
                     bg-gray-100
                     '
                 ]
-            ] )
+            ])
             
           
           

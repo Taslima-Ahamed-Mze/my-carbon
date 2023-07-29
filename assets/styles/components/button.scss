@@ -10,7 +10,7 @@
   width: fit-content;
   display: flex;
   align-items: center;
-  background-color: $primary-color;
+  background-color: #5B98D2;
   color: white;
 
   &:hover {
@@ -35,8 +35,8 @@
   }
 
   &-primary {
-    background-color: $primary-color;
-    color: #5B98D2;
+    background-color: #5B98D2;
+    color: #fff;
   }
 
   &-cancel {
