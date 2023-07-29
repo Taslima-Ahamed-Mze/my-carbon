@@ -45,7 +45,7 @@ class Cooptation
     #[Vich\UploadableField(mapping: 'cooptations', fileNameProperty: 'cvName')]
     private ?File $cvFile = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $cvName = null ;
 
     public function __construct()

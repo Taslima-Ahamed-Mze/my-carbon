@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichFileType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class CooptationType extends AbstractType
 {
@@ -16,7 +17,7 @@ class CooptationType extends AbstractType
             ->add('firstname')
             ->add('lastname')
             ->add('email')
-            ->add('cvFile', VichFileType::class, [
+            ->add('cvFile', VichImageType::class, [
                 'label' => 'CV',
             ])
 

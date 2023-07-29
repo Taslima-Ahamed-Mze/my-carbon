@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route('/cooptation')]
 class CooptationController extends AbstractController
@@ -40,7 +41,12 @@ class CooptationController extends AbstractController
             $entityManager->persist($cooptation);
             $entityManager->flush();
 
-            return $this->redirectToRoute('back_app_cooptation_index', [], Response::HTTP_SEE_OTHER);
+            if(!$this->isGranted('ROLE_RH')){
+                return $this->redirectToRoute('back_default_index', [], Response::HTTP_SEE_OTHER);
+            }else{
+                return $this->redirectToRoute('back_app_cooptation_index', [], Response::HTTP_SEE_OTHER);
+            }
+
         }
 
         return $this->renderForm('back/cooptation/new.html.twig', [
