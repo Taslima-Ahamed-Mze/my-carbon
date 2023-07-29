@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Event
+{% block title %}Formation
 {% endblock %}
 
 {% block body %}
@@ -36,11 +36,18 @@
                             <span>({{ formation.skill.name }})</span>
 
 			</p>
-            
 
-			<button onclick="window.location.href='{{path('back_app_formation_mail', {'id': formation.id})}}'" class="bg-[#5B98D2] hover:bg-blue-700 text-white font-bold py-4 px-4 rounded">
-				Je m'inscris !
-			</button>
+			{% if isRegistered %}
+				<button onclick="window.location.href='{{ path('back_app_formation_unregister', {'id': formation.id}) }}'" class="bg-red-500 hover:bg-red-700 text-white font-bold py-4 px-4 rounded">
+					Je me désinscris
+				</button>
+			{% else %}
+				<button onclick="window.location.href='{{ path('back_app_formation_register', {'id': formation.id}) }}'" class="bg-[#5B98D2] hover:bg-blue-700 text-white font-bold py-4 px-4 rounded">
+					Je m'inscris !
+				</button>
+			{% endif %}
+
+
 		</div>
 
 	</section>

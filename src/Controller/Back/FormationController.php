@@ -3,19 +3,31 @@
 namespace App\Controller\Back;
 
 use App\Entity\Formation;
+use App\Entity\FormationRegister;
 use App\Form\FormationType;
+use App\Repository\FormationRegisterRepository;
 use App\Repository\FormationRepository;
+use App\Repository\UserRepository;
+use App\Service\Mailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 
 #[Route('/formation')]
 class FormationController extends AbstractController
 {
+    private Mailer $mailer;
+
+    public function __construct(Mailer $mailer)
+    {
+        $this->mailer = $mailer;
+    }
+
     #[Route('/', name: 'app_formation_index', methods: ['GET'])]
     public function index(FormationRepository $formationRepository, Request $request, PaginatorInterface $paginator): Response
     {
@@ -52,10 +64,14 @@ class FormationController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_formation_show', methods: ['GET'])]
-    public function show(Formation $formation): Response
+    public function show(Formation $formation, FormationRegisterRepository $formationRegisterRepository, Security $security): Response
     {
+        $collaborator = $security->getUser();
+        $isRegistered = $formationRegisterRepository->isUserRegistered($formation, $collaborator);
+
         return $this->render('formation/show.html.twig', [
             'formation' => $formation,
+            'isRegistered' => $isRegistered
         ]);
     }
 
@@ -86,5 +102,37 @@ class FormationController extends AbstractController
         }
 
         return $this->redirectToRoute('app_formation_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/register', name: 'app_formation_register', methods: ['GET'])]
+    public function registerFormation(Formation $formation, FormationRegisterRepository $formationRegisterRepository, Security $security, UserRepository $userRepository): Response
+    {
+        $collaborator = $security->getUser();
+        $formationRegister = new FormationRegister();
+        $formationRegister->setCollaborator($collaborator);
+        $formationRegister->setFormation($formation);
+        $formationRegisterRepository->save($formationRegister, true);
+
+        $collaborator->setPoints($collaborator->getPoints() + 1);
+        $userRepository->save($collaborator, true);
+
+        $this->mailer->sendMailFormation($security->getUser(), $formation);
+
+        return $this->redirectToRoute('back_app_formation_show', ['id' => $formation->getId()], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/unregister', name: 'app_formation_unregister', methods: ['GET'])]
+    public function unregisterFormation(Formation $formation, FormationRegisterRepository $formationRegisterRepository, Security $security, UserRepository $userRepository): Response
+    {
+        $collaborator = $security->getUser();
+        $formationRegister = $formationRegisterRepository->findOneBy(['collaborator' => $collaborator , 'formation' => $formation]);
+
+        if ($formationRegister) {
+            $formationRegisterRepository->remove($formationRegister, true);
+            $collaborator->setPoints($collaborator->getPoints() - 1);
+            $userRepository->save($collaborator, true);
+        }
+
+        return $this->redirectToRoute('back_app_formation_show', ['id' => $formation->getId()], Response::HTTP_SEE_OTHER);
     }
 }

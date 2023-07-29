@@ -38,6 +38,7 @@ class UserController extends AbstractController
         $profile = $form->get('profile')->getData();
 
        if ($form->isSubmitted() && $form->isValid()) {
+           //dd($request);
            switch ($profile->getName()){
                 case 'Collaborateur':
                     $user->setRoles(['ROLE_COLLABORATOR']);
@@ -95,9 +96,7 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ($user->getPlainPassword()) {
-                $user->setPassword($user->getPlainPassword());
-            }
+
             $userRepository->save($user, true);
             return $this->redirectToRoute(
                 'back_app_user_index',

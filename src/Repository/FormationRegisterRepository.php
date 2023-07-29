@@ -2,7 +2,9 @@
 
 namespace App\Repository;
 
+use App\Entity\Formation;
 use App\Entity\FormationRegister;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -38,6 +40,12 @@ class FormationRegisterRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function isUserRegistered(Formation $formation, User $user): bool
+    {
+        $formationRegister = $this->findOneBy(['formation' => $formation, 'collaborator' => $user]);
+        return $formationRegister !== null;
     }
 
 //    /**

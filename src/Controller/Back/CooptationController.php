@@ -66,15 +66,6 @@ class CooptationController extends AbstractController
     #[Route('/{id}/edit', name: 'app_cooptation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Cooptation $cooptation, EntityManagerInterface $entityManager, StepCooptationRepository $stepCooptationRepository, CooptationStepsRepository $cooptationStepsRepository): Response
     {
-        /*$form = $this->createForm(CooptationStepsType::class, $cooptation);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('back_app_cooptation_index', [], Response::HTTP_SEE_OTHER);
-        }*/
-
         $displayStatus = [];
 
         $allStepCooptations = $stepCooptationRepository->findAll();
@@ -92,10 +83,6 @@ class CooptationController extends AbstractController
             }
         }
 
-        //dd($allStepCooptations);
-
-
-
 
         return $this->render('back/cooptation/edit.html.twig', [
             'stepCooptations' => $allStepCooptations,
@@ -104,10 +91,7 @@ class CooptationController extends AbstractController
 
         ]);
 
-        /*return $this->renderForm('back/cooptation/edit.html.twig', [
-            'cooptation' => $cooptation,
-            'form' => $form,
-        ]);*/
+
     }
 
     #[Route('/{id}', name: 'app_cooptation_delete', methods: ['POST'])]

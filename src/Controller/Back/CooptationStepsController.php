@@ -62,7 +62,7 @@ class CooptationStepsController extends AbstractController
             if($stepCooptationId == end($validStepCooptations) && $status == 'validated'){
                 $this->mailer->sendMailSuccessCoptationCollaborator($collaborator, $cooptation);
                 $this->mailer->sendMailSuccessCoptationCandidate($cooptation);
-                $collaborator->setPoints(10);
+                $collaborator->setPoints($collaborator->getPoints() + 10);
                 $userRepository->save($collaborator, true);
 
 
