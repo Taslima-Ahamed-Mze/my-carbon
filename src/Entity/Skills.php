@@ -23,8 +23,11 @@ class Skills
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'skill', targetEntity: Formation::class)]
+    #[ORM\OneToMany(mappedBy: 'skill', targetEntity: Formation::class, cascade: ['all'], orphanRemoval: true)]
     private Collection $formations;
+
+    #[ORM\OneToMany(mappedBy: 'skill', targetEntity: UserSkills::class, cascade: ['all'], orphanRemoval: true)]
+    private Collection $userSkills;
 
     public function __construct()
     {

@@ -94,6 +94,7 @@ class UserType extends AbstractType
             ])
             ->add('imageFile', VichImageType::class, [
                 'label' => 'Photo de profil',
+                'required' => false
             ])
             ->add('password', PasswordType::class, [
                 'label' => 'Mot de passe',

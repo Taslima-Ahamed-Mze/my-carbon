@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\SkillsRepository;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -88,15 +89,19 @@ class UserController extends AbstractController
         Request $request,
         User $user,
         UserRepository $userRepository,
+        EntityManagerInterface $entityManager
     ): Response {
         $form = $this->createForm(UserType::class, $user, [
             'back_edit' => true,
             'validation_groups' => ['Default', 'edit'],
         ]);
         $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
+        if ($form->isSubmitted() ) {
+            $currentPassword = $entityManager->getUnitOfWork()->getOriginalEntityData($user)['password'];
+            dd($currentPassword);
+            if ($user->getPlainPassword()) {
+                $user->setPassword($user->getPlainPassword());
+            }
             $userRepository->save($user, true);
             return $this->redirectToRoute(
                 'back_app_user_index',

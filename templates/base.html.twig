@@ -15,10 +15,13 @@
 		{% endblock %}
 	</head>
 	<body>
+
 		<div class="flex w-screen">
-			<div class="w-[15%] bg-black h-screen">
-			 {{components.header()}}
-			</div>
+			{% if app.user %}
+				<div class="w-[15%] bg-black h-screen">
+				 {{components.header()}}
+				</div>
+			{% endif %}
 			<div class="w-[85%]">
 			{% block body %}{% endblock %}
 			</div>
@@ -26,5 +29,6 @@
 		{% block javascripts %}
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
+
 	</body>
 </html>
