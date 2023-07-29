@@ -1,12 +1,22 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Contracts{% endblock %}
+{% block title %}
+	User
+{% endblock %}
 
 {% block body %}
-    <h1>Contracts</h1>
+	<div class="show-wrapper">
+		<h1>
+			Contrat de : 
+            {{ contract.offer.companyName  }}
 
-    <table >
-        <tbody>
+
+		</h1>
+
+		<a class="devisio-btn devisio-btn-back-to-list" href="{{ path('back_app_contracts_index') }}">Retour à la liste</a>
+
+		<table>
+ <tbody>
             <tr>
                 <th>Id</th>
                 <td>{{ contract.id }}</td>
@@ -32,11 +42,14 @@
                 <td>{{ contract.updatedAt ? contract.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
             </tr>
         </tbody>
-    </table>
 
-    <a href="{{ path('back_app_contracts_index') }}">back to list</a>
+		</table>
 
-    <a href="{{ path('back_app_contracts_edit', {'id': contract.id}) }}">edit</a>
-
-    {{ include('back/contracts/_delete_form.html.twig') }}
+		<div class="show-buttons">
+			{{ include('back/contracts/_delete_form.html.twig') }}
+			<a class="devisio-btn devisio-btn-update" href="{{ path( 'back_app_contracts_edit', { id: contract.id } ) }}">Modifier</a>
+		</div>
+	</div>
 {% endblock %}
+
+

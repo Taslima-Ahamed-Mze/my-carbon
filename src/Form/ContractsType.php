@@ -28,7 +28,7 @@ class ContractsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('offer', CollectionType::class, [
+        ->add('offer', EntityType::class, [
             'class' => Offers::class,
             'choice_label' => 'name',
             'placeholder' => 'Sélectionner une offre',
