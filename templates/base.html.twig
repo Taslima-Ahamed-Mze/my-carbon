@@ -10,12 +10,13 @@
 			{% endblock %}
 		</title>
 		<link rel="icon" href="{{ asset('build/images/logo.png') }}"/>
+		<link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
 	</head>
 	<body>
-
 		<div class="flex w-screen">
 			{% if app.user %}
 				<div class="w-[15%] bg-black h-screen">
@@ -25,7 +26,9 @@
 			<div class="w-[85%]">
 			{% block body %}{% endblock %}
 			</div>
-		</div> 
+		</div>
+		<script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+
 		{% block javascripts %}
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
