@@ -9,7 +9,6 @@ use App\Repository\EventRepository;
 use App\Repository\FormationRegisterRepository;
 use App\Repository\FormationRepository;
 use App\Repository\UserSkillsRepository;
-use App\Service\DataRenderService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -50,6 +49,7 @@ class DefaultController extends AbstractController
 
         $threeFormations = array_slice($formations, 0, 3);
 
+        $points = $security->getUser()->getPoints();
 
 
         $lastContract = $contractsRepository->findOneBy(
@@ -90,7 +90,7 @@ class DefaultController extends AbstractController
             "lastContract" => $lastContract,
             "formations" => $threeFormations,
             "events" => $events,
-            'chart' => $chart,
+            'chart' => $chart
         ]);
     }
 }
