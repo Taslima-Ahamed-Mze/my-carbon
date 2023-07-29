@@ -10,6 +10,8 @@
 			{% endblock %}
 		</title>
 		<link rel="icon" href="{{ asset('build/images/logo.png') }}"/>
+		<link rel="stylesheet" href="{{ asset('bundles/mercuryseriesflashy/css/flashy.css') }}">
+
 		{% block stylesheets %}
 			{{ encore_entry_link_tags('app') }}
 		{% endblock %}
@@ -17,14 +19,19 @@
 	<body>
 		<div class="flex w-screen">
 			<div class="w-[15%] bg-black h-screen">
-			 {{components.header()}}
+				{{components.header()}}
 			</div>
-			<div class="w-[85%]">
-			{% block body %}{% endblock %}
+			<div class="w-[85%]"> {% block body %}{% endblock %}
+				</div>
 			</div>
-		</div> 
-		{% block javascripts %}
-			{{ encore_entry_script_tags('app') }}
-		{% endblock %}
-	</body>
-</html>
+			<script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
+
+			<!-- Load Flashy default JavaScript -->
+			<!-- Include Flashy default partial -->
+			{% block javascripts %}
+				{{ encore_entry_script_tags('app') }}
+			{% endblock %}
+			{{ include('@MercurySeriesFlashy/flashy.html.twig') }}
+
+		</body>
+	</html>

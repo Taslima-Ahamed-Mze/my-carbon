@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Formation;
+use App\Entity\PropertySearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -21,11 +22,16 @@ class FormationRepository extends ServiceEntityRepository
         parent::__construct($registry, Formation::class);
     }
 
-    public function paginationQuery()
+    public function paginationQuery(PropertySearch $search)
     {
-        return $this->createQueryBuilder('f')
-            ->orderBy('f.id', 'ASC')
-            ->getQuery();
+        $query = $this->createQueryBuilder('f');
+
+        if ($search->getSkill()) {
+            $query =
+                $query->where('f.skill = :skill')
+                    ->setParameter('skill', $search->getSkill());
+        }
+        return $query->getQuery();
     }
 
 //    /**

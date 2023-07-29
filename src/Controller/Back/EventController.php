@@ -8,6 +8,7 @@ use App\Repository\EventRepository;
 use App\Service\Mailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
+use MercurySeries\FlashyBundle\FlashyNotifier;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,14 +20,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class EventController extends AbstractController
 {
     #[Route('/', name: 'app_event_index', methods: ['GET'])]
-    public function index(EventRepository $eventRepository, Request $request, PaginatorInterface $paginator): Response
+    public function index(EventRepository $eventRepository, Request $request, PaginatorInterface $paginator, FlashyNotifier $flashy): Response
     {
         $pagination = $paginator->paginate(
             $eventRepository->paginationQuery(),
             $request->query->get('page', 1),
             4
         );
-
+        
+        $flashy->success('Event created!');
 
         return $this->render('event/index.html.twig', [
             'pagination' => $pagination
@@ -34,7 +36,7 @@ class EventController extends AbstractController
     }
 
     #[Route('/new', name: 'app_event_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, FlashyNotifier $flashy): Response
     {
         $event = new Event();
         $form = $this->createForm(EventType::class, $event);
@@ -44,7 +46,9 @@ class EventController extends AbstractController
             $entityManager->persist($event);
             $entityManager->flush();
 
-            return $this->redirectToRoute('back_app_event_index', [], Response::HTTP_SEE_OTHER);
+            $flashy->success('Event created!');
+
+            return $this->redirectToRoute('back_app_event_new', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('event/new.html.twig', [

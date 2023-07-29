@@ -3,7 +3,9 @@
 namespace App\Controller\Back;
 
 use App\Entity\Formation;
+use App\Entity\PropertySearch;
 use App\Form\FormationType;
+use App\Form\PropertySearchType;
 use App\Repository\FormationRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -19,14 +21,18 @@ class FormationController extends AbstractController
     #[Route('/', name: 'app_formation_index', methods: ['GET'])]
     public function index(FormationRepository $formationRepository, Request $request, PaginatorInterface $paginator): Response
     {
+        $search = new PropertySearch();
+        $form = $this->createForm(PropertySearchType::class, $search);
+        $form->handleRequest($request);
         $pagination = $paginator->paginate(
-            $formationRepository->paginationQuery(),
+            $formationRepository->paginationQuery($search),
             $request->query->get('page', 1),
             4
         );
 
         return $this->render('formation/index.html.twig', [
-            'pagination' => $pagination
+            'pagination' => $pagination,
+            'form' => $form->createView()
         ]);
 
     }

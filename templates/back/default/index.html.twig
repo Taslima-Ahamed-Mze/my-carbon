@@ -63,7 +63,7 @@
 						{% for formation in formations %}
 							<div class="flex w-full mb-[35px]">
 								<img src="{{ asset('build/images/formation-red.png')}}" class="w-8 h-7 mr-[20px]" alt="">
-								<p class="">{{ formation.title }}</p>
+								<p><a href="{{path('back_app_formation_show', {'id': formation.id})}}">{{ formation.title }}</a></p>
 							</div>
 						{% endfor %}
 					</div>
@@ -72,7 +72,7 @@
 							{% for event in events %}
 								<div class="flex w-full mb-[35px]">
 									<img src="{{ asset('build/images/event-red.png')}}" class="w-8 h-7 mr-[20px]" alt="">
-									<p class="">{{ event.title }}</p>
+								<p><a href="{{path('back_app_event_show', {'id': event.id})}}">{{ event.title }}</a></p>
 								</div>
 							{% endfor %}
 						</div>

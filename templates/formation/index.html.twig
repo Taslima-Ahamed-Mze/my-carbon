@@ -13,6 +13,13 @@
 					Créer une formation
 				</a>
 			{% endif %}
+			<div>
+				{{ form_start(form)}}
+					{{ form_row(form.skill) }}
+					<button class="px-4 py-3 bg-[#282B2A] rounded text-white">Rechercher</button>
+				{{ form_end(form)}}
+
+			</div>
 			<div class="space-y-2 text-center">
 				<h2 class="text-3xl font-bold">Découvre des formations qualifiantes !</h2>
 				<p class="font-serif text-sm dark:text-gray-400">Développez vos compétences et boostez votre carrière en participant à nos formations de pointe !</p>
