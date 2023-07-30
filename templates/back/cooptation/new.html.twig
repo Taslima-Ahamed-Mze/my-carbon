@@ -1,9 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Event
+{% block title %}New Cooptation
 {% endblock %}
 
 {% block body %}
-    {{ include('back/cooptation/_form.html.twig') }}
+    {% if is_granted('ROLE_RH') %}
+         {{ include('back/cooptation/_form.html.twig') }}
+    {% else %}
+        {{ include('back/cooptation/_coopt_form.html.twig') }}
+    {% endif %}
+
 {% endblock %}
 

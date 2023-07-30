@@ -34,6 +34,9 @@ class FormationRegister
     #[ORM\Column(nullable: true)]
     private ?string $certificateName = null;
 
+    #[ORM\Column]
+    private ?bool $status = null;
+
     public function getCollaborator(): ?User
     {
         return $this->collaborator;
@@ -82,6 +85,18 @@ class FormationRegister
     public function getCertificateName(): ?string
     {
         return $this->certificateName;
+    }
+
+    public function isStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): static
+    {
+        $this->status = $status;
+
+        return $this;
     }
 
 }

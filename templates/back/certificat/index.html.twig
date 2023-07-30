@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% import 'components/components.html.twig' as components%}
+
+
+{% block title %}
+    Certificats de fin de formation
+{% endblock %}
+
+{% block body %}
+    <div class="list-wrapper">
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Collaborateur</th>
+                    <th>Formation</th>
+                    <th>Status</th>
+                    <th>actions</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for formationRegister in formationsRegister %}
+                <tr>
+                    <td>{{ formationRegister.collaborator.lastname ~ ' ' ~ formationRegister.collaborator.firstname }}</td>
+                    <td>{{ formationRegister.formation.title }}</td>
+                    <td>
+                        {% if formationRegister.status %}
+                            Validée
+                        {% else %}
+                            En attente
+                        {% endif %}
+                    </td>
+                    <td>{{ components.table_actions('formationRegister', formationRegister) }}</td>
+
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

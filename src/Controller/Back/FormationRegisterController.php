@@ -41,4 +41,18 @@ class FormationRegisterController extends AbstractController
         return $this->redirectToRoute('back_app_register_formation', [], Response::HTTP_SEE_OTHER);
     }
 
+    #[Route('/register/formation/certificate', name: 'app_register_formation_certificate')]
+    public function certificate(FormationRegisterRepository $formationRegisterRepository): Response
+    {
+        $formationsRegister = $formationRegisterRepository->findBy([
+            'certificateName' => ['IS NOT NULL'],
+        ]);
+
+
+
+        return $this->render('back/certificat/index.html.twig', [
+            'formationsRegister' => $formationsRegister
+        ]);
+    }
+
 }

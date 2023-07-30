@@ -57,6 +57,8 @@ class CooptationType extends AbstractType
             ])
             ->add('cvFile', VichFileType::class, [
                 'label' => 'CV',
+                'invalid_message' => 'Le fichier est trop volumineux.',
+
             ])
 
 

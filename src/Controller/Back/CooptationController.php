@@ -17,11 +17,13 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 
 #[Route('/cooptation')]
 class CooptationController extends AbstractController
 {
+    #[Security('is_granted("ROLE_ADMIN") or is_granted("ROLE_RH") or is_granted("ROLE_COMMERCIAL")')]
     #[Route('/', name: 'app_cooptation_index', methods: ['GET'])]
     public function index(CooptationRepository $cooptationRepository): Response
     {

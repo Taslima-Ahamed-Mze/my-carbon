@@ -10,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Traits\TimestampableTrait;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: CooptationRepository::class)]
@@ -43,6 +44,7 @@ class Cooptation
 
 
     #[Vich\UploadableField(mapping: 'cooptations', fileNameProperty: 'cvName')]
+    #[Assert\File(maxSize: "5M", maxSizeMessage: "Le fichier est trop volumineux. La taille maximale autorisée est 5 Mo.")]
     private ?File $cvFile = null;
 
     #[ORM\Column(length: 255, nullable: true)]

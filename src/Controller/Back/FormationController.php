@@ -141,6 +141,7 @@ class FormationController extends AbstractController
         $formationRegister = new FormationRegister();
         $formationRegister->setCollaborator($collaborator);
         $formationRegister->setFormation($formation);
+        $formationRegister->setStatus(false);
         $formationRegisterRepository->save($formationRegister, true);
 
         $collaborator->setPoints($collaborator->getPoints() + 1);
