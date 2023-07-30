@@ -4,12 +4,12 @@
 
 		<div class="flex justify-start space-x-4">
 			<img src="{{ asset('build/images/Plaisirblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_default_index') }}">
-				myCarbon
+				MyCarbon
 			</a>
 		</div>
 		<div class="flex justify-start space-x-4">
 			<img src="{{ asset('build/images/Plaisirblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_app_user_profile', { id: app.user.id } ) }}">
-				Profile
+				Mon Profile
 			</a>
 		</div>
 		{% if is_granted('ROLE_COLLABORATOR') or is_granted('ROLE_COM') %}

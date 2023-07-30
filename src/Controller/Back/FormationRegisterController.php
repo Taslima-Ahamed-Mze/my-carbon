@@ -87,6 +87,8 @@ class FormationRegisterController extends AbstractController
         if(count($userSkill) > 0){
             $userSkill[0]->setLevel($levelFormation);
             $userSkillsRepository->save($userSkill[0], true);
+            $collaborator->setPoints($collaborator->getPoints() + 4);
+            $userRepository->save($collaborator, true);
         }
 
         $formationRegister = $formationRegisterRepository->formationRegister($formation, $collaborator);
