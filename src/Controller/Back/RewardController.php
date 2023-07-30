@@ -53,6 +53,7 @@ class RewardController extends AbstractController
         ]);
     }
 
+    #[Security('user === reward.getCreatedBy() or is_granted("ROLE_ADMIN") or is_granted("ROLE_COM")')]
 
     #[Route('/{id}/edit', name: 'app_reward_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Reward $reward, EntityManagerInterface $entityManager): Response
@@ -83,6 +84,7 @@ class RewardController extends AbstractController
 
     }
 
+    #[Security('user === reward.getCreatedBy() or is_granted("ROLE_ADMIN") or is_granted("ROLE_COM")')]
     #[Route('/{id}', name: 'app_reward_delete', methods: ['POST'])]
     public function delete(Request $request, Reward $reward, EntityManagerInterface $entityManager): Response
     {

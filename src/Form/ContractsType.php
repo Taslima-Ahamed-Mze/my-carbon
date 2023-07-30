@@ -33,67 +33,25 @@ class ContractsType extends AbstractType
                 'choice_label' => 'name',
                 'placeholder' => 'Sélectionner une offre',
                 'label' => 'Offre',
-                'attr' => [
-                    'class' => ' mt-1
-                block
-                w-full
-                rounded-md
-                border-transparent
-                focus:border-gray-500 focus:bg-white focus:ring-0
-                bg-gray-100
-                '
-                ]
             ])
 
             ->add('collaborator', EntityType::class, [
                 'class' => User::class,
-                'choices' => $this->userRepository->findCollaboratorsWithoutContract(),
                 'choice_label' => function (User $user) {
                     return $user->getFirstname() . ' ' . $user->getLastname();
                 },
                 'label' => 'Collaborateur',
                 'placeholder' => 'Sélectionner le collaborateur',
-                'attr' => [
-                    'class' => ' mt-1
-                block
-                w-full
-                rounded-md
-                border-transparent
-                focus:border-gray-500 focus:bg-white focus:ring-0
-                bg-gray-100
-                '
-                ]
             ])
             ->add('start_date', DateTimeType::class, [
                 'label' => 'Date de début',
                 'widget' => 'single_text',
                 'html5' => true,
-
-                'attr' => [
-                    'class' => ' datetimepicker1
-                block
-                w-full
-                rounded-md
-                border-transparent
-                focus:border-gray-500 focus:bg-white focus:ring-0
-                bg-gray-100
-                '
-                ]
             ])
             ->add('end_date', DateTimeType::class, [
                 'label' => 'Date de fin',
                 'widget' => 'single_text',
                 'html5' => true,
-                'attr' => [
-                    'class' => ' datetimepicker1
-                block
-                w-full
-                rounded-md
-                border-transparent
-                focus:border-gray-500 focus:bg-white focus:ring-0
-                bg-gray-100
-                '
-                ]
             ])
 
         ;

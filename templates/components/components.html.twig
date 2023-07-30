@@ -8,8 +8,8 @@
 			</a>
 		</div>
 		<div class="flex justify-start space-x-4">
-			<img src="{{ asset('build/images/Plaisirblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_app_user_profile', { id: app.user.id } ) }}">
-				Mon Profile
+			<img src="{{ asset('build/images/Hommeblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_app_user_profile', { id: app.user.id } ) }}">
+				Mon Profil
 			</a>
 		</div>
 		{% if is_granted('ROLE_COLLABORATOR') or is_granted('ROLE_COM') %}

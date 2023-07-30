@@ -26,7 +26,7 @@ class FormationRegisterController extends AbstractController
         $pagination = $paginator->paginate(
             $formationRegisterRepository->paginationQuery($security->getUser()),
             $request->query->get('page', 1),
-            4
+            2
         );
     
         return $this->render('formation_register/index.html.twig', [

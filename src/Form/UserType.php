@@ -27,41 +27,12 @@ class UserType extends AbstractType
             $builder
                 ->add('lastname', TextType::class, [
                     'label' => 'Nom',
-                    'attr' => [
-                        'class' => ' mt-1
-                    block
-                    w-full
-                    rounded-md
-                    border-transparent
-                    focus:border-gray-500 focus:bg-white focus:ring-0
-                    bg-gray-100
-                    '
-                    ]
                 ])
                 ->add('firstname', TextType::class, [
                     'label' => 'Prénom',
-                    'attr' => [
-                        'class' => ' mt-1
-                    block
-                    w-full
-                    rounded-md
-                    bg-gray-100
-                    border-transparent
-                    focus:border-gray-500 focus:bg-white focus:ring-0'
-                    ]
                 ])
                 ->add('email', EmailType::class, [
                     'label' => 'Email',
-                    'attr' => [
-                        'class' => ' mt-1
-                    block
-                    w-full
-                    rounded-md
-                    border-transparent
-                    bg-gray-100
-                    focus:border-gray-500 focus:bg-white focus:ring-0',
-                        'placeholder' => 'john@example.com'
-                    ]
                 ])
                 ->add('profile', EntityType::class, [
                     'label' => 'Profile',
@@ -69,16 +40,6 @@ class UserType extends AbstractType
                     'multiple' => false,
                     'choice_label' => 'name',
                     'choice_value' => 'name',
-                    'attr' => [
-                        'class' => 'block
-                    w-full
-                    mt-1
-                    rounded-md
-                    bg-gray-100
-                    border-transparent
-                    focus:border-gray-500 focus:bg-white focus:ring-0'
-                    ]
-
                 ])
                 ->add('userSkills', CollectionType::class, [
                     'label' => 'Compétences',
@@ -93,8 +54,8 @@ class UserType extends AbstractType
                     ]
                 ]);
         }
-           $builder
-           ->add('imageFile', VichImageType::class, [
+        $builder
+            ->add('imageFile', VichImageType::class, [
                 'label' => 'Photo de profil',
                 'required' => false
             ])
@@ -105,16 +66,7 @@ class UserType extends AbstractType
                 'required' => false,
                 'first_options' => ['label' => 'Nouveau mot de passe'],
                 'second_options' => ['label' => 'Confirmer le mot de passe'],
-                'attr' => ['autocomplete' => 'off'],
-            ])
-
-
-        ;
-
-
-
-
-
+            ]);
 
     }
 
