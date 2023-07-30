@@ -44,7 +44,7 @@ class RewardController extends AbstractController
             $entityManager->persist($reward);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_reward_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('back_app_reward_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('reward/new.html.twig', [
@@ -53,13 +53,6 @@ class RewardController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_reward_show', methods: ['GET'])]
-    public function show(Reward $reward): Response
-    {
-        return $this->render('reward/show.html.twig', [
-            'reward' => $reward,
-        ]);
-    }
 
     #[Route('/{id}/edit', name: 'app_reward_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Reward $reward, EntityManagerInterface $entityManager): Response
@@ -98,6 +91,6 @@ class RewardController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_reward_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('back_app_reward_index', [], Response::HTTP_SEE_OTHER);
     }
 }

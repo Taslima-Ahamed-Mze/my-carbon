@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230730095727 extends AbstractMigration
+final class Version20230730115301 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -60,7 +60,7 @@ final class Version20230730095727 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_404021BF5585C142 ON formation (skill_id)');
         $this->addSql('CREATE INDEX IDX_404021BFDE12AB56 ON formation (created_by)');
         $this->addSql('CREATE INDEX IDX_404021BF16FE72E1 ON formation (updated_by)');
-        $this->addSql('CREATE TABLE formation_register (collaborator_id INT NOT NULL, formation_id INT NOT NULL, certificate_name VARCHAR(255) DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(collaborator_id, formation_id))');
+        $this->addSql('CREATE TABLE formation_register (collaborator_id INT NOT NULL, formation_id INT NOT NULL, certificate_name VARCHAR(255) DEFAULT NULL, status BOOLEAN NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(collaborator_id, formation_id))');
         $this->addSql('CREATE INDEX IDX_986B17E530098C8C ON formation_register (collaborator_id)');
         $this->addSql('CREATE INDEX IDX_986B17E55200282E ON formation_register (formation_id)');
         $this->addSql('CREATE TABLE levels (id INT NOT NULL, level VARCHAR(255) NOT NULL, PRIMARY KEY(id))');
@@ -68,7 +68,7 @@ final class Version20230730095727 extends AbstractMigration
         $this->addSql('CREATE INDEX IDX_DA460427DE12AB56 ON offers (created_by)');
         $this->addSql('CREATE INDEX IDX_DA46042716FE72E1 ON offers (updated_by)');
         $this->addSql('CREATE TABLE profile (id INT NOT NULL, name VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
-        $this->addSql('CREATE TABLE reward (id INT NOT NULL, created_by INT DEFAULT NULL, updated_by INT DEFAULT NULL, name VARCHAR(255) NOT NULL, description TEXT NOT NULL, points INT NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
+        $this->addSql('CREATE TABLE reward (id INT NOT NULL, created_by INT DEFAULT NULL, updated_by INT DEFAULT NULL, name VARCHAR(255) NOT NULL, description TEXT NOT NULL, points INT NOT NULL, image_name VARCHAR(255) DEFAULT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');
         $this->addSql('CREATE INDEX IDX_4ED17253DE12AB56 ON reward (created_by)');
         $this->addSql('CREATE INDEX IDX_4ED1725316FE72E1 ON reward (updated_by)');
         $this->addSql('CREATE TABLE skills (id INT NOT NULL, created_by INT DEFAULT NULL, updated_by INT DEFAULT NULL, name VARCHAR(255) NOT NULL, created_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, updated_at TIMESTAMP(0) WITHOUT TIME ZONE DEFAULT CURRENT_TIMESTAMP NOT NULL, PRIMARY KEY(id))');

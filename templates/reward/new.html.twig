@@ -1,11 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Reward{% endblock %}
+{% block title %}Nouvelle Récompense
+{% endblock %}
 
 {% block body %}
-    <h1>Create new Reward</h1>
+		{{ include('reward/_form.html.twig') }}
+	
 
-    {{ include('reward/_form.html.twig') }}
-
-    <a href="{{ path('app_reward_index') }}">back to list</a>
 {% endblock %}
