@@ -25,10 +25,9 @@ class EventType extends AbstractType
                 'widget' => 'single_text',
                 'required' =>true
             ])
-            // ->add('imageFile', VichImageType::class, [
-            //     'label' => 'Image de l\'événement',
-            // ])
-//            ->add('image')
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Image de l\'événement',
+            ])
         ;
     }
 

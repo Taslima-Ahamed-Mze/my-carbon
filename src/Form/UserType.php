@@ -96,18 +96,14 @@ class UserType extends AbstractType
                 'label' => 'Photo de profil',
                 'required' => false
             ])
-            ->add('password', PasswordType::class, [
-                'label' => 'Mot de passe',
+            ->add('plainPassword', RepeatedType::class, [
+                'type' => PasswordType::class,
+                'invalid_message' => 'The password fields must match.',
+                'options' => ['attr' => ['class' => 'password-field']],
                 'required' => false,
-                'attr' => [
-                    'class' => ' mt-1
-                    block
-                    w-full
-                    rounded-md
-                    bg-gray-100
-                    border-transparent
-                    focus:border-gray-500 focus:bg-white focus:ring-0'
-                ]
+                'first_options' => ['label' => 'Nouveau mot de passe'],
+                'second_options' => ['label' => 'Confirmer le mot de passe'],
+                'attr' => ['autocomplete' => 'off'],
             ])
 
 

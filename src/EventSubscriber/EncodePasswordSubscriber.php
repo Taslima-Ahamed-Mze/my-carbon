@@ -42,10 +42,17 @@ class EncodePasswordSubscriber implements EventSubscriberInterface
 
     private function updatePassword(User $object): void
     {
-        $plainPassword = $object->getPlainPassword();
-        $currentPassword = $object->getPassword();
-        if ($plainPassword !== $currentPassword) {
-            $object->setPassword($this->passwordHasher->hashPassword($object, $object->getPassword()));
+        if ($object->getPlainPassword() === null) {
+            return;
         }
+
+        $object->setPassword($this->passwordHasher->hashPassword($object, $object->getPlainPassword()));
+
+        // $plainPassword = $object->getPlainPassword();
+        // $currentPassword = $object->getPassword();
+        // if ($plainPassword !== $currentPassword) {
+        //     $object->setPassword($this->passwordHasher->hashPassword($object, $object->getPassword()));
+        // }
+        // $object->setPlainPassword(null);
     }
 }
