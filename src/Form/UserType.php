@@ -92,10 +92,14 @@ class UserType extends AbstractType
                     'style' => 'display: none;',
                 ]
             ])
-            ->add('imageFile', VichImageType::class, [
-                'label' => 'Photo de profil',
-                'required' => false
-            ])
+            ->add(
+                'imageFile',
+                VichImageType::class,
+                [
+                    'label' => 'Photo de profil',
+                    'required' => false
+                ]
+            )
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'The password fields must match.',

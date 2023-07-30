@@ -33,7 +33,7 @@
 				{% for star in range(1, formation.level.level) %}
 					<img class="w-5 h-5 inline" src="{{ asset('build/images/star.png') }}">
 				{% endfor %}
-                            <span>({{ formation.skill.name }})</span>
+				<span>({{ formation.skill.name }})</span>
 
 			</p>
 
@@ -41,6 +41,7 @@
 				<button onclick="window.location.href='{{ path('back_app_formation_unregister', {'id': formation.id}) }}'" class="bg-red-500 hover:bg-red-700 text-white font-bold py-4 px-4 rounded">
 					Je me désinscris
 				</button>
+				{{ form(form) }}
 			{% else %}
 				<button onclick="window.location.href='{{ path('back_app_formation_register', {'id': formation.id}) }}'" class="bg-[#5B98D2] hover:bg-blue-700 text-white font-bold py-4 px-4 rounded">
 					Je m'inscris !

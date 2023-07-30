@@ -4,91 +4,69 @@
 {% endblock %}
 
 {% block body %}
-
-	{# <h2>Info</h2>
-						    <table >
-						        <tbody>
-						        <tr>
-						            <th>Comptant</th>
-						            <td>{{ cooptation.createdBy.lastname ~ ' ' ~ cooptation.createdBy.firstname}}</td>
-						        </tr>
-						        <tr>
-						            <th>Copté</th>
-						            <td>{{ cooptation.lastname ~ ' ' ~ cooptation.firstname}}</td>
-						        </tr>
-						        <tr>
-						            <th>Email</th>
-						            <td>{{ cooptation.email }}</td>
-						        </tr>
-						        </tbody>
-						    </table>
-						    <br> #}
-	<div class="w-full flex flex-col items-center justify-center h-full">
-		<div class="bg-white w-[30%] rounded-md flex flex-col items-center py-6">
-			<div class="text-center">
-				<p class="mb-[10px]">
-					<span class="font-bold">Coopteur :</span>
-					{{ cooptation.createdBy.lastname ~ ' ' ~ cooptation.createdBy.firstname}}
-				</p>
-				<p class="mb-[10px]">
-					<span class="font-bold">Coopté :</span>
-					{{ cooptation.lastname ~ ' ' ~ cooptation.firstname}}
-				</p>
-				<p class="mb-[10px]">
-					<span class="font-bold">Email :</span>
-					{{ cooptation.email }}
-				</p>
+	<div class="flex items-center h-full">
+		<div class="w-full flex flex-col items-center justify-center h-full">
+			<div class="bg-white w-[50%] rounded-md flex flex-col items-center py-8 mb-[20px]">
+				<div class="text-center">
+					<p class="mb-[10px]">
+						<span class="font-bold">Coopteur :</span>
+						{{ cooptation.createdBy.lastname ~ ' ' ~ cooptation.createdBy.firstname}}
+					</p>
+					<p class="mb-[10px]">
+						<span class="font-bold">Coopté :</span>
+						{{ cooptation.lastname ~ ' ' ~ cooptation.firstname}}
+					</p>
+					<p class="mb-[10px]">
+						<span class="font-bold">Email :</span>
+						{{ cooptation.email }}
+					</p>
+				</div>
 			</div>
-		</div>
 
-		{# <p class="font-bold text-2xl">Evolution de la cooptation</p> #}
+			{# <p class="font-bold text-2xl">Evolution de la cooptation</p> #}
 
 
-		{% set conditionMet = false %}
-		{% for stepCooptation in stepCooptations %}
-			{% if not conditionMet %}
+			{% set conditionMet = false %}
+			{% for stepCooptation in stepCooptations %}
+				{% if not conditionMet %}
 
-				{% if displayStatus[stepCooptation.name] != null  %}
-					<div>
-						<label>{{ stepCooptation.name }}</label>
-						<h2>{{ displayStatus[stepCooptation.name] }}</h2>
-					</div>
-					{% if displayStatus[stepCooptation.name] == 'reject' %}
-						{% set conditionMet = true %}
-					{% endif %}
-				{% else %}
-					{% for flashError in app.flashes('error') %}
-						<div class="alert alert-danger">{{ flashError }}</div>
-					{% endfor %}
-					<form method="post" class="w-[50%]" action="{{ path('back_app_cooptation_steps_new')}}">
+					{% if displayStatus[stepCooptation.name] != null  %}
 						<div>
-
-							<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ stepCooptation.name }}</label>
-							<select name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 mb-[20px] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-								<option selected>Choissisez..</option>
-								<option value="validated">Validate</option>
-								<option value="reject">Reject</option>
-							</select>
-
-							<input type="hidden" name="cooptation_id" value="{{ cooptation.id }}"/>
-							<input type="hidden" name="step_cooptation_id" value="{{ stepCooptation.id }}"/>
-
+							<label>{{ stepCooptation.name }}</label>
+							<h2>{{ displayStatus[stepCooptation.name] }}</h2>
 						</div>
-						<button type="submit" class="mb-[20px] px-4 py-3 bg-[#5B98D2] rounded text-white">Confirmer</button>
-					</form>
-				{% endif %}
-			{% endif %}
+						{% if displayStatus[stepCooptation.name] == 'reject' %}
+							{% set conditionMet = true %}
+						{% endif %}
+					{% else %}
+						{% for flashError in app.flashes('error') %}
+							<div class="alert alert-danger">{{ flashError }}</div>
+						{% endfor %}
+						<form method="post" class="w-[50%]" action="{{ path('back_app_cooptation_steps_new')}}">
+							<div>
 
-		{% endfor %}
+								<label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ stepCooptation.name }}</label>
+								<select name="status" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 mb-[20px] block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+									<option selected>Choissisez..</option>
+									<option value="validated">Validate</option>
+									<option value="reject">Reject</option>
+								</select>
+
+								<input type="hidden" name="cooptation_id" value="{{ cooptation.id }}"/>
+								<input type="hidden" name="step_cooptation_id" value="{{ stepCooptation.id }}"/>
+
+							</div>
+							<button type="submit" class="mb-[20px] px-4 py-3 bg-[#5B98D2] rounded text-white">Confirmer</button>
+						</form>
+					{% endif %}
+				{% endif %}
+
+			{% endfor %}
+
+		</div>
+		{<embed src="{{ vich_uploader_asset(cooptation, 'cvFile') }}" class="w-[80%] h-full" #toolbar="1" type="application/pdf" style="border: none;"> 
 
 	</div>
-
-    
-
-
-	{# <h1>PDF Viewer</h1>
-				
-					<embed src="{{ vich_uploader_asset(cooptation, 'cvFile') }}#toolbar=0" width="100%" height="600px" type="application/pdf" style="border: none;"> #}
 
 
 {% endblock %}

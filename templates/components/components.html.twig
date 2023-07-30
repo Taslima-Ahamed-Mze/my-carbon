@@ -21,6 +21,11 @@
 			</div>
 		{% endif %}
 		<div class="flex justify-start space-x-4">
+			<img src="{{ asset('build/images/mesformations.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_app_register_formation') }}">
+				Mes formations
+			</a>
+		</div>
+		<div class="flex justify-start space-x-4">
 			<img src="{{ asset('build/images/Calendrier blanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_app_event_index') }}">
 				Evénement
 			</a>
@@ -73,7 +78,7 @@
 		{% if is_granted('ROLE_COMMERCIAL') or is_granted('ROLE_RH')  %}
 			<div class="flex justify-start space-x-4">
 				<img src="{{ asset('build/images/Projet blanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_app_contracts_index') }}">
-					Contracts
+					Contrats
 				</a>
 			</div>
 		{% endif %}

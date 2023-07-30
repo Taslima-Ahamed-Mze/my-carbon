@@ -45,10 +45,10 @@
 			<div class="w-[785px] h-[124px] bg-white mb-[29px]">
 				<div class="pt-[34px] pb-[24px] pl-[24px] text-xl">
 					<p class="text-xl">Contrat en cours</p>
-					{% if is_granted('ROLE_COLLABORATOR') %}
+					{% if is_granted('ROLE_COLLABORATOR' and lastContract) %}
 						<p class="text-2xl font-bold">{{ lastContract.offer.name }}</p>
 					{% else %}
-						<p>PAS COLLAB!</p>
+						<p class="text-sm font-bold mt-[10px]">Pas de contrat en cours</p>
 					{% endif %}
 
 				</div>
@@ -87,7 +87,6 @@
 		<div class="h-[717px]">
 			<div class="w-[400px] self-center mb-[20px]">
 				{{ render_chart(chart) }}
-
 			</div>
 			<div class="h-[298px] w-full bg-white flex flex-col justify-center items-center">
 				<p class="font-bold text-2xl mb-[10px]">{{ user.points }}

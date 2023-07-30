@@ -26,7 +26,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setLastname($faker->lastName())
             ->setFirstname($faker->firstName())
             ->setRoles(['ROLE_COLLABORATOR'])
-            ->setPassword($pwd)
+            ->setPlainPassword($pwd)
             ->setProfile($profiles[0])
             ->setPoints(1)
         ;
@@ -37,7 +37,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setLastname($faker->lastName())
             ->setFirstname($faker->firstName())
             ->setRoles(['ROLE_COM'])
-            ->setPassword($pwd)
+            ->setPlainPassword($pwd)
             ->setProfile($profiles[1])
 
         ;
@@ -48,7 +48,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setLastname($faker->lastName())
             ->setFirstname($faker->firstName())
             ->setRoles(['ROLE_COMMERCIAL'])
-            ->setPassword($pwd)
+            ->setPlainPassword($pwd)
             ->setProfile($profiles[3])
 
         ;
@@ -59,7 +59,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setLastname($faker->lastName())
             ->setFirstname($faker->firstName())
             ->setRoles(['ROLE_RH'])
-            ->setPassword($pwd)
+            ->setPlainPassword($pwd)
             ->setProfile($profiles[2])
 
         ;
@@ -70,7 +70,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             ->setLastname($faker->lastName())
             ->setFirstname($faker->firstName())
             ->setRoles(['ROLE_ADMIN'])
-            ->setPassword($pwd)
+            ->setPlainPassword($pwd)
             ->setProfile($profiles[4])
             ->setPoints(1)
         ;
