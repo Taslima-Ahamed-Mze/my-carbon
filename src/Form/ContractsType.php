@@ -47,7 +47,6 @@ class ContractsType extends AbstractType
 
             ->add('collaborator', EntityType::class, [
                 'class' => User::class,
-                'choices' => $this->userRepository->findCollaboratorsWithoutContract(),
                 'choice_label' => function (User $user) {
                     return $user->getFirstname() . ' ' . $user->getLastname();
                 },

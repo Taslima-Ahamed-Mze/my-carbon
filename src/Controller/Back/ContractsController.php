@@ -24,7 +24,7 @@ class ContractsController extends AbstractController
         );
         $allContracts = $contractsRepository->findAll();
 
-        $allowedRolesViewAllContracts = ['ROLE_COMMERCIAL', 'ROLE_RH'];
+        $allowedRolesViewAllContracts = ['ROLE_COMMERCIAL', 'ROLE_RH', 'ROLE_ADMIN'];
 
         if(array_intersect($allowedRolesViewAllContracts, $user->getRoles())){
             $contracts = $allContracts;
