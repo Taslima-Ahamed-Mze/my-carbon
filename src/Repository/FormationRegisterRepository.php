@@ -54,6 +54,22 @@ class FormationRegisterRepository extends ServiceEntityRepository
         return $formationRegister;
     }
 
+    public function paginationQuery($collaborator)
+    {
+        $entityManager = $this->getEntityManager();
+
+        $query = $entityManager->createQuery('
+        SELECT f
+        FROM App\Entity\FormationRegister f
+        JOIN f.collaborator c
+        WHERE c = :collaborator
+    ')
+            ->setParameter('collaborator', $collaborator);
+        return $query->getResult();
+
+    }
+
+
 //    /**
 //     * @return FormationRegister[] Returns an array of FormationRegister objects
 //     */

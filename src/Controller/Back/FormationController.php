@@ -70,7 +70,7 @@ class FormationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_formation_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_formation_show', methods: ['GET', 'POST'])]
     public function show(Formation $formation, FormationRegisterRepository $formationRegisterRepository, Security $security, Request $request, EntityManagerInterface $entityManager): Response
     {
         $collaborator = $security->getUser();
@@ -89,9 +89,8 @@ class FormationController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 $entityManager->flush();
-                dd($form->getData());
 
-                return $this->redirectToRoute('app_default_index', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('back_app_register_formation', [], Response::HTTP_SEE_OTHER);
             }
 
             return $this->render('formation/show.html.twig', [
@@ -114,7 +113,7 @@ class FormationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_formation_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('back_app_formation_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('formation/edit.html.twig', [

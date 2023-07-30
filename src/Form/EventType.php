@@ -8,6 +8,8 @@ use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 
 
 class EventType extends AbstractType
@@ -15,15 +17,19 @@ class EventType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('title')
+            ->add('title', TextType::class, [
+                'label' => 'Titre de l\'événement'
+            ])
             ->add('description')
             ->add('start_date', DateTimeType::class, [
                 'widget' => 'single_text',
-                'required' =>true
+                'required' => true,
+                'label' => 'Date de début'
             ])
             ->add('end_date', DateTimeType::class, [ 
                 'widget' => 'single_text',
-                'required' =>true
+                'required' => true,
+                'label' => 'Date de fin'
             ])
             ->add('imageFile', VichImageType::class, [
                 'label' => 'Image de l\'événement',
