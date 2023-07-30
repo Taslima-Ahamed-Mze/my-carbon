@@ -17,19 +17,19 @@
 		{% endblock %}
 	</head>
 	<body>
-		<div class="flex w-screen">
+		<div class="flex w-screen h-full">
 			{% if app.user %}
-				<div class="w-[15%] bg-black h-screen">
+				<div class="w-[15%] bg-[#282B2A] h-screen">
 				 {{components.header()}}
 				</div>
 			{% endif %}
-			<div class="w-[85%]">
+			<div class="w-full">
 			{% block body %}{% endblock %}
 			</div>
 		</div>
 		<script src="{{ asset('bundles/mercuryseriesflashy/js/flashy.js') }}"></script>
 
-		{% block javascripts %}
+		{% block javascripts %}	
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 

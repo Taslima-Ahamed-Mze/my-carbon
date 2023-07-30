@@ -3,40 +3,45 @@
 
 
 {% block title %}
-Cooptation index
+	Cooptation index
 {% endblock %}
 
 {% block body %}
-<div class="list-wrapper">
-    <a href="{{ path('back_app_cooptation_new') }}" class="devisio-btn devisio-btn-add">
-            Nouvelle cooptation
-        </a>
+	<div class="list-wrapper">
+		<a href="{{ path('back_app_cooptation_new') }}" class="devisio-btn devisio-btn-add">
+			Nouvelle cooptation
+		</a>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>Email</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for cooptation in cooptations %}
-            <tr>
-                <td>{{ cooptation.id }}</td>
-                <td>{{ cooptation.firstname }}</td>
-                <td>{{ cooptation.lastname }}</td>
-                <td>{{ cooptation.email }}</td>
-                <td>{{ cooptation.cvName }}</td>
-                <td>{{ cooptation.status }}</td>
-                <td>{{ cooptation.createdAt ? cooptation.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ cooptation.updatedAt ? cooptation.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ components.table_actions('cooptation', cooptation) }}</td>
-            </tr>
-       
-        {% endfor %}
-        </tbody>
-    </table>
- </div>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Firstname</th>
+					<th>Lastname</th>
+					<th>Email</th>
+					<th>CV</th>
+					<th>Statut</th>
+					<th>Date de création</th>
+					<th>Date de modification</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for cooptation in cooptations %}
+					<tr>
+						<td>{{ cooptation.id }}</td>
+						<td>{{ cooptation.firstname }}</td>
+						<td>{{ cooptation.lastname }}</td>
+						<td>{{ cooptation.email }}</td>
+						<td>{{ cooptation.cvName }}</td>
+						<td>{{ cooptation.status }}</td>
+						<td>{{ cooptation.createdAt ? cooptation.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+						<td>{{ cooptation.updatedAt ? cooptation.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+						<td>{{ components.table_actions('cooptation', cooptation) }}</td>
+					</tr>
+
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 {% endblock %}

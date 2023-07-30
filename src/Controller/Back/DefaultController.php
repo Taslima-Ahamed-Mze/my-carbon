@@ -49,11 +49,14 @@ class DefaultController extends AbstractController
 
         $threeFormations = array_slice($formations, 0, 3);
 
-        $points = $security->getUser()->getPoints();
-
 
         $lastContract = $contractsRepository->findOneBy(
-            ['id' => 50]
+            [
+                'collaborator' => $user,
+            ],
+            [
+                'id' => 'DESC'
+            ]
         );
 
         $cooptationsChart = $cooptationRepository->count([
@@ -80,7 +83,7 @@ class DefaultController extends AbstractController
                         'rgb(54, 162, 235)',
                         'rgb(255, 205, 86)'
                     ],
-                    'data' => [$cooptationsChart, $formationsChart, $cooptationsChart],
+                    'data' => [$cooptationsChart, $formationsChart, $eventChart],
                 ],
             ],
         ]);

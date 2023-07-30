@@ -25,6 +25,11 @@
 				Evénement
 			</a>
 		</div>
+		<div class="flex justify-start space-x-4">
+			<img src="{{ asset('build/images/reward.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_app_reward_index') }}">
+				Récompenses
+			</a>
+		</div>
 		{% if is_granted('ROLE_RH') %}
 			<div class="flex justify-start space-x-4">
 				<img src="{{ asset('build/images/Highfiveblanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_app_cooptation_index') }}">
@@ -38,7 +43,6 @@
 					Je coopt'
 				</a>
 			</div>
-
 			<div class="flex justify-start space-x-4">
 				<img src="{{ asset('build/images/Projet blanc.png')}}" alt="Logo de Formation" class="Carbon"><a href="{{ path('back_app_contracts_index') }}">
 					Mes contrats

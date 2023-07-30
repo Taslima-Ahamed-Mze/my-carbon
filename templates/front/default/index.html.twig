@@ -2,59 +2,34 @@
 {% import 'components/components.html.twig' as components %}
 
 {% block title %}
-  Devisio
+	Devisio
 {% endblock %}
 
 {% block stylesheets %}
-  {{ encore_entry_link_tags('app') }}
-  {{ encore_entry_link_tags('home') }}
+	{{ encore_entry_link_tags('app') }}
+	{{ encore_entry_link_tags('home') }}
 {% endblock %}
 
 {% block body %}
-  <section class="hero">
-    <div class="hero-content">
-      <h1 class="hero-title">
-        Créez vos devis et factures facilement
-      </h1>
-      <p class="hero-subtitle">
-        Gérez votre entreprise avec simplicité et efficacité
-      </p>
-      <div class="hero-buttons">
-
-        <a href="{{ path('app_login') }}" class="devisio-btn btn-secondary">
-          Se connecter
-        </a>
-      </div>
-    </div>
-  </section>
-  <section class="features">
-    <div class="feature">
-      <i class="icon icon-invoice"></i>
-      <h2 class="feature-title">
-        Création de devis et factures
-      </h2>
-      <p class="feature-description">
-        Générez facilement des devis professionnels et des factures
-        personnalisées.
-      </p>
-    </div>
-    <div class="feature">
-      <i class="icon icon-storage"></i>
-      <h2 class="feature-title">
-        Gestion des clients et produits
-      </h2>
-      <p class="feature-description">
-        Organisez vos clients et produits pour une gestion simplifiée.
-      </p>
-    </div>
-    <div class="feature">
-      <i class="icon icon-analytics"></i>
-      <h2 class="feature-title">
-        Suivi et analyses
-      </h2>
-      <p class="feature-description">
-        Obtenez des statistiques et des rapports pour analyser vos performances.
-      </p>
-    </div>
-  </section>
+	<section>
+		<nav class="w-full bg-[#282B2A] h-[100px] flex justify-between items-center">
+			<div class="ml-[10%]">
+				<img src="{{ asset('build/images/logo.png') }}" class="w-50 h-28" alt="Logo">
+			</div>
+			<div class="mr-[10%]">
+				<a class="text-white font-bold" href="{{path('app_login')}}">Se connecter</a>
+			</div>
+		</nav>
+		<section class="dark:bg-gray-800 dark:text-gray-100">
+			<div class="container mx-auto flex flex-col items-center px-4 py-16 text-center md:py-32 md:px-10 lg:px-32 xl:max-w-3xl">
+				<h1 class="text-4xl font-bold leading-relaxed">Bienvenue sur
+					<span class="text-[#5B98D2]">myCarbon</span>, la plateforme destinée aux collaborateurs !
+				</h1>
+				<p class="px-8 mt-8 mb-12 text-lg">Cupiditate minima voluptate temporibus quia? Architecto beatae esse ab amet vero eaque explicabo!</p>
+				<div class="flex flex-wrap justify-center">
+					<a href="{{path('app_login')}}" class="px-4 py-3 bg-[#5B98D2] rounded text-white font-bold">Se connecter</a>
+				</div>
+			</div>
+		</section>
+	</section>
 {% endblock %}

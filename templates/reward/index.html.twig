@@ -1,0 +1,68 @@
+{% extends 'base.html.twig' %}
+{% import 'components/components.html.twig' as components%}
+
+{% block title %}
+	Récompenses
+{% endblock %}
+ {# width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin: 121px auto 0 auto;
+    font-size: 12px; #}
+
+{% block body %}
+	<div class="w-4/5 flex flex-col text-xs mt-[70px] mr-auto mb-0 ml-auto">
+		<a href="{{ path('back_app_reward_new') }}" class="devisio-btn devisio-btn-add">
+			Créer une récompense
+		</a>
+		<div class="space-y-2 text-center">
+			<h2 class="text-3xl font-bold">Chaque effort mérite une récompense !</h2>
+			<p class="font-serif text-sm dark:text-gray-400">Participez à nos événements d'entreprise et formations afin de gagner des récompenses !</p>
+		</div>
+		{% for reward in pagination %}
+			<div class="max-w-md p-8 sm:flex sm:space-x-6 dark:bg-gray-900 dark:text-gray-100">
+				<div class="flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0">
+					<img src="https://source.unsplash.com/100x100/?portrait?1" alt="" class="object-cover object-center w-full h-full rounded dark:bg-gray-500">
+				</div>
+				<div class="flex flex-col space-y-4">
+					<div>
+						<h2 class="text-2xl font-semibold">{{ reward.name }}</h2>
+						<span class="text-sm dark:text-gray-400">{{ reward.points }}
+							points</span>
+					</div>
+					<div>
+						<p class="mb-[20px]">{{ reward.description|slice(0, 90) }}...</p>
+						{% if user.points >= reward.points %}
+							<a href="{{path('back_app_reward_get', {'id': reward.id})}}" class="px-4 py-3 bg-[#5B98D2] rounded text-white">Obtenir</a>
+						{% else %}
+							<p>Vous n'avez pas assez de points...</p>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+		<div class="flex justify-center">
+			{{ knp_pagination_render(pagination) }}
+		</div>
+		{# <table class="table">
+																<thead>
+																<tr>
+																	<th>Nom</th>
+																	<th>Description</th>
+																	<th>Points</th>
+																	<th>Action</th>
+																</tr>
+																</thead>
+																<tbody>
+																{% for reward in rewards %}
+																	<tr>
+																		<td>{{ reward.name }}</td>
+																		<td>{{ reward.description }}</td>
+																		<td>{{ reward.points }}</td>
+																		<td>{{ components.table_actions('reward', reward) }}</td>
+																	</tr>
+																{% endfor %}
+																</tbody>
+															</table> #}
+	</div>
+{% endblock %}
