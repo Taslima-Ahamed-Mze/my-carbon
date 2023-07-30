@@ -91,7 +91,6 @@ class UserController extends AbstractController
         EntityManagerInterface $entityManager
     ): Response {
         $form = $this->createForm(UserType::class, $user, [
-            'back_edit' => true,
             'validation_groups' => ['Default', 'edit'],
         ]);
         $form->handleRequest($request);
@@ -135,5 +134,37 @@ class UserController extends AbstractController
             [],
             Response::HTTP_SEE_OTHER
         );
+    }
+
+    #[Security('is_granted("ROLE_USER") ')]
+    #[Route('/{id}/profile', name: 'app_user_profile', methods: ['GET', 'POST'])]
+    public function profile(
+        Request $request,
+        User $user,
+        UserRepository $userRepository,
+        EntityManagerInterface $entityManager
+    ): Response {
+        $form = $this->createForm(UserType::class, $user, [
+            'back_edit' => true,
+            'validation_groups' => ['Default', 'edit'],
+        ]);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() ) {
+            if ($user->getPlainPassword()) {
+                $user->setPassword($user->getPlainPassword());
+            }
+            $userRepository->save($user, true);
+
+            return $this->redirectToRoute(
+                'back_default_index',
+                [],
+                Response::HTTP_SEE_OTHER
+            );
+        }
+
+        return $this->renderForm('back/user/profile.html.twig', [
+            'user' => $user,
+            'form' => $form,
+        ]);
     }
 }

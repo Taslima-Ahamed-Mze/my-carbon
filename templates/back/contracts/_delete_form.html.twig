@@ -1,4 +1,4 @@
-<form method="post" action="{{ path('back_app_contracts_delete', {'id': contract.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');">
+<form method="post" action="{{ path('back_app_contracts_delete', {'id': contract.id}) }}" onsubmit="return confirm('Es-tu sûr de vouloir supprimer ce contrat?');">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ contract.id) }}">
-    <button class="btn">Delete</button>
+    <button class="btn devisio-btn-delete">Supprimer</button>
 </form>

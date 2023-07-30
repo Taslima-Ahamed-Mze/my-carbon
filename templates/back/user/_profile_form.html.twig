@@ -1,14 +1,7 @@
 <div class="h-[90%]">
-	<a class="devisio-btn devisio-btn-back-to-list" href="{{ back_to_list_path|default(path('back_app_user_index')) }}">
-		Retourner à la liste
-	</a>
-	<h1 class="text-center text-xl font-bold">
 
-	 {% if form.vars.value.id is not null %}
-		Modifier un utilisateur
-    {% else %}
-      Ajouter un utilisateur
-    {% endif %}
+	<h1 class="text-center text-xl font-bold">
+		Modifier mon profile
 	</h1>
 	<div class="flex justify-center items-center h-full">
 		{{ form_start(form, {'attr': {'class': 'w-[40%] py-9 px-9 rounded bg-white', 'style': 'border: 1px solid white;'}}) }}
