@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route('/offers')]
 class OffersController extends AbstractController
@@ -48,6 +49,7 @@ class OffersController extends AbstractController
         ]);
     }
 
+    #[Security('user === offer.getCreatedBy() or is_granted("ROLE_ADMIN") or is_granted("ROLE_RH") or is_granted("ROLE_COMMERCIAL')]
     #[Route('/{id}/edit', name: 'app_offers_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Offers $offer, OffersRepository $offersRepository): Response
     {
@@ -66,6 +68,7 @@ class OffersController extends AbstractController
         ]);
     }
 
+    #[Security('user === offer.getCreatedBy() or is_granted("ROLE_ADMIN") or is_granted("ROLE_COMMERCIAL") or is_granted("ROLE_RH")')]
     #[Route('/{id}', name: 'app_offers_delete', methods: ['POST'])]
     public function delete(Request $request, Offers $offer, OffersRepository $offersRepository): Response
     {

@@ -65,6 +65,8 @@ class CooptationController extends AbstractController
         ]);
     }
 
+    #[Security('user === cooptation.getCreatedBy() or is_granted("ROLE_ADMIN") or is_granted("ROLE_RH")')]
+
     #[Route('/{id}/edit', name: 'app_cooptation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Cooptation $cooptation, EntityManagerInterface $entityManager, StepCooptationRepository $stepCooptationRepository, CooptationStepsRepository $cooptationStepsRepository): Response
     {
@@ -96,6 +98,7 @@ class CooptationController extends AbstractController
 
     }
 
+    #[Security('user === cooptation.getCreatedBy() or is_granted("ROLE_ADMIN") or is_granted("ROLE_RH")')]
     #[Route('/{id}', name: 'app_cooptation_delete', methods: ['POST'])]
     public function delete(Request $request, Cooptation $cooptation, EntityManagerInterface $entityManager): Response
     {

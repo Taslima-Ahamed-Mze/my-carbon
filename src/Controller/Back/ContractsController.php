@@ -26,9 +26,9 @@ class ContractsController extends AbstractController
 
         $allowedRolesViewAllContracts = ['ROLE_COMMERCIAL', 'ROLE_RH'];
 
-        if(array_intersect($allowedRolesViewAllContracts, $user->getRoles())){
+        if (array_intersect($allowedRolesViewAllContracts, $user->getRoles())) {
             $contracts = $allContracts;
-        }else{
+        } else {
             $contracts = $contractsByCollaborator;
         }
         return $this->render('back/contracts/index.html.twig', [
@@ -64,6 +64,7 @@ class ContractsController extends AbstractController
         ]);
     }
 
+    #[Security('user === contract.getCreatedBy() or is_granted("ROLE_COMMERCIAL") or is_granted("ROLE_RH')]
     #[Route('/{id}/edit', name: 'app_contracts_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Contracts $contract, EntityManagerInterface $entityManager): Response
     {
@@ -82,10 +83,12 @@ class ContractsController extends AbstractController
         ]);
     }
 
+    #[Security('user === contract.getCreatedBy() or is_granted("ROLE_COMMERCIAL") or is_granted("ROLE_RH')]
+
     #[Route('/{id}', name: 'app_contracts_delete', methods: ['POST'])]
     public function delete(Request $request, Contracts $contract, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$contract->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $contract->getId(), $request->request->get('_token'))) {
             $entityManager->remove($contract);
             $entityManager->flush();
         }
