@@ -16,42 +16,12 @@ class OffersType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'label' => 'Nom de l\'offre',
-                'attr' => [
-                    'class' => ' mt-1
-                    block
-                    w-full
-                    rounded-md
-                    border-transparent
-                    focus:border-gray-500 focus:bg-white focus:ring-0
-                    bg-gray-100
-                    '
-                ]
             ])
             ->add('address', TextType::class, [
                 'label' => 'Adresse postale',
-                'attr' => [
-                    'class' => ' mt-1
-                    block
-                    w-full
-                    rounded-md
-                    border-transparent
-                    focus:border-gray-500 focus:bg-white focus:ring-0
-                    bg-gray-100
-                    '
-                ]
             ])
             ->add('companyName', TextType::class, [
                 'label' => 'Nom de l\'entreprise',
-                'attr' => [
-                    'class' => ' mt-1
-                    block
-                    w-full
-                    rounded-md
-                    border-transparent
-                    focus:border-gray-500 focus:bg-white focus:ring-0
-                    bg-gray-100
-                    '
-                ]
             ])
         ;
     }
