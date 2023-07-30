@@ -1,6 +1,6 @@
 # my-carbone
 
-## Fonctionnalités : 
+## Fonctionnalités 
 
 1. Gestion utilisteurs / login / Roles (Ahamed Mze)
 2. Dashboard / mycarbon :
@@ -20,3 +20,10 @@
 2. Ahamed Mze TASLIMA (ataslima)
 3. Hicham AISSAOUI (hicham-2)
 4. GBEKOU Emmanuella (Manu1Mackenzii)
+
+## Procédure d'installation et de lancement du projet
+
+1. docker compose build --pull --no-cache
+2. docker compose up
+3. docker compose exec php npm run dev
+4. https://localhost
