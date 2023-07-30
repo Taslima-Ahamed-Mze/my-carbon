@@ -18,8 +18,8 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[Vich\Uploadable]
 class Event
 {
-   use BlameableTrait;
-   use TimestampableTrait;
+    use BlameableTrait;
+    use TimestampableTrait;
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -41,7 +41,7 @@ class Event
     #[Vich\UploadableField(mapping: 'event', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
 
-    #[ORM\Column(length:255, nullable: true)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageName = null;
 
     #[ORM\OneToMany(mappedBy: 'event', targetEntity: EventRegister::class)]

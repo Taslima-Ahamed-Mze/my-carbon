@@ -24,7 +24,7 @@ class RewardRepository extends ServiceEntityRepository
     public function paginationQuery()
     {
         return $this->createQueryBuilder('r')
-            ->orderBy('r.id', 'ASC')
+            ->orderBy('r.id', 'DESC')
             ->getQuery();
     }
 

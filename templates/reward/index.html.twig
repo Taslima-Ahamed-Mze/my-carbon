@@ -23,9 +23,18 @@
 		</div>
 		{% for reward in pagination %}
 			<div class="max-w-md p-8 sm:flex sm:space-x-6 dark:bg-gray-900 dark:text-gray-100">
-				<div class="flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0">
-					<img src="https://source.unsplash.com/100x100/?portrait?1" alt="" class="object-cover object-center w-full h-full rounded dark:bg-gray-500">
-				</div>
+				{% if reward.imageName %}
+
+					<div class="flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0">
+						<img src="{{asset('uploads/images/reward/' ~ reward.imageName)}}" alt="" class="object-cover object-center w-full h-full rounded dark:bg-gray-500">
+					</div>
+				{% else %}
+					<div class="flex-shrink-0 w-full mb-6 h-44 sm:h-32 sm:w-32 sm:mb-0">
+						<img src="https://source.unsplash.com/100x100/?portrait?1" alt="" class="object-cover object-center w-full h-full rounded dark:bg-gray-500">
+					</div>
+				{% endif %}
+
+
 				<div class="flex flex-col space-y-4">
 					<div>
 						<h2 class="text-2xl font-semibold">{{ reward.name }}</h2>
@@ -61,24 +70,24 @@
 			{{ knp_pagination_render(pagination) }}
 		</div>
 		{# <table class="table">
-																																<thead>
-																																<tr>
-																																	<th>Nom</th>
-																																	<th>Description</th>
-																																	<th>Points</th>
-																																	<th>Action</th>
-																																</tr>
-																																</thead>
-																																<tbody>
-																																{% for reward in rewards %}
-																																	<tr>
-																																		<td>{{ reward.name }}</td>
-																																		<td>{{ reward.description }}</td>
-																																		<td>{{ reward.points }}</td>
-																																		<td>{{ components.table_actions('reward', reward) }}</td>
-																																	</tr>
-																																{% endfor %}
-																																</tbody>
-																															</table> #}
+																																						<thead>
+																																						<tr>
+																																							<th>Nom</th>
+																																							<th>Description</th>
+																																							<th>Points</th>
+																																							<th>Action</th>
+																																						</tr>
+																																						</thead>
+																																						<tbody>
+																																						{% for reward in rewards %}
+																																							<tr>
+																																								<td>{{ reward.name }}</td>
+																																								<td>{{ reward.description }}</td>
+																																								<td>{{ reward.points }}</td>
+																																								<td>{{ components.table_actions('reward', reward) }}</td>
+																																							</tr>
+																																						{% endfor %}
+																																						</tbody>
+																																					</table> #}
 	</div>
 {% endblock %}
