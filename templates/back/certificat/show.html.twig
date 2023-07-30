@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Certificat{% endblock %}
+
+{% block body %}
+    <div class="show-wrapper">
+        <h1>Certificat de fin de formation</h1>
+        <a class="devisio-btn devisio-btn-back-to-list" href="{{ path('back_app_register_formation_certificate') }}">Retour à la liste</a>
+
+        <div class="flex items-center h-full">
+            <div class="w-full flex flex-col items-center justify-center h-full">
+                <div class="bg-white w-[50%] rounded-md flex flex-col items-center py-8 mb-[20px]">
+                    <div class="text-center">
+                        <p class="mb-[10px]">
+                            <span class="font-bold">Collaborateur :</span>
+                            {{ formationRegister.collaborator.lastname ~ ' ' ~ formationRegister.collaborator.firstname }}
+                        </p>
+                        <p class="mb-[10px]">
+                            <span class="font-bold">Formation :</span>
+                            {{ formationRegister.formation.title }}
+                        </p>
+                        <p class="mb-[10px]">
+                            {% if formationRegister.status == false %}
+                                button
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <embed src="{{ vich_uploader_asset(formationRegister, 'certificateFile') }}" class="w-[80%] h-full" #toolbar="1" type="application/pdf" style="border: none;">
+
+        </div>
+    </div>
+{% endblock %}

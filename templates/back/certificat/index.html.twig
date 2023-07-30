@@ -30,7 +30,15 @@
                             En attente
                         {% endif %}
                     </td>
-                    <td>{{ components.table_actions('formationRegister', formationRegister) }}</td>
+                    <td>
+                        <div class="dropdown-actions">
+                            <form method="post" class="w-[50%]" action="{{ path('back_app_register_formation_certificate_validate')}}">
+                                <input type="hidden" name="collaborator" value="{{ formationRegister.collaborator.id }}"/>
+                                <input type="hidden" name="formation" value="{{ formationRegister.formation.id }}"/>
+                                <button type="submit" class="mb-[20px] px-4 py-3 bg-[#5B98D2] rounded text-white">Valider</button>
+                            </form>
+                        </div>
+                    </td>
 
                 </tr>
             {% endfor %}

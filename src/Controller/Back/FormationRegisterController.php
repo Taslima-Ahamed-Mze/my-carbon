@@ -5,6 +5,10 @@ namespace App\Controller\Back;
 use App\Entity\FormationRegister;
 use App\Form\FormationRegisterType;
 use App\Repository\FormationRegisterRepository;
+use App\Repository\FormationRepository;
+use App\Repository\LevelsRepository;
+use App\Repository\UserRepository;
+use App\Repository\UserSkillsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -46,15 +50,52 @@ class FormationRegisterController extends AbstractController
     #[Route('/register/formation/certificate', name: 'app_register_formation_certificate')]
     public function certificate(FormationRegisterRepository $formationRegisterRepository): Response
     {
-        $formationsRegister = $formationRegisterRepository->findBy([
-            'certificateName' => ['IS NOT NULL'],
-        ]);
-
+        $formationsRegister = $formationRegisterRepository->findNotNullCertificateNames();
 
 
         return $this->render('back/certificat/index.html.twig', [
             'formationsRegister' => $formationsRegister
         ]);
+    }
+
+    #[Route('/register/formation/certificate/validate', name: 'app_register_formation_certificate_validate', methods: ['POST'])]
+    public function handleCooptationSteps(
+        Request $request,
+        UserRepository $userRepository,
+        FormationRepository $formationRepository,
+        FormationRegisterRepository $formationRegisterRepository,
+        UserSkillsRepository $userSkillsRepository
+    ): Response
+    {
+
+        $data = $request->request->all();
+
+        $collaboratorId = $data['collaborator'];
+        $formationId = $data['formation'];
+
+        $collaborator = $userRepository->find($collaboratorId);
+        $formation = $formationRepository->find($formationId);
+
+        $levelFormation = $formation->getLevel();
+        $skillFormation = $formation->getSkill();
+
+        $userSkill = $userSkillsRepository->findBy([
+            'collaborator' => $collaborator,
+            'skill' => $skillFormation
+        ]);
+
+        if(count($userSkill) > 0){
+            $userSkill[0]->setLevel($levelFormation);
+            $userSkillsRepository->save($userSkill[0], true);
+        }
+
+        $formationRegister = $formationRegisterRepository->formationRegister($formation, $collaborator);
+        $formationRegister->setStatus(true);
+        $formationRegisterRepository->save($formationRegister, true);
+
+
+
+        return $this->redirectToRoute('back_app_register_formation_certificate');
     }
 
 }

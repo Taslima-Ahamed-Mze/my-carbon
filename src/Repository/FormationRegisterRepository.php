@@ -68,6 +68,15 @@ class FormationRegisterRepository extends ServiceEntityRepository
         return $query->getResult();
 
     }
+    public function findNotNullCertificateNames()
+    {
+        return $this->createQueryBuilder('fr')
+            ->where('fr.certificateName IS NOT NULL')
+            ->andWhere('fr.status = :status')
+            ->setParameter('status', false)
+            ->getQuery()
+            ->getResult();
+    }
 
 
 //    /**
