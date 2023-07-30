@@ -80,6 +80,7 @@ class EventController extends AbstractController
         ]);
     }
 
+    #[Security('user === event.getCreatedBy() or is_granted("ROLE_ADMIN") or is_granted("ROLE_COM")')]
     #[Route('/{id}/edit', name: 'app_event_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Event $event, EntityManagerInterface $entityManager): Response
     {
@@ -98,6 +99,7 @@ class EventController extends AbstractController
         ]);
     }
 
+    #[Security('user === event.getCreatedBy() or is_granted("ROLE_ADMIN") or is_granted("ROLE_COM")')]
     #[Route('/{id}', name: 'app_event_delete', methods: ['POST'])]
     public function delete(Request $request, Event $event, EntityManagerInterface $entityManager): Response
     {

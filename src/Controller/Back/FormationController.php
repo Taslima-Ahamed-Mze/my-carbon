@@ -103,7 +103,7 @@ class FormationController extends AbstractController
 
 
     }
-
+    #[Security('user === formation.getCreatedBy() or is_granted("ROLE_ADMIN") or is_granted("ROLE_COM")')]
     #[Route('/{id}/edit', name: 'app_formation_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Formation $formation, EntityManagerInterface $entityManager): Response
     {
@@ -122,6 +122,7 @@ class FormationController extends AbstractController
         ]);
     }
 
+    #[Security('user === formation.getCreatedBy() or is_granted("ROLE_ADMIN") or is_granted("ROLE_COM")')]
     #[Route('/{id}', name: 'app_formation_delete', methods: ['POST'])]
     public function delete(Request $request, Formation $formation, EntityManagerInterface $entityManager): Response
     {

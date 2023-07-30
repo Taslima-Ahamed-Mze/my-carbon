@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 #[Route('/skills')]
 class SkillsController extends AbstractController
@@ -52,7 +53,8 @@ class SkillsController extends AbstractController
             'skills' => $skills,
         ]);
     }
-
+    
+    #[Security('user === skill.getCreatedBy() or is_granted("ROLE_ADMIN")')]
     #[Route('/{id}/edit', name: 'app_skills_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Skills $skills, SkillsRepository $skillsRepository): Response
     {
@@ -71,6 +73,7 @@ class SkillsController extends AbstractController
         ]);
     }
 
+    #[Security('user === skill.getCreatedBy() or is_granted("ROLE_ADMIN")')]
     #[Route('/{id}', name: 'app_skills_delete', methods: ['POST'])]
     public function delete(Request $request, Skills $skills, SkillsRepository $skillsRepository): Response
     {
