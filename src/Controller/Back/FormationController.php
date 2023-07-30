@@ -5,6 +5,7 @@ namespace App\Controller\Back;
 use App\Entity\Formation;
 use App\Entity\FormationRegister;
 use App\Entity\PropertySearch;
+use App\Form\FormationRegisterType;
 use App\Form\FormationType;
 use App\Form\PropertySearchType;
 use App\Repository\FormationRegisterRepository;
@@ -70,15 +71,38 @@ class FormationController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_formation_show', methods: ['GET'])]
-    public function show(Formation $formation, FormationRegisterRepository $formationRegisterRepository, Security $security): Response
+    public function show(Formation $formation, FormationRegisterRepository $formationRegisterRepository, Security $security, Request $request, EntityManagerInterface $entityManager): Response
     {
         $collaborator = $security->getUser();
         $isRegistered = $formationRegisterRepository->isUserRegistered($formation, $collaborator);
 
-        return $this->render('formation/show.html.twig', [
-            'formation' => $formation,
-            'isRegistered' => $isRegistered
-        ]);
+        $formationRegister = $formationRegisterRepository->formationRegister($formation, $security->getUser());
+
+        if ($formationRegister === null) {
+            return $this->render('formation/show.html.twig', [
+                'formation' => $formation,
+                'isRegistered' => $isRegistered
+            ]);
+        } else {
+            $form = $this->createForm(FormationRegisterType::class, $formationRegister);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $entityManager->flush();
+                dd($form->getData());
+
+                return $this->redirectToRoute('app_default_index', [], Response::HTTP_SEE_OTHER);
+            }
+
+            return $this->render('formation/show.html.twig', [
+                'formation' => $formation,
+                'isRegistered' => $isRegistered,
+                'form' => $form->createView()
+            ]);
+        }
+
+
+
     }
 
     #[Route('/{id}/edit', name: 'app_formation_edit', methods: ['GET', 'POST'])]
@@ -107,7 +131,7 @@ class FormationController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_formation_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('back_app_formation_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/{id}/register', name: 'app_formation_register', methods: ['GET'])]
@@ -131,7 +155,7 @@ class FormationController extends AbstractController
     public function unregisterFormation(Formation $formation, FormationRegisterRepository $formationRegisterRepository, Security $security, UserRepository $userRepository): Response
     {
         $collaborator = $security->getUser();
-        $formationRegister = $formationRegisterRepository->findOneBy(['collaborator' => $collaborator , 'formation' => $formation]);
+        $formationRegister = $formationRegisterRepository->findOneBy(['collaborator' => $collaborator, 'formation' => $formation]);
 
         if ($formationRegister) {
             $formationRegisterRepository->remove($formationRegister, true);

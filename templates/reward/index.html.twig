@@ -12,9 +12,11 @@
 
 {% block body %}
 	<div class="w-4/5 flex flex-col text-xs mt-[70px] mr-auto mb-0 ml-auto">
-		<a href="{{ path('back_app_reward_new') }}" class="devisio-btn devisio-btn-add">
-			Créer une récompense
-		</a>
+		{% if is_granted('ROLE_ADMIN') or is_granted('ROLE_COM') %}
+				<a href="{{ path('back_app_reward_new') }}" class="devisio-btn devisio-btn-add">
+					Créer une récompense
+				</a>
+			{% endif %}
 		<div class="space-y-2 text-center">
 			<h2 class="text-3xl font-bold">Chaque effort mérite une récompense !</h2>
 			<p class="font-serif text-sm dark:text-gray-400">Participez à nos événements d'entreprise et formations afin de gagner des récompenses !</p>

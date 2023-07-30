@@ -11,7 +11,7 @@ vich_uploader:
             delete_on_update: true
             delete_on_remove: true
         cooptations:
-            uri_prefix: /uploads/cv
+            uri_prefix: /uploads/cooptation/cv
             upload_destination: '%kernel.project_dir%/public/uploads/cooptation/cv'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
             delete_on_update: true
@@ -25,6 +25,12 @@ vich_uploader:
         event:
             uri_prefix: /uploads/images/event
             upload_destination: '%kernel.project_dir%/public/uploads/images/event'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            delete_on_update: true
+            delete_on_remove: true
+        certificate:
+            uri_prefix: /uploads/formation/certificate
+            upload_destination: '%kernel.project_dir%/public/uploads/formation/certificate'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
             delete_on_update: true
             delete_on_remove: true

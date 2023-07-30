@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 {% import 'components/components.html.twig' as components%}
 
-{% block title %}Contracts {% endblock %}
+{% block title %}Contrats {% endblock %}
 
 {% block body %}
     <div class="list-wrapper">
         {% if is_granted('ROLE_COMMERCIAL') or is_granted('ROLE_RH')  %}
             <a href="{{ path('back_app_contracts_new') }}" class="devisio-btn devisio-btn-add">
-                Nouveau contract
+                Nouveau contrat
             </a>
         {% endif %}
         <table class="table">

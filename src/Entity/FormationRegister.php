@@ -2,12 +2,18 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\TimestampableTrait;
 use App\Repository\FormationRegisterRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: FormationRegisterRepository::class)]
+#[Vich\Uploadable]
+
 class FormationRegister
 {
+    use TimestampableTrait; 
     // #[ORM\Id]
     // #[ORM\GeneratedValue]
     // #[ORM\Column]
@@ -21,10 +27,12 @@ class FormationRegister
     #[ORM\ManyToOne(inversedBy: 'formationRegisters')]
     private ?Formation $formation = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
+
+    #[Vich\UploadableField(mapping: 'certificate', fileNameProperty: 'certificateName')]
+    private ?File $certificateFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $certificateName = null;
 
     public function getCollaborator(): ?User
     {
@@ -49,4 +57,31 @@ class FormationRegister
 
         return $this;
     }
+
+    public function setCertificateFile(?File $certificateFile = null): void
+    {
+        $this->certificateFile = $certificateFile;
+
+        if (null !== $certificateFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTime();
+        }
+    }
+
+    public function getCertificateFile(): ?File
+    {
+        return $this->certificateFile;
+    }
+
+    public function setCertificateName(?string $certificateName): void
+    {
+        $this->certificateName = $certificateName;
+    }
+
+    public function getCertificateName(): ?string
+    {
+        return $this->certificateName;
+    }
+
 }

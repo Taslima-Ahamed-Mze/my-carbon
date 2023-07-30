@@ -48,6 +48,12 @@ class FormationRegisterRepository extends ServiceEntityRepository
         return $formationRegister !== null;
     }
 
+    public function formationRegister(Formation $formation, User $user): FormationRegister|null
+    {
+        $formationRegister = $this->findOneBy(['formation' => $formation, 'collaborator' => $user]);
+        return $formationRegister;
+    }
+
 //    /**
 //     * @return FormationRegister[] Returns an array of FormationRegister objects
 //     */
